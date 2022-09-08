@@ -1,0 +1,12 @@
+#video-container .video-content .inner {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}
+
+.video-overlay {
+    height: 500px;;
+}

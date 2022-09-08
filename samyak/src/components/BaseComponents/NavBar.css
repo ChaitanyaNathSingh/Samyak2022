@@ -1,0 +1,21 @@
+nav {
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 300;
+    filter:drop-shadow(672px 672px 672px 672px #e1ffe11a);
+    backdrop-filter: blur(10px) invert(90%);
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.5);
+}
+.App__navbar{
+    
+    
+
+}
+.navbar__behindblock {
+    height: 80px;
+    width: 100%;
+    background-color: transparent;
+}

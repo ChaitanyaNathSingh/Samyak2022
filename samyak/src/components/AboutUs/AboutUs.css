@@ -1,0 +1,54 @@
+.navbar-cover{
+    height:80px;
+}
+.aboutus__container{
+    width:95vw;
+    display:flex;
+    flex-direction: column;
+    margin-left:auto;
+    margin-right:auto;
+}
+.about-inner-container{
+    display:flex;
+    flex-flow:row wrap;
+    max-width: 95vw;
+    margin:auto;
+    justify-content:space-evenly;
+}
+.about-desc{
+    width:30%; 
+    color:black;
+}
+.about-img{
+    width:30%;
+    margin-top:auto;
+    margin-bottom:auto;
+}
+.about-divider{
+    height:5vh
+}
+.about-title{
+    width:100%;
+    text-align: center;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+@media (max-width:1024px) {
+    .about-inner-container{
+        flex-direction: column;
+        padding:20px;
+    }
+    .about-desc{
+        width:100%;
+    }
+    .about-desc p{
+        text-align: justify;
+    }
+    .about-img{
+         width:75%;
+         margin:auto;
+         margin-top:10px;
+         margin-bottom:10px;
+    }
+}
