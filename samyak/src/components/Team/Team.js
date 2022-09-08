@@ -1,4 +1,4 @@
-import HomePoster from "../Home/HomePoster";
+// import HomePoster from "../Home/HomePoster";
 import TeamCard from "./TeamCard";
 
 const Team = () => {
