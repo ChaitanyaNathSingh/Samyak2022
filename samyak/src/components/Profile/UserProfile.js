@@ -53,7 +53,7 @@ const UserProfile = (props) => {
                         <lord-icon
                         src="https://cdn.lordicon.com/lupuorrc.json"
                         trigger="loop"
-                        style="width:250px;height:250px">
+                        style={{width:'250px', height:'250px'}}>
                     </lord-icon>
                     </div>) :
                       <ProfileButton  onClick={props.handlePayment} customStyle='x-y-z'>

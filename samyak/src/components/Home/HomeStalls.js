@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import lantern from "./img/Hanging-Chinese-Lantern-PNG.png";
-import shop from "./img/shop.svg";
+// import shop from "./img/shop.svg";
 
 const StallContainer = styled.div`
   height: 90vh;

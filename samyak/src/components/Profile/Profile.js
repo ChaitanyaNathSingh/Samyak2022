@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../axios";
 import { useSnackbar } from "notistack";
-import NavBarSpace from '../BaseComponents/NavBarSpace';
+// import NavBarSpace from '../BaseComponents/NavBarSpace';
 import UserProfile from "./UserProfile";
 
 import HomePoster from "../Home/HomePoster";
