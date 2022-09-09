@@ -2,7 +2,7 @@
 import HomeEvents from "./HomeEvents";
 import HomeMusic from "./HomeMusic";
 import HomePoster from "./HomePoster";
-import HomeStalls from "./HomeStalls";
+// import HomeStalls from "./HomeStalls";
 
 const Home = () => {
   return (
@@ -10,7 +10,7 @@ const Home = () => {
       <HomePoster />
       <HomeEvents />
       <HomeMusic />
-      <HomeStalls />
+      {/* <HomeStalls /> */}
     </div>
   );
 };

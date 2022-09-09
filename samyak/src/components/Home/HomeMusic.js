@@ -93,12 +93,7 @@ const HomeMusic = () => {
         </MusicTitle>
         <ConcertContainer className="concert-cont">
           <ConcertContainerP>
-            “Live The Change” is what this epic edition of Samyak would profess
-            as that is the sole way of reaching the zenith of talent and ardour.
-            Taking to the skies from this exhilarating theme, Samyak’ 22 is on
-            the verge of turning into reality a unique vision, that
-            distinguishes its brilliance from the rest and carries it to the
-            crown.
+          The “Atīndriya” comes from the idea of bringing the technologies used in theories and implementing them wherever possible through various forms of advertising. We chose this theme keeping in mind all the ways we can implement those technologies throughout the fest. Fiction is a world without bounds that can be explored endlessly in all the fictitious and non-fictitious aspects that exist. Not confining solely to the creative components of the real or fictional world alone, this time the theme also focuses on identifying and bringing into limelight all the technical areas that have been explored and that are yet to be explored in the aforementioned areas. Fiction is a designers’ paradise and an explorers' forte but when induced with the factor that weighs in all of existence, it is much more. We are going to realize them. This make of the fest is expected to reach heights that have never been reached before. 
           </ConcertContainerP>
           <ConcertContainerImage src={concertImage} alt="concert" />
         </ConcertContainer>
@@ -106,7 +101,6 @@ const HomeMusic = () => {
           className="music-title Mtitle-2"
           style={{ marginBottom: "80px", width: "550px", zIndex: 2 }}
         >
-          SURABHI 2022
         </MusicTitle>
       </MusicContainer>
     </div>

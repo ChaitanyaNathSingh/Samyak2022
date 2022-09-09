@@ -9,11 +9,9 @@ const SamyakNavBar = () => {
       <div class="footer-cont">
         <div class="links">
           <div class="draft">
-            <h1>SAMYAK 2022</h1>
+            <h1>SAMYAK '22</h1>
             <p>
-              “Live The Change” is what this epic edition of Samyak would
-              profess as that is the sole way of reaching the zenith of talent
-              and ardour.
+            The “Atīndriya” comes from the idea of bringing the technologies used in theories and implementing them wherever possible through various forms of advertising.
             </p>
           </div>
           <div class="quickLinks">
@@ -36,7 +34,7 @@ const SamyakNavBar = () => {
 
           <div class="footer-logo" style={{marginBottom:'30px'}}>
             <img src={logoImg} alt="logoImg" />
-            <p>SAMYAK 2022</p>
+            <p>SAMYAK '22</p>
           </div>
 
           <div class="contactUs">
@@ -68,7 +66,7 @@ const SamyakNavBar = () => {
           </div>
         </div>
         <div class="copyright">
-          <p>&#169;Copyrights Reserved Samyak_2022</p>
+          <p>&#169;Copyrights Reserved SAMYAK '22</p>
         </div>
       </div>
     </div>
