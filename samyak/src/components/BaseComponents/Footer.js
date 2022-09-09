@@ -47,7 +47,7 @@ const Footer = () => {
             <ul className="ft-legal-list">
               <li><a href="#0">Terms &amp; Conditions</a></li>
               <li><a href="#0">Privacy Policy</a></li>
-              <li>&copy; 2022 Copyright Samyak 2022.</li>
+              <li>&copy; 2022 Copyright Samyak.</li>
             </ul>
           </section>
         </footer>
