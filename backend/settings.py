@@ -29,21 +29,14 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'klsamyak.in', 'www.klsamyak.in', '15
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    'http://google.com',
     'http://localhost:8080',
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://127.0.0.1:8000',
-    'https://white-ocean-0477b4500.1.azurestaticapps.net',
-    'https://samyaktesting.azurewebsites.net',
-    'https://klsamyak.azurewebsites.net',
-    'https://icy-hill-0dc571800.1.azurestaticapps.net',
-    'http://64.227.180.177',
     'https://klsamyakbackend.in',
     'https://klsamyak.in',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', 'https://samyaktesting.azurewebsites.net', 'https://icy-hill-0dc571800.1.azurestaticapps.net', 'http://64.227.180.177', 'https://klsamyak.azurewebsites.net', 'https://klsamyakbackend.in', 'https://klsamyak.in']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', 'https://klsamyakbackend.in', 'https://klsamyak.in']
 
 
 REST_FRAMEWORK = {
