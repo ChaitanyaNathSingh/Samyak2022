@@ -2,7 +2,7 @@ from dataclasses import fields
 import profile
 from pyexpat import model
 from unicodedata import name
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, RegisteredEventSerializers, TeamSerializers
@@ -12,7 +12,6 @@ from django.shortcuts import get_object_or_404
 from .models import Profile, Event, Payment, RegisteredEvent, Team
 from rest_framework import serializers, viewsets
 from rest_framework import permissions
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -124,8 +123,7 @@ class ProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializers
     def get_queryset(self):
-        print("Sending all User Details")
-        return User.objects.all()
+        return User.objects.filter(username=self.request.user)
 
 class PaymentView(APIView):
     permission_classes = [IsAuthenticated]

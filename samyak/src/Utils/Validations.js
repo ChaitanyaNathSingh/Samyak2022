@@ -1,6 +1,5 @@
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import axiosInstance from "../axios";
+// import axios from "axios";
+import axiosInstance from "../axios";
 import { baseURL } from "../axios";
 
 class Validations {
@@ -8,24 +7,44 @@ class Validations {
         this.flash = flash;
         this.register = document.getElementById('register');
     }
-    async serverValidations(data) {
+    async serverValidations(data, navigate) {
 
-        await axios
-            .post(baseURL+"users/", data)
-            .then((res) => {
-                // console.log(res.data);
-                if(!res.data.status) {
-                    this.flash(res.data.message, 'error');
+        await axiosInstance
+            .post(`${baseURL}/../../home/register`, data)
+            .then(response => {
+                if(response.data.status) {
+                    this.flash(response.data.message, 'success');
+                    localStorage.setItem('csrftoken', response.data.csrftoken);
                     this.register.disabled = false;
+                    navigate('/profile');
+                    
                 }
                 else {
-                    this.flash('Registration Successful', 'success');
+                    this.flash(response.data.message, 'error');
+                    this.register.disabled = false;
                 }
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(error => {
+                this.flash(error.message, 'error');
                 this.register.disabled = false;
+                console.log(error); 
             });
+        // await axios
+        //     .post(baseURL+"users/", data)
+        //     .then((res) => {
+        //         // console.log(res.data);
+        //         if(!res.data.status) {
+        //             this.flash(res.data.message, 'error');
+        //             this.register.disabled = false;
+        //         }
+        //         else {
+        //             this.flash('Registration Successful', 'success');
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         this.register.disabled = false;
+        //     });
     }
 
     clientValidations(data) {
