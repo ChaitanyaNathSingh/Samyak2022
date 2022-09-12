@@ -83,25 +83,25 @@ const UserProfile = (props) => {
                   <br></br>
                   <DetailsObject
                     heading="Name"
-                    value={props.user.first_name?(props.user.first_name +' '+ props.user.last_name):''}
+                    value={props.user.first_name?(props.user.first_name +' '+ props.user.last_name):'loading...'}
                   />
-                  <DetailsObject heading="Email" value={props.user?props.user.email:'samyak@gmail.com'} />
+                  <DetailsObject heading="Email" value={props.user?props.user.email?props.user.email:'loading...':'loading...'} />
                   <DetailsObject
                     heading="Phone"
                     value={
                       "+91" +
                       (props.user && props.user.profile
                         ? props.user.profile.phone
-                        : "9876543210")
+                        : " loading...")
                     }
                   />
-                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'RRR':'RRR' } />
-                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'3rd':'3rd' } />
+                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'loading...':'loading...' } />
+                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'loading...':'loading...' } />
                   <DetailsObject heading="Username" 
-                    value={props.user.username}
+                    value={props.user?props.user.username?props.user.username:'loading...':'loading...'}
                   />
-                  <DetailsObject heading="College" value={props.user?props.user.profile?props.user.profile.college_name:'KLU':'KLU'} />
-                  <DetailsObject heading="Gender" value={props.user?props.user.profile?props.user.profile.gender:'FEMALE':'FEMALE'} />
+                  <DetailsObject heading="College" value={props.user?props.user.profile?props.user.profile.college_name:'loading...':'loading...'} />
+                  <DetailsObject heading="Gender" value={props.user?props.user.profile?props.user.profile.gender:'loading...':'loading...'} />
                   <DetailsObject heading="Payment Status" tag={props.user && props.user.payment && props.user.payment.payment_status ? correct : wrong} value={(props.user?props.user.payment? props.user.payment.payment_status.toString():'Not Yet Paid':'Not Yet Paid')==='true'?'Paid':'Not Yet Paid'} />
                   <div className="row">{}    
                     <EditProfile>

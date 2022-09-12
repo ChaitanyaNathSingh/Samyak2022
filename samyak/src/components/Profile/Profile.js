@@ -4,77 +4,81 @@ import { useSnackbar } from "notistack";
 // import NavBarSpace from '../BaseComponents/NavBarSpace';
 import UserProfile from "./UserProfile";
 
-import HomePoster from "../Home/HomePoster";
+import { useNavigate } from "react-router-dom";
 
 const Profile = (props) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState([]);
-  const [registeredEvents, setRegisteredEvents] = useState([]);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
 
-    const flash = (message, variant) => {
-      enqueueSnackbar(message, {
-        variant: variant,
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        // autoHideDuration: duration,
-      });
-    };
-
-    let storage = JSON.parse(localStorage.getItem("user"));
     if (props.isAuth) {
+      console.log("Update User Payment Status");
       axiosInstance
-        .get("user/", {
-          headers: {
-            Authorization: "JWT " + storage.user[0].tokens.access_token,
-          },
-        })
+        .get("../home/profile")
         .then((response) => {
-          if(response.data.payment ? response.data.payment.payment_status : false) {
-            flash("Payment Successful", "success")  
-          }
-          else {
-            flash("You have not made payment yet", "warning")
-            console.log("You have not made payment yet");
-          }
-          setUser(response.data);
-
-          
-          axiosInstance
-            .get("registerevent/", {
-              headers: {
-                Authorization: "JWT " + storage.user[0].tokens.access_token,
-              },
-              params: {
-                user_id: storage.user[1].details.user_id,
-              }
-            })
-            .then((myres) => {
-              setRegisteredEvents(myres.data);
-            })
-            .catch((e) => console.log(e));
-
-
+          // console.log(response.data);
+          setUser(response.data[0]);
+          // setRegisteredEvents(response.data.registered_events);
         })
         .catch((error) => {
-          props.setIsAuth(false);
+          console.log(error);
         });
-    } else {
-      flash("Session Expired or You Haven't LoggedIn yet!", "error");
-      console.log("Session Expired or You Haven't LoggedIn yet!");
+      // axiosInstance
+      //   .get("user/", {
+      //     headers: {
+      //       Authorization: "JWT " + storage.user[0].tokens.access_token,
+      //     },
+      //   })
+      //   .then((response) => {
+      //     if(response.data.payment ? response.data.payment.payment_status : false) {
+      //       flash("Payment Successful", "success")  
+      //     }
+      //     else {
+      //       flash("You have not made payment yet", "warning")
+      //       console.log("You have not made payment yet");
+      //     }
+      //     setUser(response.data);
+
+          
+      //     axiosInstance
+      //       .get("registerevent/", {
+      //         headers: {
+      //           Authorization: "JWT " + storage.user[0].tokens.access_token,
+      //         },
+      //         params: {
+      //           user_id: storage.user[1].details.user_id,
+      //         }
+      //       })
+      //       .then((myres) => {
+      //         setRegisteredEvents(myres.data);
+      //       })
+      //       .catch((e) => console.log(e));
+
+
+      //   })
+      //   .catch((error) => {
+      //     props.setIsAuth(false);
+      //   });
+
     }
   }, [enqueueSnackbar, props]);
 
+  // const flash = (message, variant) => {
+  //   enqueueSnackbar(message, {
+  //     variant: variant,
+  //     anchorOrigin: {
+  //       vertical: "top",
+  //       horizontal: "left",
+  //     },
+  //     // autoHideDuration: duration,
+  //   });
+  // };
+
   if (!props.isAuth) {
-    return (
-      <div>
-          <HomePoster />
-      </div>
-    );
+    navigate('/join');
   }
 
   const handlePayment = () => {
@@ -126,7 +130,7 @@ const Profile = (props) => {
   return (
     <div style={{backgroundColor: '#ccc'}}>
       <br></br>
-      <UserProfile user={user} handlePayment={handlePayment} registeredEvents={registeredEvents}/>
+      <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null}/>
       
       {/* <NavBarSpace user={user}/> */}
     </div>

@@ -14,78 +14,95 @@ const LoginForm = (props) => {
   // const access_token = storage ? storage.user[0].tokens.access_token : null;
   const { enqueueSnackbar } = useSnackbar();
   const formHandler = (event) => {
-    let storage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-    if(storage) {
-      localStorage.setItem('user', null);
-    }
     event.preventDefault();
     document.getElementById("login").disabled = true;
     let data = {};
     data.username = event.target.username.value.trim();
     data.password = event.target.password.value.trim();
-    axiosInstance
-      .post("token/", {
-        username: data.username,
-        password: data.password,
-      })
-      .then((response) => {
-          if(response.status === 200) {
-            axiosInstance
-              .get("user/", {
-                headers: {
-                  Authorization: 'JWT ' + response.data.access,
-                }
-              })
-              .then((res) => {
-                // console.log(res);
-                let userobj = {
-                  user: [
-                    {
-                      tokens: {
-                        access_token: response.data.access,
-                        refresh_token: response.data.refresh,
-                      },
-                    },
-                    {
-                      details: {
-                        user_id: res.data.id,
-                        username: res.data.username,
-                        user_email: res.data.email,
-                        user_phone: res.data.profile.phone,
-                        isAuth: true
-                      }
-                    }
-                  ]
-                } 
-                // console.log(userobj);
-                if( localStorage.getItem('user')!== null && 
-                    localStorage.getItem('user') !== undefined && 
-                    localStorage.getItem('user') !== '' && 
-                    localStorage.getItem('user') !== 'null' ) 
-                  flash("Session Updated!!", "success");
-                else
-                  flash("Login Successful", "success");
-                navigate('/profile');
-
-                localStorage.removeItem('user');
-                localStorage.setItem('user', JSON.stringify(userobj));
-                props.setIsAuth(true);
-              })
-              .catch((error) => {
-                console.log(error);
-                document.getElementById("login").disabled = false;
-                flash("Login Failed", "error");
-              });
-          }
+    axiosInstance.post('../home/login', data)
+      .then(response => {
+        // console.log(response.data);
+        if(response.data.status) {
+          flash(response.data.message, 'success');
+          localStorage.setItem('csrftoken', response.data.csrftoken);
+          props.setIsAuth(true);
+          navigate("/profile")
         }
-      )
-      .catch((e) => {
-        // console.log(e);
+        else {
+          flash(response.data.message, 'error');
+          document.getElementById("login").disabled = false;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        enqueueSnackbar('Got an error, maybe you have to logout first!', { variant: 'error' }); 
         document.getElementById("login").disabled = false;
-        enqueueSnackbar("Login Failed!!", {
-          variant: "error",
-        });
       });
+    // axiosInstance
+    //   .post("token/", {
+    //     username: data.username,
+    //     password: data.password,
+    //   })
+    //   .then((response) => {
+    //       if(response.status === 200) {
+    //         axiosInstance
+    //           .get("user/", {
+    //             headers: {
+    //               Authorization: 'JWT ' + response.data.access,
+    //             }
+    //           })
+    //           .then((res) => {
+    //             // console.log(res);
+    //             let userobj = {
+    //               user: [
+    //                 {
+    //                   tokens: {
+    //                     access_token: response.data.access,
+    //                     refresh_token: response.data.refresh,
+    //                   },
+    //                 },
+    //                 {
+    //                   details: {
+    //                     user_id: res.data.id,
+    //                     username: res.data.username,
+    //                     user_email: res.data.email,
+    //                     user_phone: res.data.profile.phone,
+    //                     isAuth: true
+    //                   }
+    //                 }
+    //               ]
+    //             } 
+    //             // console.log(userobj);
+    //             if( localStorage.getItem('user')!== null && 
+    //                 localStorage.getItem('user') !== undefined && 
+    //                 localStorage.getItem('user') !== '' && 
+    //                 localStorage.getItem('user') !== 'null' ) 
+    //               flash("Session Updated!!", "success");
+    //             else
+    //               flash("Login Successful", "success");
+    //             navigate('/profile');
+
+    //             localStorage.removeItem('user');
+    //             localStorage.setItem('user', JSON.stringify(userobj));
+    //             props.setIsAuth(true);
+    //           })
+    //           .catch((error) => {
+    //             console.log(error);
+    //             document.getElementById("login").disabled = false;
+    //             flash("Login Failed", "error");
+    //           });
+    //       }
+    //     }
+    //   )
+    //   .catch((e) => {
+    //     // console.log(e);
+    //     document.getElementById("login").disabled = false;
+    //     enqueueSnackbar("Login Failed!!", {
+    //       variant: "error",
+    //     });
+    //   });
+
+
     // axiosInstance
     //   .get("users/", { params: data })
     //   .then((res) => {

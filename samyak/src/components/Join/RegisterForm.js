@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import BaseButton from "../UI/BaseButton";
 import BaseInput from "../UI/BaseInput";
@@ -15,6 +16,7 @@ const RegisterForm = (props) => {
   let collegeData = ['Select College', 'KL Vijayawada', 'KL Hyderabad', 'Others']
   
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const registerFormHandler = (event) => {
     event.preventDefault();
@@ -38,7 +40,7 @@ const RegisterForm = (props) => {
     let validations = new Validations(flash);
 
     if(validations.clientValidations(data)) {
-      validations.serverValidations(data);
+      validations.serverValidations(data, navigate);
     }
   }
 
