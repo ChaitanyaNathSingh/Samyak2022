@@ -18,7 +18,7 @@ const axiosInstance = axios.create({
 		// 	? 'JWT ' + access_token
 		// 	: null,
 		// 'Content-Type': 'application/json',
-		Authorization: csrftoken,
+		'X-CSRFToken': csrftoken,
 		accept: 'application/json',
 	}, 
 });
