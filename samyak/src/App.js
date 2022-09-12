@@ -66,6 +66,7 @@ class App extends React.Component {
         .then(response => {
             console.log("CSRF Token Received");
             localStorage.setItem('csrftoken', response.data.csrftoken);
+            
         })
         .catch(error => {
             console.log(error);  
