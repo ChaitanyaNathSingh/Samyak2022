@@ -77,7 +77,7 @@ const Profile = (props) => {
       //   });
 
     }
-  }, [enqueueSnackbar, props]);
+  }, [enqueueSnackbar, props, access_token]);
 
   // const flash = (message, variant) => {
   //   enqueueSnackbar(message, {
