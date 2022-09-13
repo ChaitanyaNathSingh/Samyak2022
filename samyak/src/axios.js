@@ -7,18 +7,20 @@ const baseURL = process.env.REACT_APP_API_URL + '/api/';
 export { baseURL };
 // console.log(baseURL);
 
-let csrftoken = localStorage.getItem('csrftoken');
+let storage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+let access_token = storage ? storage.user[0].tokens.access_token : null;
+let csrftoken = localStorage.getItem('csrftoken') ? localStorage.getItem('csrftoken') : null;
 
 const axiosInstance = axios.create({
 	withCredentials: true,
 	baseURL: baseURL,
 	timeout: 120000,
 	headers: {
-		// Authorization: access_token
-		// 	? 'JWT ' + access_token
-		// 	: null,
-		// 'Content-Type': 'application/json',
+		Authorization: access_token
+			? 'JWT ' + access_token
+			: null,
 		'X-CSRFToken': csrftoken,
+		'Content-Type': 'application/json',
 		accept: 'application/json',
 	}, 
 });

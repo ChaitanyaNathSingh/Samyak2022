@@ -45,20 +45,14 @@ class App extends React.Component {
 
   getSession = () => {
     console.log("Getting Session");
-    axiosInstance.get('../home/session')
-        .then(response => {
-            console.log("Session Status Received");
-            // console.log(response.data);
-            if(response.data.isAuthenticated) {
-                this.setState({isAuth: true});
-             } else {
-                this.setState({isAuth: false});
-                this.getCSRF();
-            }
-        })
-        .catch(error => {
-            console.log(error);  
-        })
+    if(localStorage.getItem('user')) {
+      this.setState({isAuth: true});
+    }
+    else {
+      this.setState({isAuth: false});
+      console.log("Not Authenticated");
+      this.getCSRF();
+    }
   }
 
   getCSRF = () => {

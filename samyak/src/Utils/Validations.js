@@ -14,7 +14,9 @@ class Validations {
             .then(response => {
                 if(response.data.status) {
                     this.flash(response.data.message, 'success');
+                    // console.log(response.data)
                     localStorage.setItem('csrftoken', response.data.csrftoken);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
                     this.register.disabled = false;
                     navigate('/profile');
                     
