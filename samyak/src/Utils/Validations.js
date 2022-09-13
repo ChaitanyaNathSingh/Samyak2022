@@ -7,7 +7,7 @@ class Validations {
         this.flash = flash;
         this.register = document.getElementById('register');
     }
-    async serverValidations(data, navigate) {
+    async serverValidations(data, navigate, setIsAuth) {
 
         await axiosInstance
             .post(`${baseURL}/../../home/register`, data)
@@ -17,7 +17,7 @@ class Validations {
                     // console.log(response.data)
                     localStorage.setItem('csrftoken', response.data.csrftoken);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
-                    this.register.disabled = false;
+                    setIsAuth(true);
                     navigate('/profile');
                     
                 }

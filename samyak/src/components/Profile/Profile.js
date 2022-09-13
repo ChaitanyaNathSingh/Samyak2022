@@ -22,7 +22,7 @@ const Profile = (props) => {
   }
   
   useEffect(() => {
-
+    console.log("Authentication Status in Profile: ", props.isAuth);
     if (props.isAuth) {
       console.log("Update User Payment Status");
       axiosInstance

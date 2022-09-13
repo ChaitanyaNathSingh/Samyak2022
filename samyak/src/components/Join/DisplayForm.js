@@ -8,7 +8,7 @@ const DisplayForm = (props) => {
         <LoginForm setIsAuth={props.setIsAuth}/>
         )
     else
-        return <RegisterForm />
+        return <RegisterForm setIsAuth={props.setIsAuth}/>
 }
 
 export default DisplayForm;
