@@ -19,23 +19,54 @@ const LoginForm = (props) => {
     let data = {};
     data.username = event.target.username.value.trim();
     data.password = event.target.password.value.trim();
-    axiosInstance.post('../home/login', data)
+    axiosInstance.post('/token', data)
       .then(response => {
-        // console.log(response.data);
-        if(response.data.status) {
-          flash(response.data.message, 'success');
-          localStorage.setItem('csrftoken', response.data.csrftoken);
-          props.setIsAuth(true);
-          navigate("/profile")
-        }
-        else {
-          flash(response.data.message, 'error');
-          document.getElementById("login").disabled = false;
+        if(response.status === 200) {
+          axiosInstance.get("user", {
+            headers: {
+              Authorization: 'JWT ' + response.data.access,
+            }
+          })
+          .then(res => {
+            if(!res.data.code) {
+              let userobj = {
+                user: [
+                  {
+                    tokens: {
+                      access_token: response.data.access,
+                      refresh_token: response.data.refresh,
+                    },
+                  },
+                  {
+                    details: {
+                      user_id: res.data.id,
+                      username: res.data.username,
+                      user_email: res.data.email,
+                      user_phone: res.data.profile.phone,
+                      isAuth: true
+                    }
+                  }
+                ]
+              } 
+              flash('Login Successful!', 'success');
+              localStorage.setItem('user', JSON.stringify(userobj));
+              props.setIsAuth(true);
+              navigate("/profile")
+            }
+            else {
+              flash(res.data.messages.message, 'error');
+              document.getElementById("login").disabled = false;
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            document.getElementById("login").disabled = false;
+          });
         }
       })
       .catch(error => {
         console.log(error);
-        enqueueSnackbar('Got an error, maybe you have to logout first!', { variant: 'error' }); 
+        enqueueSnackbar('Invalid Credentials!', { variant: 'error' }); 
         document.getElementById("login").disabled = false;
       });
     // axiosInstance

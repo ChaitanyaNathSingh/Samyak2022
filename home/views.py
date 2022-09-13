@@ -30,30 +30,6 @@ def home(request):
 def test(request):
     return HttpResponse("<h1>Samyak Project Testing Page</h1>")
 
-class UsersViewSet(viewsets.ModelViewSet):
-    serializer_class = UserSerializers
-    queryset = User.objects.all()   
-    permission_classes = [permissions.AllowAny]
-
-    def list(self, request):
-        return Response({'status': 'NOPEE!'})
-
-    def create(self, request, pk=None):
-        print(request.data)
-        displayData = request.data
-        print("IN CREATE")
-        if User.objects.filter(username=displayData['username']).exists():
-            return Response({"status": False, "message": "Username Already Exists.!"})
-        elif User.objects.filter(email=displayData['email']).exists():
-            return Response({"status": False, "message": "Email Already Exists.!"})
-        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
-            return Response({"status": False, "message": "Phone Number Already Exists.!"})
-        else:
-            u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
-            Profile.objects.create(user=u, phone=displayData['phoneno'], college_name=displayData['college'], branch=displayData['branch']
-            , year_of_study=displayData['year'], gender=displayData['gender'])
-            return Response({"status": True, "message": "POST, World!"})
-
 
 class RegisterEventViewSet(viewsets.ModelViewSet):
     serializer_class = RegisteredEventSerializers

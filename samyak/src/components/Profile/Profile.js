@@ -11,13 +11,26 @@ const Profile = (props) => {
 
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+
+  let access_token = null;
+  let myuser = localStorage.getItem("user");
+  if(myuser) {
+    access_token = JSON.parse(myuser).user[0].tokens.access_token;
+  }
+  if (!props.isAuth) {
+    navigate('/join');
+  }
   
   useEffect(() => {
 
     if (props.isAuth) {
       console.log("Update User Payment Status");
       axiosInstance
-        .get("../home/profile")
+        .get("../home/profile", {
+          headers: {
+            Authorization: "JWT " + access_token,
+          },
+        })
         .then((response) => {
           // console.log(response.data);
           setUser(response.data[0]);
@@ -64,7 +77,7 @@ const Profile = (props) => {
       //   });
 
     }
-  }, [enqueueSnackbar, props]);
+  }, [enqueueSnackbar, props, access_token]);
 
   // const flash = (message, variant) => {
   //   enqueueSnackbar(message, {
@@ -76,10 +89,6 @@ const Profile = (props) => {
   //     // autoHideDuration: duration,
   //   });
   // };
-
-  if (!props.isAuth) {
-    navigate('/join');
-  }
 
   const handlePayment = () => {
     console.log("ONCLICK FOR PAYMENT");
