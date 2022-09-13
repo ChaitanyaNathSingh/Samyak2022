@@ -40,7 +40,7 @@ const RegisterForm = (props) => {
     let validations = new Validations(flash);
 
     if(validations.clientValidations(data)) {
-      validations.serverValidations(data, navigate);
+      validations.serverValidations(data, navigate, props.setIsAuth);
     }
   }
 
