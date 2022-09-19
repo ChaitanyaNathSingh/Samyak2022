@@ -82,7 +82,7 @@ class ProfileTempSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['phone','branch','year_of_study','gender','college_name']
-class UserTempSerializer(serializers.ModelSerializer):
+class UserDetailsSerializer(serializers.ModelSerializer):
     profile = ProfileTempSerializers()
     payment = PaymentTempSerializers()
     class Meta:
@@ -90,14 +90,14 @@ class UserTempSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'profile', 'payment']
 class UserAPIView(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = UserTempSerializer
+    serializer_class = UserDetailsSerializer
     def get_object(self):
         return self.request.user
 
       
 class ProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = UserSerializers
+    serializer_class = UserDetailsSerializer
     def get_queryset(self):
         return User.objects.filter(username=self.request.user)
 
