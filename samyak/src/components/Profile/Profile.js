@@ -13,18 +13,20 @@ const Profile = (props) => {
   const navigate = useNavigate();
 
   let access_token = null;
-  let myuser = localStorage.getItem("user");
-  if(myuser) {
+  let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
+  let isAuth = false;
+  if(isNaN(myuser) && myuser !== null && myuser !== undefined && myuser !== "null" && myuser !== "undefined") {  
     access_token = JSON.parse(myuser).user[0].tokens.access_token;
+    isAuth = JSON.parse(myuser).user[1].details.isAuth;
   }
-  if (!props.isAuth) {
-    navigate('/join');
+  if (!isAuth) {
+    window.location.href = "/login";
   }
   
   useEffect(() => {
-    console.log("Authentication Status in Profile: ", props.isAuth);
-    if (props.isAuth) {
-      console.log("Update User Payment Status");
+    // console.log("Authentication Status in Profile: ", props.isAuth);
+    if (isAuth) {
+      // console.log("Update User Payment Status");
       axiosInstance
         .get("../home/profile", {
           headers: {
@@ -32,7 +34,7 @@ const Profile = (props) => {
           },
         })
         .then((response) => {
-          // console.log(response.data);
+          console.log(response.data);
           setUser(response.data[0]);
           // setRegisteredEvents(response.data.registered_events);
         })
@@ -77,7 +79,7 @@ const Profile = (props) => {
       //   });
 
     }
-  }, [enqueueSnackbar, props, access_token]);
+  }, [enqueueSnackbar, props, access_token, isAuth]);
 
   // const flash = (message, variant) => {
   //   enqueueSnackbar(message, {
@@ -123,6 +125,7 @@ const Profile = (props) => {
           },
           // autoHideDuration: duration,
         });
+        window.location.href = "/login";
       });
     }
     else {
@@ -134,11 +137,11 @@ const Profile = (props) => {
         },
         // autoHideDuration: duration,
       });
+      navigate("/login");
     }
   };
   return (
     <div style={{backgroundColor: '#ccc'}}>
-      <br></br>
       <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null}/>
       
       {/* <NavBarSpace user={user}/> */}

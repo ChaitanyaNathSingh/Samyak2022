@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./SamyakFooter.css";
 
-import logoImg from "./SAMYAK_FaceLogo_white.png";
+// import logoImg from "./SAMYAK_FaceLogo_white.png";
 
 const SamyakNavBar = () => {
   return (
@@ -10,41 +10,15 @@ const SamyakNavBar = () => {
         <div class="links">
           <div class="draft">
             <h1>SAMYAK '22</h1>
-            <p>
-            The “Atīndriya” comes from the idea of bringing the technologies used in theories and implementing them wherever possible through various forms of advertising.
-            </p>
-          </div>
-          <div class="quickLinks">
-            <p>Quick Links</p>
-            <ul>
-              <li>
-                <Link to={`/`}>Home</Link>
-              </li>
-              <li>
-                <Link to={`/aboutus`}>About</Link>
-              </li>
-              <li>
-                <Link to={`/gallery`}>Gallery</Link>
-              </li>
-              <li>
-                <Link to={`/team`}>Team</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div class="footer-logo" style={{marginBottom:'30px'}}>
-            <img src={logoImg} alt="logoImg" />
-            <p>SAMYAK '22</p>
           </div>
 
           <div class="contactUs">
-            <p>Email Us</p>
             <ul>
               <li>
                 <a href="#0">samyak@kluniversity.in</a>
               </li>
               <li>
-                <a href="#0">Info.samyak@kluniversity.in</a>
+                <a href="#0">info.samyak@kluniversity.in</a>
               </li>
             </ul>
           </div>

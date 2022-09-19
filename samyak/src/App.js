@@ -14,7 +14,7 @@ import './components/Bootstrap/css/join_style.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import NavBar from './components/BaseComponents/NavBar';
+// import NavBar from './components/BaseComponents/NavBar';
 // import Footer from './components/BaseComponents/Footer';
 import SamyakFooter from './components/BaseComponents/SamyakFooter';
 
@@ -28,6 +28,8 @@ import Join from './components/Join/Join';
 import Profile from './components/Profile/Profile';
 import Admin from './components/Admin/Admin';
 import axiosInstance from './axios';
+import SamyakNavbar from './components/BaseComponents/SamyakNavbar';
+// import NavBarSpace from './components/BaseComponents/NavBarSpace';
 
 class App extends React.Component {
   constructor(props) {
@@ -69,7 +71,7 @@ class App extends React.Component {
 
   setIsAuth = (status) => {
     // console.log("changing auth status to: ", status); 
-    console.log("Setting Auth Status to",status);
+    // console.log("Setting Auth Status to",status);
     this.setState({isAuth: status});
     // this.storage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
     // if(this.storage) 
@@ -102,7 +104,9 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <NavBar isAuth={this.state.isAuth} setIsAuth={this.setIsAuth}/>
+          {/* <NavBar isAuth={this.state.isAuth} setIsAuth={this.setIsAuth}/> */}
+          {/* <NavBarSpace /> */}
+          <SamyakNavbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -111,7 +115,8 @@ class App extends React.Component {
             <Route exact path="/gallery" element={<Gallery />} />
             <Route exact path="/oursponsors" element={<OurSponsors />} />
             {/* <Route exact path="/team" element={<Team />} /> */}
-            <Route exact path="/join" element={<Join setIsAuth={this.setIsAuth}/>} />
+            <Route exact path="/login" element={<Join setIsAuth={this.setIsAuth} toBeDisplayed="LoginForm" />}/>
+            <Route exact path="/register" element={<Join setIsAuth={this.setIsAuth} toBeDisplayed="RegisterForm" />}/>
             <Route exact path="/profile" element={<Profile isAuth={this.state.isAuth} status="false" setIsAuth={this.setIsAuth}/>} />
             { /** router for /profile?paymentstatus=success */ }
             <Route path="/admin" element={<Admin />} />
