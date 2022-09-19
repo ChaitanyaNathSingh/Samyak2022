@@ -3,7 +3,7 @@ import "./UserProfile.css";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import DetailsObject from "./DetailsObject";
 import ProfileButton from "../UI/ProfileButton";
-import EventRecord from "./EventRecord";
+// import EventRecord from "./EventRecord";
 import correct from  './payment_status/correct.png';
 import wrong from './payment_status/wrong.png';
 import samyakLogo from "./samyak_logo.png";
@@ -18,11 +18,12 @@ const EditProfile = styled.div`
 
 const UserProfile = (props) => {
   let paidStatus = props.user?props.user.payment?(props.user.payment.payment_status).toString():"false":"false";
-  let registeredEvents = props.registeredEvents;
+  // let registeredEvents = props.registeredEvents;
   // typecast boolean to string
 
   return (
     <div style={{background:'#28282B', minHeight:'100vh'}}>
+      <br></br>
       <div
         className="container"
         style={{ width: "100%", margin: "auto", padding: "auto" }}
@@ -47,7 +48,7 @@ const UserProfile = (props) => {
                       <p className=" mb-1" style={{color:'#F5FFFA'}}>
                         {props.user?props.user.first_name+' '+props.user.last_name:''}
                       </p>
-                      <ProfileButton  >Change Password</ProfileButton>
+                      {/* <ProfileButton  >Change Password</ProfileButton> */}
                       {paidStatus === "true" ?
                         (<div><ProfileButton>PAID</ProfileButton>
                         <lord-icon
@@ -67,7 +68,7 @@ const UserProfile = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="card mt-3" style={{borderRadius:'20px'}}>
+              {/* <div className="card mt-3" style={{borderRadius:'20px'}}>
                 <ul className="list-group list-group-flush" style={{borderRadius:'20px',backgroundColor:'#000000',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>
                   <EventRecord>REGISTERED EVENTS : </EventRecord>
                   {registeredEvents?registeredEvents.map((event) => {
@@ -75,7 +76,7 @@ const UserProfile = (props) => {
                   }):null}
                   
                 </ul>
-              </div>
+              </div> */}
             </div>
             <div className="col-md-8" style={{borderRadius:'20px'}}  >
               <div className="card mb-3" style={{borderRadius:'20px',backgroundColor: '#000000',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>

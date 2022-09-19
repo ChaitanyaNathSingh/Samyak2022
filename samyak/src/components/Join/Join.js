@@ -27,7 +27,9 @@ const ImageDarkner = styled.section`
 `;
 
 const Join = (props) => {
-  const [toBeDisplayed, setToBeDisplayed] = useState("LoginForm");
+  const [toBeDisplayed, setToBeDisplayed] = useState(props.toBeDisplayed);
+  if(toBeDisplayed !== props.toBeDisplayed)
+    setToBeDisplayed(props.toBeDisplayed);
   const [heading, setHeading] = useState("LOGIN");
   const [goToSign, setGoToSign] = useState("Sign Up");
   const toggleForm = () => {
@@ -54,6 +56,12 @@ const Join = (props) => {
    */
   const darkOpacity = Darkness();
   // console.log(darkOpacity);
+
+  // reload on resize
+  window.addEventListener("resize", () => {
+    window.location.reload();
+    setToBeDisplayed(props.toBeDisplayed);
+  });
 
   return (
     <ImageHolder className="img js-fullheight join__container"  style={{minHeight:'100vh'}}>
