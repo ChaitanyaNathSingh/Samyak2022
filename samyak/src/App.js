@@ -29,6 +29,8 @@ import Profile from './components/Profile/Profile';
 import Admin from './components/Admin/Admin';
 import axiosInstance from './axios';
 import SamyakNavbar from './components/BaseComponents/SamyakNavbar';
+import Login from './components/Join/Login';
+import Register from './components/Join/Register';
 // import NavBarSpace from './components/BaseComponents/NavBarSpace';
 
 class App extends React.Component {
@@ -115,8 +117,8 @@ class App extends React.Component {
             <Route exact path="/gallery" element={<Gallery />} />
             <Route exact path="/oursponsors" element={<OurSponsors />} />
             {/* <Route exact path="/team" element={<Team />} /> */}
-            <Route exact path="/login" element={<Join setIsAuth={this.setIsAuth} toBeDisplayed="LoginForm" />}/>
-            <Route exact path="/register" element={<Join setIsAuth={this.setIsAuth} toBeDisplayed="RegisterForm" />}/>
+            <Route exact path="/login" element={<Login setIsAuth={this.setIsAuth} />}/>
+            <Route exact path="/register" element={<Register setIsAuth={this.setIsAuth} />}/>
             <Route exact path="/profile" element={<Profile isAuth={this.state.isAuth} status="false" setIsAuth={this.setIsAuth}/>} />
             { /** router for /profile?paymentstatus=success */ }
             <Route path="/admin" element={<Admin />} />

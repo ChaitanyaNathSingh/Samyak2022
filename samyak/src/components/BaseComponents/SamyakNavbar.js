@@ -266,6 +266,16 @@ const SamyakNavbar = (props) => {
                     <MobileNavEle><Link className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
                     <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle>
                     <MobileNavEle><Link className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
+                    {!isAuth ?
+                    <div>
+                        <LoginButton onClick={redirect(navigate, 'login')}>LOGIN</LoginButton>
+                        <RegisterButton onClick={redirect(navigate, 'register')}>REGISTER</RegisterButton>
+                    </div>
+                    :
+                    <div>
+                        <RegisterButton onClick={redirect(navigate, 'profile')}>PROFILE</RegisterButton>
+                        <LoginButton onClick={userLogout}>LOGOUT</LoginButton>
+                    </div>}
                 </MobileNavigation>
             </MobileNavElements>
         </div>
