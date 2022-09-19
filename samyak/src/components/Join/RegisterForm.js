@@ -64,13 +64,13 @@ const RegisterForm = (props) => {
     <div>
       <form className="signin-form" onSubmit={registerFormHandler}>
         <div className="form-group">
-          <BaseInput name="username" type="text" placeholder="College ID" />
+          <BaseInput id="username" name="username" type="text" placeholder="College ID" />
         </div>
         <div className="form-group">
-          <BaseInput name="first_name" type="text" placeholder="First Name" />
+          <BaseInput id="first_name" name="first_name" type="text" placeholder="First Name" />
         </div>
         <div className="form-group">
-          <BaseInput name="last_name" type="text" placeholder="Last Name" />
+          <BaseInput id="last_name" name="last_name" type="text" placeholder="Last Name" />
         </div>
         <div className="form-group">
           <BaseInput id="password-field" name="password" type="password" placeholder="Password" />
@@ -80,16 +80,16 @@ const RegisterForm = (props) => {
           ></span> */}
         </div>
         <div className="form-group">
-          <BaseInput name="email" type="email" placeholder="Email (Use Personal Gmail)" />
+          <BaseInput id="email" name="email" type="email" placeholder="Email (Use Personal Gmail)" />
         </div>
         <div className="form-group">
-          <BaseInput name="phoneno" type="text" placeholder="Phone Number (without country code)" />
+          <BaseInput id="phoneno" name="phoneno" type="text" placeholder="Phone Number (without country code)" />
         </div>
         <div className="form-group">
-          <BaseDropDown name="gender" options={genderData} />
+          <BaseDropDown id="gender" name="gender" options={genderData} />
         </div>
         <div className="form-group">
-          <BaseDropDown onChange={collegeChangeHandler} name="college" options={collegeData} />
+          <BaseDropDown id="college" onChange={collegeChangeHandler} name="college" options={collegeData} />
         </div>
         <div className="form-group">
           {enterCollegeName}
