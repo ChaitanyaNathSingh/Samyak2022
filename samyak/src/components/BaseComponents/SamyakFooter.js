@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./SamyakFooter.css";
 
-import logoImg from "./SAMYAK_FaceLogo_white.png";
+// import logoImg from "./SAMYAK_FaceLogo_white.png";
 
 const SamyakNavBar = () => {
   return (
