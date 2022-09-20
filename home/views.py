@@ -126,7 +126,7 @@ class PaymentView(APIView):
         # #uname = request.user
         try:
             response = api.payment_request_create(
-                amount=200,
+                amount=500,
                 purpose='Samyak Registration Fee',
                 buyer_name=username,
                 email=email,
@@ -134,11 +134,14 @@ class PaymentView(APIView):
                 redirect_url='https://klsamyakbackend.in/home/paymentsuccess'
             )
             print(response)
-            payment_obj.receipt_id = response['payment_request']['id']
-            payment_obj.transaction_amount = int(float(response['payment_request']['amount']))
-            payment_obj.save()
-            print(response['payment_request']['longurl'])
-            return Response(response['payment_request']['longurl'])
+            if(response['success']):
+                payment_obj.receipt_id = response['payment_request']['id']
+                payment_obj.transaction_amount = int(float(response['payment_request']['amount']))
+                payment_obj.save()
+                print(response['payment_request']['longurl'])
+                return Response(response['payment_request']['longurl'])
+            else:
+                return Response(False)
 
         except Exception as e:
             print("ERROR RESPOONSE")
