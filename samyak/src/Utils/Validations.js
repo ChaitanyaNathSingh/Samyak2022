@@ -15,9 +15,9 @@ class Validations {
                 if(response.data.status) {
                     this.flash(response.data.message, 'success');
                     // console.log(response.data)
-                    localStorage.setItem('csrftoken', response.data.csrftoken);
+                    // localStorage.setItem('csrftoken', response.data.csrftoken);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
-                    setIsAuth(true);
+                    // setIsAuth(true);
                     navigate('/profile');
                     
                 }
@@ -59,12 +59,12 @@ class Validations {
         let branch = data.branch;
 
         let isValid = true;
-        if(password.length < 8) {
+        if(password && password.length < 8) {
             this.flash('Password must be at least 8 characters long', 'error');
             this.register.disabled = false;
             isValid = false;
         }
-        if(phoneno.length !== 10) {
+        if(phoneno && phoneno.length !== 10) {
             this.flash('Phone number must be exactly 10 digits', 'error');
             this.register.disabled = false;
             isValid = false;
@@ -90,6 +90,7 @@ class Validations {
             isValid = false;
         }
         // check if phoneno is numeric
+        if(phoneno && !isNaN(phoneno)) 
         for(let i = 0; i < phoneno.length; i++) {
             if(isNaN(parseInt(phoneno[i]))) {
                 this.flash('Phone number must be numeric', 'error');

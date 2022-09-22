@@ -10,18 +10,6 @@ const Team = () => {
             <TeamCard name="Gowrav Krishna" img_url='https://gowrav143.xyz/images/profilepic.jpg' role='core' />
             </div>
             <div style={{display:'flex',flexFlow:'row-wrap'}}>
-            <div style={{minWidth:'480px',minHeight:'500px',backgroundColor:'red',margin:'100px',borderRadius:'10px'}}>
-                <img src='https://gowrav143.xyz/images/profilepic.jpg' alt='Logo' style={{width:'100%',borderRadius:'10px'}} />
-                 
-            </div>
-            <div style={{minWidth:'480px',minHeight:'500px',backgroundColor:'red',margin:'100px',borderRadius:'10px'}}>
-                <img src='https://gowrav143.xyz/images/profilepic.jpg' alt='Logo' style={{width:'100%',borderRadius:'10px'}} />
-                 
-            </div>
-            <div style={{minWidth:'480px',minHeight:'500px',backgroundColor:'red',margin:'100px',borderRadius:'10px'}}>
-                <img src='https://gowrav143.xyz/images/profilepic.jpg' alt='Logo' style={{width:'100%',borderRadius:'10px'}} />
-                 
-            </div>
             </div>
         </div>
     )

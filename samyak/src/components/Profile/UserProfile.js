@@ -6,7 +6,8 @@ import ProfileButton from "../UI/ProfileButton";
 // import EventRecord from "./EventRecord";
 import correct from  './payment_status/correct.png';
 import wrong from './payment_status/wrong.png';
-import samyakLogo from "./samyak_logo.png";
+// import samyakLogo from "./samyak_logo.png";
+import { useEffect, useState } from "react";
 
 const EditProfile = styled.div`
   float: right;
@@ -19,7 +20,18 @@ const EditProfile = styled.div`
 const UserProfile = (props) => {
   let paidStatus = props.user?props.user.payment?(props.user.payment.payment_status).toString():"false":"false";
   // let registeredEvents = props.registeredEvents;
+  let [samyakLogo, setSamyakLogo] = useState(null);
+  let username = 'NA', name = 'NA', payment_status = false;
+  if(props.user) {
+    username = props.user.username;
+    name = props.user.first_name+"%20"+props.user.last_name;
+    payment_status = props.user.payment && props.user.payment.payment_status ? "PAID" : "NOT PAID";
+  }
+  
   // typecast boolean to string
+  useEffect(() => {
+    setSamyakLogo('https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=Username%20:%20'+username+'%0AFull%20Name%20:%20'+name+'%0APayment%20Status%20:%20'+payment_status+'&choe=UTF-8');
+  }, [setSamyakLogo, username, name, payment_status]);
 
   return (
     <div style={{background:'#28282B', minHeight:'100vh'}}>
@@ -87,7 +99,7 @@ const UserProfile = (props) => {
                     value={props.user.first_name?(props.user.first_name +' '+ props.user.last_name):'loading...'}
                   />
                   <DetailsObject heading="Email" value={props.user?props.user.email?props.user.email:'loading...':'loading...'} />
-                  <DetailsObject
+                  {/* <DetailsObject
                     heading="Phone"
                     value={
                       "+91" +
@@ -95,7 +107,7 @@ const UserProfile = (props) => {
                         ? props.user.profile.phone
                         : " loading...")
                     }
-                  />
+                  /> */}
                   <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'loading...':'loading...' } />
                   <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'loading...':'loading...' } />
                   <DetailsObject heading="Username" 
@@ -106,7 +118,7 @@ const UserProfile = (props) => {
                   <DetailsObject heading="Payment Status" tag={props.user && props.user.payment && props.user.payment.payment_status ? correct : wrong} value={(props.user?props.user.payment? props.user.payment.payment_status.toString():'Not Yet Paid':'Not Yet Paid')==='true'?'Paid':'Not Yet Paid'} />
                   <div className="row">{}    
                     <EditProfile>
-                      <ProfileButton>EDIT PROFILE</ProfileButton>
+                      <ProfileButton onClick={props.toggleForm}>EDIT PROFILE</ProfileButton>
                     </EditProfile>
                   </div>
                 </div>

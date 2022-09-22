@@ -5,6 +5,16 @@ import { LoginButton, RegisterButton } from "../UI/JoinButton";
 import { useEffect, useState } from "react";
 import './NavBar.css';
 
+// const onLoginSuccess = (response) => {
+//     console.log(response);
+// }
+// const onLoginFailure = (response) => {
+//     if(response.error !== "popup_closed_by_user")  {
+//         // redirect to login page
+//     }
+//     console.log(response);
+// }
+
 const Logos = styled.div`
     float: left;
     width: 300px;
@@ -210,6 +220,7 @@ const SamyakNavbar = (props) => {
             menuOpen = false;
         }
         });
+
     }, [])
 
     const handleMenuClick = (status) => {
@@ -239,7 +250,7 @@ const SamyakNavbar = (props) => {
                     <Navigation>
                         <NavEle><Link to='/events'>Events</Link></NavEle>
                         <NavEle><Link to='/gallery'>Gallery</Link></NavEle>
-                        <NavEle><Link to='/team'>Team</Link></NavEle>
+                        {/* <NavEle><Link to='/team'>Team</Link></NavEle> */}
                         <NavEle><Link to='/sponsors'>Sponsors</Link></NavEle>
                     </Navigation>
                 </NavElements>
@@ -254,6 +265,9 @@ const SamyakNavbar = (props) => {
                     <LoginButton onClick={userLogout}>LOGOUT</LoginButton>
                 </Join>
                 }
+                {/* <Join>
+                    {props.googleButton}
+                </Join> */}
                 <MenuIconContainer>
                     <MenuIcon className="menu-icon">
                         <MenuIconBurger className="menu-btn__burger"></MenuIconBurger>
@@ -264,7 +278,7 @@ const SamyakNavbar = (props) => {
                 <MobileNavigation style={{'color': '#5f2d13'}}>
                     <MobileNavEle><Link className="havala" to='/events'>Events</Link></MobileNavEle>
                     <MobileNavEle><Link className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
-                    <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle>
+                    {/* <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle> */}
                     <MobileNavEle><Link className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
                     {!isAuth ?
                     <div>
@@ -276,6 +290,17 @@ const SamyakNavbar = (props) => {
                         <RegisterButton onClick={redirect(navigate, 'profile')}>PROFILE</RegisterButton>
                         <LoginButton onClick={userLogout}>LOGOUT</LoginButton>
                     </div>}
+                    {/* <GoogleLogin
+                        clientId="65768565076-aenuajp096v6oa34fusa66vq10dcubqn.apps.googleusercontent.com"
+                        // buttonText="Sign In Google"
+                        render={renderProps => (
+                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>LOGIN or REGISTER</button>
+                        )}
+                        onSuccess={onLoginSuccess}
+                        onFailure={onLoginFailure}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={true}
+                    /> */}
                 </MobileNavigation>
             </MobileNavElements>
         </div>

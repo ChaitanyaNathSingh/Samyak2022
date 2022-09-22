@@ -10,6 +10,7 @@ urlpatterns = [
     path('login', joinview.LoginView.as_view(), name='login'),
     path('register', joinview.RegisterView.as_view(), name='register'),
     path('logout', joinview.LogoutView.as_view(), name='logout'),
+    path('update', joinview.UpdateView.as_view(), name='update'),
     path("profile", views.ProfileView.as_view(), name="profile"),
     path("session", joinview.session_view, name="session"),
     path("csrf", joinview.get_csrf, name="csrf"),
