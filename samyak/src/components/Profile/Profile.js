@@ -3,6 +3,7 @@ import axiosInstance from "../../axios";
 import { useSnackbar } from "notistack";
 // import NavBarSpace from '../BaseComponents/NavBarSpace';
 import UserProfile from "./UserProfile";
+import EnterDetails from '../Home/EnterDetails';
 
 import { useNavigate } from "react-router-dom";
 
@@ -10,14 +11,19 @@ const Profile = (props) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState([]);
+  const [enterDetailsVisible, setEnterDetailsVisible] = useState(false);
+
   const navigate = useNavigate();
 
   let access_token = null;
   let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
   let isAuth = false;
+  let username = null;
   if(isNaN(myuser) && myuser !== null && myuser !== undefined && myuser !== "null" && myuser !== "undefined") {  
-    access_token = JSON.parse(myuser).user[0].tokens.access_token;
-    isAuth = JSON.parse(myuser).user[1].details.isAuth;
+    myuser = JSON.parse(myuser);
+    access_token = myuser.user[0].tokens.access_token;
+    username = myuser.user[1].details.username;
+    isAuth = myuser.user[1].details.isAuth;
   }
   if (!isAuth) {
     window.location.href = "/login";
@@ -36,61 +42,36 @@ const Profile = (props) => {
         .then((response) => {
           // console.log(response.data);
           setUser(response.data[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [enqueueSnackbar, props, access_token, isAuth]);
+
+  const getUserDetailsFromServer = () => {
+    axiosInstance
+        .get("../home/profile", {
+          headers: {
+            Authorization: "JWT " + access_token,
+          },
+        })
+        .then((response) => {
+          // console.log(response.data);
+          setUser(response.data[0]);
           // setRegisteredEvents(response.data.registered_events);
         })
         .catch((error) => {
           console.log(error);
         });
-      // axiosInstance
-      //   .get("user/", {
-      //     headers: {
-      //       Authorization: "JWT " + storage.user[0].tokens.access_token,
-      //     },
-      //   })
-      //   .then((response) => {
-      //     if(response.data.payment ? response.data.payment.payment_status : false) {
-      //       flash("Payment Successful", "success")  
-      //     }
-      //     else {
-      //       flash("You have not made payment yet", "warning")
-      //       console.log("You have not made payment yet");
-      //     }
-      //     setUser(response.data);
+  }
 
-          
-      //     axiosInstance
-      //       .get("registerevent/", {
-      //         headers: {
-      //           Authorization: "JWT " + storage.user[0].tokens.access_token,
-      //         },
-      //         params: {
-      //           user_id: storage.user[1].details.user_id,
-      //         }
-      //       })
-      //       .then((myres) => {
-      //         setRegisteredEvents(myres.data);
-      //       })
-      //       .catch((e) => console.log(e));
-
-
-      //   })
-      //   .catch((error) => {
-      //     props.setIsAuth(false);
-      //   });
-
+  const toggleUpdateForm = () => {
+    setEnterDetailsVisible(!enterDetailsVisible);
+    if(enterDetailsVisible) {
+      getUserDetailsFromServer();
     }
-  }, [enqueueSnackbar, props, access_token, isAuth]);
-
-  // const flash = (message, variant) => {
-  //   enqueueSnackbar(message, {
-  //     variant: variant,
-  //     anchorOrigin: {
-  //       vertical: "top",
-  //       horizontal: "left",
-  //     },
-  //     // autoHideDuration: duration,
-  //   });
-  // };
+  };
 
   const handlePayment = () => {
     console.log("ONCLICK FOR PAYMENT");
@@ -103,7 +84,6 @@ const Profile = (props) => {
           username: details.username,
           email: details.user_email,
           phone: details.user_phone,
-          // phone: details.phone
         }, {
         headers: {
           Authorization: "JWT " + storage.user[0].tokens.access_token,
@@ -111,8 +91,13 @@ const Profile = (props) => {
       })
       .then((response) => {
         // setUser(response.data);
-        console.log(response.data);
-        window.location.href = response.data;
+        // console.log(response.data);
+        if(response.data) {
+          window.location.href = response.data;
+        }
+        else {
+          console.log("Wrong Phone Number");
+        }
       })
       .catch((error) => {
         // console.log(error);
@@ -142,8 +127,8 @@ const Profile = (props) => {
   };
   return (
     <div style={{backgroundColor: '#ccc'}}>
-      <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null}/>
-      
+      <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/>
+      {enterDetailsVisible ? <EnterDetails username={username} user={user} toggleForm={toggleUpdateForm}/> : null}
       {/* <NavBarSpace user={user}/> */}
     </div>
   );

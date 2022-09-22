@@ -50,7 +50,7 @@ const LoginForm = (props) => {
               } 
               flash('Login Successful!', 'success');
               localStorage.setItem('user', JSON.stringify(userobj));
-              props.setIsAuth(true);
+              // props.setIsAuth(true);
               navigate("/profile")
             }
             else {

@@ -115,7 +115,7 @@ class PaymentView(APIView):
         print("CONFIGURING PAYMENTS")
         username = request.data['username']
         email = request.data['email']
-        phone = request.data['phone']
+        # phone = request.data['phone']
         user = User.objects.get(username=username)
         print(user)
         #phone = request.data.phone
@@ -126,11 +126,11 @@ class PaymentView(APIView):
         # #uname = request.user
         try:
             response = api.payment_request_create(
-                amount=500,
+                amount=480,
                 purpose='Samyak Registration Fee',
                 buyer_name=username,
                 email=email,
-                phone=phone,
+                # phone=phone,
                 redirect_url='https://klsamyakbackend.in/home/paymentsuccess'
             )
             print(response)

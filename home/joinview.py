@@ -51,11 +51,11 @@ class RegisterView(APIView):
             return Response({"status": False, "message": "Username Already Exists.!"})
         elif User.objects.filter(email=displayData['email']).exists():
             return Response({"status": False, "message": "Email Already Exists.!"})
-        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
-            return Response({"status": False, "message": "Phone Number Already Exists.!"})
+        # elif Profile.objects.filter(phone=displayData['phoneno']).exists():
+        #     return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
-            Profile.objects.create(user=u, phone=displayData['phoneno'], college_name=displayData['college'], branch=displayData['branch']
+            Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch']
             , year_of_study=displayData['year'], gender=displayData['gender'])
             result = requests.post(url+"/../../api/token", data={'username': displayData['username'], 'password': displayData['password']})
             result = result.json()
@@ -72,7 +72,6 @@ class RegisterView(APIView):
                         'user_id': u.id,
                         'username': u.username,
                         'user_email': u.email,
-                        'user_phone': displayData['phoneno'],
                         'isAuth': True
                         }
                     }
@@ -91,6 +90,31 @@ class LogoutView(APIView):
             logout(request)
             return Response({"status": True, "message": "Logged Out Successfully.!"})
         return Response({"status": False, "message": "Not Logged In.!"})
+
+class UpdateView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request):
+        print("update get", request.query_params)
+        return Response({"status": True, "message": "GET, World!"})
+    
+    def post(self, request):
+        print(request.data)
+        username = request.data.get('username')
+        userObj = User.objects.get(username=username)
+        # check if user with this email exist or not
+        if User.objects.filter(email=request.data.get('email')).exclude(id=userObj.id).exists():
+            return Response({"status": False, "message": "Account with that email already exists.!"})
+        profileObj = Profile.objects.get(user=userObj)
+        userObj.first_name = request.data.get('first_name')
+        userObj.last_name = request.data.get('last_name')
+        userObj.email = request.data.get('email')
+        profileObj.year_of_study = request.data.get('year')
+        profileObj.college_name = request.data.get('college')
+        profileObj.branch = request.data.get('branch')
+        profileObj.gender = request.data.get('gender')
+        userObj.save()
+        profileObj.save()
+        return Response({"status": True, "message": "Profile Updated Successfully.!"})
 
 
 # @authenticate_classes([TokenAuthentication])
