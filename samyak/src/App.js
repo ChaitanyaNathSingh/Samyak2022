@@ -79,7 +79,7 @@ function App() {
           <Route exact path="/join" element={<Join setIsAuth={setIsAuth}/>} />
           <Route exact path="/profile" element={<Profile isAuth={isAuth} status="false" setIsAuth={setIsAuth}/>} />
           { /** router for /profile?paymentstatus=success */ }
-          <Route exact path="/admin" element={<Admin />} />
+          {/* <Route exact path="/admin" element={<Admin />} /> */}
         </Routes>
         <SamyakFooter />
       </Router>
