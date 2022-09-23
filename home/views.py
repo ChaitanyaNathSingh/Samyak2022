@@ -5,11 +5,11 @@ from unicodedata import name
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, RegisteredEventSerializers, TeamSerializers
+from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, TeamSerializers
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from .models import Profile, Event, Payment, RegisteredEvent, Team
+from .models import Profile, Event, Payment, Team
 from rest_framework import serializers, viewsets
 from rest_framework import permissions
 from rest_framework.decorators import api_view
@@ -20,6 +20,18 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from instamojo_wrapper import Instamojo
 from django.conf import settings
 from rest_framework.views import APIView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm
+
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.forms import PasswordResetForm
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.contrib import messages
 
 api = Instamojo(api_key=settings.API_KEY, auth_token=settings.AUTH_TOKEN)
 # Create your views here.
@@ -30,38 +42,109 @@ def home(request):
 def test(request):
     return HttpResponse("<h1>Samyak Project Testing Page</h1>")
 
+@login_required(login_url='/admin')
+def admin_dashboard(request):
+    if not request.user.is_superuser:
+        return redirect('/')
+    user_count = User.objects.filter().count
+    payment_count = Payment.objects.filter(payment_status=True).count()
+    total_amount = payment_count * 210.62
+    CSE = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="CSE").count()
+    BT = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BT").count()
+    ME = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="ME").count()
+    EEE = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="EEE").count()
+    CE = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="CE").count()
+    ECM = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",  
+                                       user__profile__branch="ECM").count()
+    ECE = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="ECE").count()
+    AIDS = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="AI&DS").count()
+    CSIT = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="CS&IT").count()
+    
+    BBA = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BBA").count()
 
-class RegisterEventViewSet(viewsets.ModelViewSet):
-    serializer_class = RegisteredEventSerializers
-    queryset = RegisteredEvent.objects.all()
-    permission_classes = [IsAuthenticated]
+    MBA = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="MBA").count()
+
+    LLB = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="LLB").count()
+
+    BCom = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="B.COM").count()
+
+    MCom = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="M.COM").count()
+
+    BFA = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BFA").count()
+
+    Arch = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="ARCHITECTURE").count()
+
+    FED = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="FED").count()
+
+    MCA = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="MCA").count()
+
+    BCA = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BCA").count()
+
+    BSCVC = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="B.SC.VC").count()
+
+    BPharam = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="B.PHARM").count()
+
+    MPharam = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="M.PHARM").count()
+    
+    Agri = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="AGRICULTURE").count()
+    
+    BHM = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BHM").count()
+    
+    BAIAS = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
+                                       user__profile__branch="BA-IAS").count()
+
+    context = {'user_count': user_count, 'payment_count': payment_count, 'total_amount': total_amount,
+        'CSE': CSE, 'BT': BT, 'ME': ME, 'EEE' : EEE, 'CE' : CE, 'ECM': ECM, 'ECE': ECE, 'AIDS': AIDS, 'CSIT': CSIT,
+        'BBA': BBA, 'MBA': MBA, 'LLB': LLB, 'BCom': BCom, 'MCom': MCom, 'BFA': BFA, 'BCA': BCA, 'Arch': Arch, 'FED': FED,
+        'MCA': MCA, 'BCA': BCA, 'BSCVC': BSCVC, 'BPharam': BPharam, 'MPharam': MPharam, 'Agri': Agri, 'BHM': BHM, 'BAIAS': BAIAS}
+    return render(request, 'admin_dashboard.html', context)
+
+class UsersViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializers
+    queryset = User.objects.all()   
+    permission_classes = [permissions.AllowAny]
+
     def list(self, request):
-        user_id = request.user.id
-        givenuser_id = request.query_params.get('user_id')
-        print(user_id, givenuser_id)
-        if str(user_id) == str(givenuser_id):
-            return Response(RegisteredEventSerializers(RegisteredEvent.objects.filter(user=User.objects.get(id=user_id)), many=True).data)
-        else:
-            return Response({'status': False, 'message': 'Not Authorized'})
+        return Response({'status': 'NOPEE!'})
+
     def create(self, request, pk=None):
         print(request.data)
         displayData = request.data
-        user_id = request.user.id
-        event_name = displayData['event_name']
-        userobj = User.objects.get(id=user_id)
-        first_name = userobj.first_name
-        last_name = userobj.last_name
-        email = userobj.email
-        phone = Profile.objects.get(user=userobj).phone
-        college_name = Profile.objects.get(user=userobj).college_name
-        reg_id = userobj.username
-        eventobj = Event.objects.get(name=event_name)
         print("IN CREATE")
-        if RegisteredEvent.objects.filter(event=eventobj, user=userobj).exists():
-            return Response({"status": False, "message": "Already Registered.!"})
+        if User.objects.filter(username=displayData['username']).exists():
+            return Response({"status": False, "message": "Username Already Exists.!"})
+        elif User.objects.filter(email=displayData['email']).exists():
+            return Response({"status": False, "message": "Email Already Exists.!"})
+        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
+            return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
-            RegisteredEvent.objects.create(user=userobj, event=eventobj, first_name=first_name, last_name=last_name, email=email, phone=phone, college_name=college_name, event_name=event_name, student_id=reg_id)
-            return Response({'status': True, 'message': 'New Event Registered'})
+            u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
+            Profile.objects.create(user=u, phone=displayData['phoneno'], college_name=displayData['college'], branch=displayData['branch']
+            , year_of_study=displayData['year'], gender=displayData['gender'])
+            return Response({"status": True, "message": "POST, World!"})
 
 class TeamViewSet(viewsets.ModelViewSet):
     serializer_class = TeamSerializers
@@ -189,3 +272,4 @@ class EventsViewSet(viewsets.ModelViewSet):
     #     # allEvents = Event.objects.all()
     #     print(request)
     #     return Response({'data': 'hi'})
+
