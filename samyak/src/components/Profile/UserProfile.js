@@ -108,11 +108,12 @@ const UserProfile = (props) => {
                         : " loading...")
                     }
                   /> */}
-                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'loading...':'loading...' } />
-                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'loading...':'loading...' } />
                   <DetailsObject heading="Username" 
                     value={props.user?props.user.username?props.user.username:'loading...':'loading...'}
                   />
+                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'loading...':'loading...' } />
+                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'loading...':'loading...' } />
+                  <DetailsObject heading="Phone" value={ props.user?props.user.profile?props.user.profile.phone:'loading...':'loading...' } />
                   <DetailsObject heading="College" value={props.user?props.user.profile?props.user.profile.college_name:'loading...':'loading...'} />
                   <DetailsObject heading="Gender" value={props.user?props.user.profile?props.user.profile.gender:'loading...':'loading...'} />
                   <DetailsObject heading="Payment Status" tag={props.user && props.user.payment && props.user.payment.payment_status ? correct : wrong} value={(props.user?props.user.payment? props.user.payment.payment_status.toString():'Not Yet Paid':'Not Yet Paid')==='true'?'Paid':'Not Yet Paid'} />

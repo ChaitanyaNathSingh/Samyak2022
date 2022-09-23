@@ -44,10 +44,10 @@ const Join = (props) => {
   // console.log(darkOpacity);
 
   // reload on resize
-  window.addEventListener("resize", () => {
-    window.location.reload();
-    setToBeDisplayed(props.toBeDisplayed);
-  });
+  // window.addEventListener("resize", () => {
+  //   window.location.reload();
+  //   setToBeDisplayed(props.toBeDisplayed);
+  // });
 
   return (
     <ImageHolder className="img js-fullheight join__container"  style={{minHeight:'100vh'}}>

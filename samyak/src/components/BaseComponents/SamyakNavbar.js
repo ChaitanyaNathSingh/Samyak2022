@@ -72,7 +72,7 @@ const NavEle = styled.p`
     position: relative;
     // color: #0087ca;
     color: black;
-    text-transform: lowercase;
+    // text-transform: lowercase;
     &:after {
         content: '';
         position: absolute;
@@ -155,9 +155,9 @@ const MobileNavElements = styled.section`
         width: ${props => props.show ? "100%" : "0%"};
     }
 
-    background-color: transparent;
+    background-color: rgb(13, 17, 23);
     // blur effect
-    backdrop-filter: blur(13px);
+    // backdrop-filter: blur(13px);
 `
 const MobileNavigation = styled.div`
     display: flex;
