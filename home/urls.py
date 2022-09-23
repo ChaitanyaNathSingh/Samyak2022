@@ -6,7 +6,6 @@ from . import joinview
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('admin_dashboard', views.admin_dashboard, name='admin_dashboard'),
     path('test', views.test, name='test'),
     path('login', joinview.LoginView.as_view(), name='login'),
     path('register', joinview.RegisterView.as_view(), name='register'),

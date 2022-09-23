@@ -5,11 +5,11 @@ from unicodedata import name
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, RegisteredEventSerializers, TeamSerializers
+from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, TeamSerializers
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from .models import Profile, Event, Payment, RegisteredEvent, Team
+from .models import Profile, Event, Payment, Team
 from rest_framework import serializers, viewsets
 from rest_framework import permissions
 from rest_framework.decorators import api_view
@@ -145,39 +145,6 @@ class UsersViewSet(viewsets.ModelViewSet):
             Profile.objects.create(user=u, phone=displayData['phoneno'], college_name=displayData['college'], branch=displayData['branch']
             , year_of_study=displayData['year'], gender=displayData['gender'])
             return Response({"status": True, "message": "POST, World!"})
-
-
-class RegisterEventViewSet(viewsets.ModelViewSet):
-    serializer_class = RegisteredEventSerializers
-    queryset = RegisteredEvent.objects.all()
-    permission_classes = [IsAuthenticated]
-    def list(self, request):
-        user_id = request.user.id
-        givenuser_id = request.query_params.get('user_id')
-        print(user_id, givenuser_id)
-        if str(user_id) == str(givenuser_id):
-            return Response(RegisteredEventSerializers(RegisteredEvent.objects.filter(user=User.objects.get(id=user_id)), many=True).data)
-        else:
-            return Response({'status': False, 'message': 'Not Authorized'})
-    def create(self, request, pk=None):
-        print(request.data)
-        displayData = request.data
-        user_id = request.user.id
-        event_name = displayData['event_name']
-        userobj = User.objects.get(id=user_id)
-        first_name = userobj.first_name
-        last_name = userobj.last_name
-        email = userobj.email
-        phone = Profile.objects.get(user=userobj).phone
-        college_name = Profile.objects.get(user=userobj).college_name
-        reg_id = userobj.username
-        eventobj = Event.objects.get(name=event_name)
-        print("IN CREATE")
-        if RegisteredEvent.objects.filter(event=eventobj, user=userobj).exists():
-            return Response({"status": False, "message": "Already Registered.!"})
-        else:
-            RegisteredEvent.objects.create(user=userobj, event=eventobj, first_name=first_name, last_name=last_name, email=email, phone=phone, college_name=college_name, event_name=event_name, student_id=reg_id)
-            return Response({'status': True, 'message': 'New Event Registered'})
 
 class TeamViewSet(viewsets.ModelViewSet):
     serializer_class = TeamSerializers
