@@ -3,10 +3,11 @@ import "./UserProfile.css";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import DetailsObject from "./DetailsObject";
 import ProfileButton from "../UI/ProfileButton";
-import EventRecord from "./EventRecord";
+// import EventRecord from "./EventRecord";
 import correct from  './payment_status/correct.png';
 import wrong from './payment_status/wrong.png';
-import samyakLogo from "./samyak_logo.png";
+// import samyakLogo from "./samyak_logo.png";
+import { useEffect, useState } from "react";
 
 const EditProfile = styled.div`
   float: right;
@@ -18,11 +19,23 @@ const EditProfile = styled.div`
 
 const UserProfile = (props) => {
   let paidStatus = props.user?props.user.payment?(props.user.payment.payment_status).toString():"false":"false";
-  let registeredEvents = props.registeredEvents;
+  // let registeredEvents = props.registeredEvents;
+  let [samyakLogo, setSamyakLogo] = useState(null);
+  let username = 'NA', name = 'NA', payment_status = false;
+  if(props.user) {
+    username = props.user.username;
+    name = props.user.first_name+"%20"+props.user.last_name;
+    payment_status = props.user.payment && props.user.payment.payment_status ? "PAID" : "NOT PAID";
+  }
+  
   // typecast boolean to string
+  useEffect(() => {
+    setSamyakLogo('https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=Username%20:%20'+username+'%0AFull%20Name%20:%20'+name+'%0APayment%20Status%20:%20'+payment_status+'&choe=UTF-8');
+  }, [setSamyakLogo, username, name, payment_status]);
 
   return (
     <div style={{background:'#28282B', minHeight:'100vh'}}>
+      <br></br>
       <div
         className="container"
         style={{ width: "100%", margin: "auto", padding: "auto" }}
@@ -47,7 +60,7 @@ const UserProfile = (props) => {
                       <p className=" mb-1" style={{color:'#F5FFFA'}}>
                         {props.user?props.user.first_name+' '+props.user.last_name:''}
                       </p>
-                      <ProfileButton  >Change Password</ProfileButton>
+                      {/* <ProfileButton  >Change Password</ProfileButton> */}
                       {paidStatus === "true" ?
                         (<div><ProfileButton>PAID</ProfileButton>
                         <lord-icon
@@ -67,7 +80,7 @@ const UserProfile = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="card mt-3" style={{borderRadius:'20px'}}>
+              {/* <div className="card mt-3" style={{borderRadius:'20px'}}>
                 <ul className="list-group list-group-flush" style={{borderRadius:'20px',backgroundColor:'#000000',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>
                   <EventRecord>REGISTERED EVENTS : </EventRecord>
                   {registeredEvents?registeredEvents.map((event) => {
@@ -75,7 +88,7 @@ const UserProfile = (props) => {
                   }):null}
                   
                 </ul>
-              </div>
+              </div> */}
             </div>
             <div className="col-md-8" style={{borderRadius:'20px'}}  >
               <div className="card mb-3" style={{borderRadius:'20px',backgroundColor: '#000000',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>
@@ -83,29 +96,29 @@ const UserProfile = (props) => {
                   <br></br>
                   <DetailsObject
                     heading="Name"
-                    value={props.user.first_name?(props.user.first_name +' '+ props.user.last_name):''}
+                    value={props.user.first_name?(props.user.first_name +' '+ props.user.last_name):'loading...'}
                   />
-                  <DetailsObject heading="Email" value={props.user?props.user.email:'samyak@gmail.com'} />
-                  <DetailsObject
+                  <DetailsObject heading="Email" value={props.user?props.user.email?props.user.email:'loading...':'loading...'} />
+                  {/* <DetailsObject
                     heading="Phone"
                     value={
                       "+91" +
                       (props.user && props.user.profile
                         ? props.user.profile.phone
-                        : "9876543210")
+                        : " loading...")
                     }
-                  />
-                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'RRR':'RRR' } />
-                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'3rd':'3rd' } />
+                  /> */}
+                  <DetailsObject heading={"Branch"} value={ props.user?props.user.profile?props.user.profile.branch:'loading...':'loading...' } />
+                  <DetailsObject heading="Year" value={ props.user?props.user.profile?props.user.profile.year_of_study:'loading...':'loading...' } />
                   <DetailsObject heading="Username" 
-                    value={props.user.username}
+                    value={props.user?props.user.username?props.user.username:'loading...':'loading...'}
                   />
-                  <DetailsObject heading="College" value={props.user?props.user.profile?props.user.profile.college_name:'KLU':'KLU'} />
-                  <DetailsObject heading="Gender" value={props.user?props.user.profile?props.user.profile.gender:'FEMALE':'FEMALE'} />
+                  <DetailsObject heading="College" value={props.user?props.user.profile?props.user.profile.college_name:'loading...':'loading...'} />
+                  <DetailsObject heading="Gender" value={props.user?props.user.profile?props.user.profile.gender:'loading...':'loading...'} />
                   <DetailsObject heading="Payment Status" tag={props.user && props.user.payment && props.user.payment.payment_status ? correct : wrong} value={(props.user?props.user.payment? props.user.payment.payment_status.toString():'Not Yet Paid':'Not Yet Paid')==='true'?'Paid':'Not Yet Paid'} />
                   <div className="row">{}    
                     <EditProfile>
-                      <ProfileButton>EDIT PROFILE</ProfileButton>
+                      <ProfileButton onClick={props.toggleForm}>EDIT PROFILE</ProfileButton>
                     </EditProfile>
                   </div>
                 </div>

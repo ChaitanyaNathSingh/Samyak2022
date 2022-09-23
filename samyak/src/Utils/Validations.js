@@ -1,6 +1,5 @@
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import axiosInstance from "../axios";
+// import axios from "axios";
+import axiosInstance from "../axios";
 import { baseURL } from "../axios";
 
 class Validations {
@@ -8,24 +7,46 @@ class Validations {
         this.flash = flash;
         this.register = document.getElementById('register');
     }
-    async serverValidations(data) {
+    async serverValidations(data, navigate, setIsAuth) {
 
-        await axios
-            .post(baseURL+"users/", data)
-            .then((res) => {
-                // console.log(res.data);
-                if(!res.data.status) {
-                    this.flash(res.data.message, 'error');
-                    this.register.disabled = false;
+        await axiosInstance
+            .post(`${baseURL}/../../home/register`, data)
+            .then(response => {
+                if(response.data.status) {
+                    this.flash(response.data.message, 'success');
+                    // console.log(response.data)
+                    // localStorage.setItem('csrftoken', response.data.csrftoken);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    // setIsAuth(true);
+                    navigate('/profile');
+                    
                 }
                 else {
-                    this.flash('Registration Successful', 'success');
+                    this.flash(response.data.message, 'error');
+                    this.register.disabled = false;
                 }
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(error => {
+                this.flash(error.message, 'error');
                 this.register.disabled = false;
+                console.log(error); 
             });
+        // await axios
+        //     .post(baseURL+"users/", data)
+        //     .then((res) => {
+        //         // console.log(res.data);
+        //         if(!res.data.status) {
+        //             this.flash(res.data.message, 'error');
+        //             this.register.disabled = false;
+        //         }
+        //         else {
+        //             this.flash('Registration Successful', 'success');
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         this.register.disabled = false;
+        //     });
     }
 
     clientValidations(data) {
@@ -38,12 +59,12 @@ class Validations {
         let branch = data.branch;
 
         let isValid = true;
-        if(password.length < 8) {
+        if(password && password.length < 8) {
             this.flash('Password must be at least 8 characters long', 'error');
             this.register.disabled = false;
             isValid = false;
         }
-        if(phoneno.length !== 10) {
+        if(phoneno && phoneno.length !== 10) {
             this.flash('Phone number must be exactly 10 digits', 'error');
             this.register.disabled = false;
             isValid = false;
@@ -69,6 +90,7 @@ class Validations {
             isValid = false;
         }
         // check if phoneno is numeric
+        if(phoneno && !isNaN(phoneno)) 
         for(let i = 0; i < phoneno.length; i++) {
             if(isNaN(parseInt(phoneno[i]))) {
                 this.flash('Phone number must be numeric', 'error');

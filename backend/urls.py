@@ -28,7 +28,6 @@ from rest_framework_simplejwt.views import (
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UsersViewSet, basename='users')
 # router.register(r'payments', views.PaymentsViewSet, basename='payments')
 router.register(r'events', views.EventsViewSet, basename='event')
 router.register(r'registerevent', views.RegisterEventViewSet, basename='registerevent')
@@ -38,9 +37,9 @@ router.register(r'teams', views.TeamViewSet, basename='team')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/user/', views.UserAPIView.as_view(), name='user'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/user', views.UserAPIView.as_view(), name='user'),
+    path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('home/', include('home.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

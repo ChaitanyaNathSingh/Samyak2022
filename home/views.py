@@ -2,7 +2,7 @@ from dataclasses import fields
 import profile
 from pyexpat import model
 from unicodedata import name
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, RegisteredEventSerializers, TeamSerializers
@@ -12,7 +12,6 @@ from django.shortcuts import get_object_or_404
 from .models import Profile, Event, Payment, RegisteredEvent, Team
 from rest_framework import serializers, viewsets
 from rest_framework import permissions
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -199,7 +198,7 @@ class ProfileTempSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['phone','branch','year_of_study','gender','college_name']
-class UserTempSerializer(serializers.ModelSerializer):
+class UserDetailsSerializer(serializers.ModelSerializer):
     profile = ProfileTempSerializers()
     payment = PaymentTempSerializers()
     class Meta:
@@ -207,17 +206,16 @@ class UserTempSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'profile', 'payment']
 class UserAPIView(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = UserTempSerializer
+    serializer_class = UserDetailsSerializer
     def get_object(self):
         return self.request.user
 
       
 class ProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = UserSerializers
+    serializer_class = UserDetailsSerializer
     def get_queryset(self):
-        print("Sending all User Details")
-        return User.objects.all()
+        return User.objects.filter(username=self.request.user)
 
 class PaymentView(APIView):
     permission_classes = [IsAuthenticated]
@@ -233,7 +231,7 @@ class PaymentView(APIView):
         print("CONFIGURING PAYMENTS")
         username = request.data['username']
         email = request.data['email']
-        phone = request.data['phone']
+        # phone = request.data['phone']
         user = User.objects.get(username=username)
         print(user)
         #phone = request.data.phone
@@ -244,19 +242,22 @@ class PaymentView(APIView):
         # #uname = request.user
         try:
             response = api.payment_request_create(
-                amount=200,
+                amount=480,
                 purpose='Samyak Registration Fee',
                 buyer_name=username,
                 email=email,
-                phone=phone,
+                # phone=phone,
                 redirect_url='https://klsamyakbackend.in/home/paymentsuccess'
             )
             print(response)
-            payment_obj.receipt_id = response['payment_request']['id']
-            payment_obj.transaction_amount = int(float(response['payment_request']['amount']))
-            payment_obj.save()
-            print(response['payment_request']['longurl'])
-            return Response(response['payment_request']['longurl'])
+            if(response['success']):
+                payment_obj.receipt_id = response['payment_request']['id']
+                payment_obj.transaction_amount = int(float(response['payment_request']['amount']))
+                payment_obj.save()
+                print(response['payment_request']['longurl'])
+                return Response(response['payment_request']['longurl'])
+            else:
+                return Response(False)
 
         except Exception as e:
             print("ERROR RESPOONSE")

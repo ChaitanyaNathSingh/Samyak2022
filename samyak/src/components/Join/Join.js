@@ -7,7 +7,6 @@ import styled from "styled-components";
 import "./Join.css";
 
 import bg from "../Bootstrap/img/join_background.jpg";
-import DisplayForm from "./DisplayForm";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 
 import { Darkness } from "../../Utils/Darkness";
@@ -27,20 +26,9 @@ const ImageDarkner = styled.section`
 `;
 
 const Join = (props) => {
-  const [toBeDisplayed, setToBeDisplayed] = useState("LoginForm");
-  const [heading, setHeading] = useState("LOGIN");
-  const [goToSign, setGoToSign] = useState("Sign Up");
-  const toggleForm = () => {
-    if (toBeDisplayed === "LoginForm") {
-      setHeading("REGISTER");
-      setToBeDisplayed("RegisterForm");
-      setGoToSign("Sign In");
-    } else {
-      setHeading("LOGIN");
-      setToBeDisplayed("LoginForm");
-      setGoToSign("Sign Up");
-    }
-  };
+  const [toBeDisplayed, setToBeDisplayed] = useState(props.toBeDisplayed);
+  if(toBeDisplayed !== props.toBeDisplayed)
+    setToBeDisplayed(props.toBeDisplayed);
 
   // background brightness
   /**
@@ -55,6 +43,12 @@ const Join = (props) => {
   const darkOpacity = Darkness();
   // console.log(darkOpacity);
 
+  // reload on resize
+  window.addEventListener("resize", () => {
+    window.location.reload();
+    setToBeDisplayed(props.toBeDisplayed);
+  });
+
   return (
     <ImageHolder className="img js-fullheight join__container"  style={{minHeight:'100vh'}}>
       <ImageDarkner
@@ -63,32 +57,7 @@ const Join = (props) => {
         bgcolor={`rgba(0,0,0,${darkOpacity})`}
       >
         <NavBarSpace />
-        <section className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6 text-center mb-5">
-              <h2 className="heading-section">{heading}</h2>
-            </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-md-6 col-lg-4">
-              <div className="login-wrap p-0">
-                <DisplayForm toBeDisplayed={toBeDisplayed} setIsAuth={props.setIsAuth}/>
-                <div className="social d-flex text-center">
-                  {/* <a href="#0" className="px-2 py-2 mr-md-1 rounded">
-                    <span className="ion-logo-facebook mr-2"></span> Facebook
-                  </a> */}
-                  <a
-                    href="#0"
-                    onClick={toggleForm}
-                    className="px-2 py-2 ml-md-1 rounded"
-                  >
-                    <span className="ion-logo-twitter mr-2"></span> {goToSign}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {props.children}
       </ImageDarkner>
     </ImageHolder>
   );

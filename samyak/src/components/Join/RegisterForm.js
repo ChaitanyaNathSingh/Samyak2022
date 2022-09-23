@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import BaseButton from "../UI/BaseButton";
 import BaseInput from "../UI/BaseInput";
@@ -15,6 +16,7 @@ const RegisterForm = (props) => {
   let collegeData = ['Select College', 'KL Vijayawada', 'KL Hyderabad', 'Others']
   
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const registerFormHandler = (event) => {
     event.preventDefault();
@@ -31,14 +33,14 @@ const RegisterForm = (props) => {
     if(data.college === 'Others'){
       data.college = event.target.other_college.value.trim();
     }
-    data.phoneno = event.target.phoneno.value.trim();
+    // data.phoneno = event.target.phoneno.value.trim();
     data.gender = event.target.gender.value.trim();
     data.branch = event.target.branch.value.trim();
 
     let validations = new Validations(flash);
 
     if(validations.clientValidations(data)) {
-      validations.serverValidations(data);
+      validations.serverValidations(data, navigate);
     }
   }
 
@@ -62,13 +64,13 @@ const RegisterForm = (props) => {
     <div>
       <form className="signin-form" onSubmit={registerFormHandler}>
         <div className="form-group">
-          <BaseInput name="username" type="text" placeholder="College ID" />
+          <BaseInput id="username" name="username" type="text" placeholder="College ID" />
         </div>
         <div className="form-group">
-          <BaseInput name="first_name" type="text" placeholder="First Name" />
+          <BaseInput id="first_name" name="first_name" type="text" placeholder="First Name" />
         </div>
         <div className="form-group">
-          <BaseInput name="last_name" type="text" placeholder="Last Name" />
+          <BaseInput id="last_name" name="last_name" type="text" placeholder="Last Name" />
         </div>
         <div className="form-group">
           <BaseInput id="password-field" name="password" type="password" placeholder="Password" />
@@ -78,16 +80,16 @@ const RegisterForm = (props) => {
           ></span> */}
         </div>
         <div className="form-group">
-          <BaseInput name="email" type="email" placeholder="Email (Use Personal Gmail)" />
+          <BaseInput id="email" name="email" type="email" placeholder="Email (Use Personal Gmail)" />
+        </div>
+        {/* <div className="form-group">
+          <BaseInput id="phoneno" name="phoneno" type="text" placeholder="Phone Number (without country code)" />
+        </div> */}
+        <div className="form-group">
+          <BaseDropDown id="gender" name="gender" options={genderData} />
         </div>
         <div className="form-group">
-          <BaseInput name="phoneno" type="text" placeholder="Phone Number (without country code)" />
-        </div>
-        <div className="form-group">
-          <BaseDropDown name="gender" options={genderData} />
-        </div>
-        <div className="form-group">
-          <BaseDropDown onChange={collegeChangeHandler} name="college" options={collegeData} />
+          <BaseDropDown id="college" onChange={collegeChangeHandler} name="college" options={collegeData} />
         </div>
         <div className="form-group">
           {enterCollegeName}

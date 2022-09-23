@@ -73,7 +73,6 @@ const EventContainer = (props) => {
             })
             .catch((e) => console.log(e));
         } else {
-          localStorage.setItem("user", null);
           flash("Please Login!", "warning");
         }
       })

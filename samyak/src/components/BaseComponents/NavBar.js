@@ -28,15 +28,36 @@ const NavBar = (props) => {
 
   const userLogout = () => {
     localStorage.removeItem("user");
-    enqueueSnackbar("Logged Out Successfully", {
-      variant: "success",
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "left",
-      },
-    });
     props.setIsAuth(false);
-    navigate("/join");
+    navigate('/join');
+    enqueueSnackbar("Logged out successfully", { variant: "success" });
+    // user logout api request to backend
+    // axiosInstance
+    //   .get("../home/logout")
+    //   .then((response) => {
+    //     // console.log(response.data);
+    //     if(response.data.status === "success") {
+    //       enqueueSnackbar(response.data.message, { variant: "success" });
+    //       props.setIsAuth(false);
+    //       navigate("/join");
+    //     }
+    //     else {
+    //       props.setIsAuth(false);
+    //       navigate("/join");
+    //       enqueueSnackbar(response.data.message, { variant: "error" });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "logout failed");
+    //     enqueueSnackbar("Logout Failed", { variant: "error" });
+    //   });
+    // enqueueSnackbar("Logged Out Successfully", {
+    //   variant: "success",
+    //   anchorOrigin: {
+    //     vertical: "top",
+    //     horizontal: "left",
+    //   },
+    // });
   };
   return (
     <div className="App__navbar">

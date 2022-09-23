@@ -9,14 +9,17 @@ export { baseURL };
 
 let storage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 let access_token = storage ? storage.user[0].tokens.access_token : null;
+let csrftoken = localStorage.getItem('csrftoken') ? localStorage.getItem('csrftoken') : null;
 
 const axiosInstance = axios.create({
+	withCredentials: true,
 	baseURL: baseURL,
 	timeout: 120000,
 	headers: {
 		Authorization: access_token
 			? 'JWT ' + access_token
 			: null,
+		'X-CSRFToken': csrftoken,
 		'Content-Type': 'application/json',
 		accept: 'application/json',
 	}, 
@@ -81,11 +84,13 @@ axiosInstance.interceptors.response.use(
 						});
 				} else {
 					console.log('Refresh token is expired', tokenParts.exp, now);
-					window.location.href = '/join/';
+					localStorage.setItem('user', null);
+					window.location.href = '/login';
 				}
 			} else {
 				console.log('Refresh token not available.');
-				window.location.href = '/join/';
+				localStorage.setItem('user', null);
+				window.location.href = '/login';
 			}
 		}
 
