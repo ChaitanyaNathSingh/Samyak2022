@@ -33,7 +33,7 @@ const RegisterForm = (props) => {
     if(data.college === 'Others'){
       data.college = event.target.other_college.value.trim();
     }
-    // data.phoneno = event.target.phoneno.value.trim();
+    data.phoneno = event.target.phoneno.value.trim();
     data.gender = event.target.gender.value.trim();
     data.branch = event.target.branch.value.trim();
 
@@ -82,9 +82,9 @@ const RegisterForm = (props) => {
         <div className="form-group">
           <BaseInput id="email" name="email" type="email" placeholder="Email (Use Personal Gmail)" />
         </div>
-        {/* <div className="form-group">
+        <div className="form-group">
           <BaseInput id="phoneno" name="phoneno" type="text" placeholder="Phone Number (without country code)" />
-        </div> */}
+        </div>
         <div className="form-group">
           <BaseDropDown id="gender" name="gender" options={genderData} />
         </div>

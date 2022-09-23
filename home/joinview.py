@@ -51,12 +51,12 @@ class RegisterView(APIView):
             return Response({"status": False, "message": "Username Already Exists.!"})
         elif User.objects.filter(email=displayData['email']).exists():
             return Response({"status": False, "message": "Email Already Exists.!"})
-        # elif Profile.objects.filter(phone=displayData['phoneno']).exists():
-        #     return Response({"status": False, "message": "Phone Number Already Exists.!"})
+        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
+            return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
-            Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch']
-            , year_of_study=displayData['year'], gender=displayData['gender'])
+            Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch'],
+            phone=displayData['phoneno'], year_of_study=displayData['year'], gender=displayData['gender'])
             result = requests.post(url+"/../../api/token", data={'username': displayData['username'], 'password': displayData['password']})
             result = result.json()
             userobj ={ 

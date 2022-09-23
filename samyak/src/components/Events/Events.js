@@ -1,5 +1,5 @@
 // import HomePoster from "../Home/HomePoster";
-import EventPoster from "./EventPoster";
+// import EventPoster from "./EventPoster";
 import EventContainer from "./EventContainer";
 import React from "react";
 
@@ -20,7 +20,7 @@ class Events extends React.Component {
     render() {
         return (
         <div className="events">
-            <EventPoster />
+            {/* <EventPoster /> */}
             <EventContainer isAuth={this.isAuth}/>
         </div>
         );
