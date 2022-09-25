@@ -8,23 +8,23 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: com;
+/* body { */
+  /* font-family: com;
   width: 100vw;
   overflow-x: hidden;
   background-color: white;
   font-family: 'Dosis', sans-serif;
   color: #252525;
-  overflow-x: hidden;
-}
+  overflow-x: hidden; */
+/* } */
 
 button {
   font-family: com;
 }
-
+/* 
 li {
   list-style: none;
-}
+} */
 
 a {
   text-decoration: none;
@@ -57,9 +57,9 @@ p {
           justify-content: center;
 }
 
-li {
+/* li {
   list-style: none;
-}
+} */
 
 .footer-effect {
   margin-bottom: -40px;

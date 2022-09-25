@@ -19,8 +19,10 @@ const LoginForm = (props) => {
     let data = {};
     data.username = event.target.username.value.trim();
     data.password = event.target.password.value.trim();
+    document.getElementById('login').value = "Checking...";
     axiosInstance.post('/token', data)
       .then(response => {
+        let login = document.getElementById('login');
         if(response.status === 200) {
           axiosInstance.get("user", {
             headers: {
@@ -55,12 +57,14 @@ const LoginForm = (props) => {
             }
             else {
               flash(res.data.messages.message, 'error');
-              document.getElementById("login").disabled = false;
+              login.disabled = false;
+              login.value = "Log In";
             }
           })
           .catch(error => {
             console.log(error);
-            document.getElementById("login").disabled = false;
+            login.disabled = false;
+            login.value = "Log In";
           });
         }
       })

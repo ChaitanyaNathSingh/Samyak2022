@@ -6,6 +6,8 @@ import UserProfile from "./UserProfile";
 import EnterDetails from '../Home/EnterDetails';
 
 import { useNavigate } from "react-router-dom";
+// import DisplayDetails from "./DisplayDetails";
+import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 const Profile = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -100,7 +102,7 @@ const Profile = (props) => {
         }
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         // props.setIsAuth(false);
         enqueueSnackbar("ERROR OCCURED", {
           variant: 'error',
@@ -126,11 +128,15 @@ const Profile = (props) => {
     }
   };
   return (
-    <div style={{backgroundColor: '#ccc'}}>
-      <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/>
-      {enterDetailsVisible ? <EnterDetails username={username} user={user} toggleForm={toggleUpdateForm}/> : null}
-      {/* <NavBarSpace user={user}/> */}
-    </div>
+    <>
+      <div style={{backgroundColor: '#ccc'}}>
+        <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/>
+        {/* <DisplayDetails handlePayment={handlePayment} toggleForm={toggleUpdateForm} user={user}/> */}
+        {enterDetailsVisible ? <EnterDetails username={username} user={user} toggleForm={toggleUpdateForm}/> : null}
+        {/* <NavBarSpace user={user}/> */}
+      </div>
+      <SamyakFooter />
+    </>
   );
 };
 

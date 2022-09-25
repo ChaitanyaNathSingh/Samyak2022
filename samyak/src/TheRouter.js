@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import GoogleLogin from 'react-google-login';
 
-import SamyakFooter from './components/BaseComponents/Footer/SamyakFooter';
+// import SamyakFooter from './components/BaseComponents/Footer/SamyakFooter';
 
 import Home from './components/Home/Home';
 import AboutUs from './components/AboutUs/AboutUs';
@@ -15,9 +15,8 @@ import OurSponsors from './components/OurSponsors/OurSponsors';
 import Profile from './components/Profile/Profile';
 import Admin from './components/Admin/Admin';
 import SamyakNavbar from './components/BaseComponents/SamyakNavbar';
-import Login from './components/Join/Login';
-import Register from './components/Join/Register';
 import NotFoud from "./components/BaseComponents/NotFound";
+import JoinInterface from "./components/Join/JoinInterface";
 // import EnterDetails from "./components/Home/EnterDetails";
 
 const TheRouter = (props) => {
@@ -70,15 +69,19 @@ const TheRouter = (props) => {
                 <Route exact path="/gallery" element={<Gallery />} />
                 <Route exact path="/sponsors" element={<OurSponsors />} />
                 {/* <Route exact path="/team" element={<Team />} /> */}
-                <Route exact path="/login" element={<Login />}/>
-                <Route exact path="/register" element={<Register />}/>
+                {/* <Route exact path="/login" element={<Login />}/>
+                <Route exact path="/register" element={<Register />}/> */}
+                <Route exact path="/login" element={<JoinInterface form="LoginForm"/>} />
+                <Route exact path="/register" element={<JoinInterface form="RegisterForm"/>} />
+
                 <Route exact path="/profile" element={<Profile status="false"/>} />  {/* passed is auth to profile */}
                 { /** router for /profile?paymentstatus=success */ }
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin" element={<Admin path="admin"/>} />
+                <Route path="/admin_dashboard" element={<Admin path="admin_dashboard"/>} />
                 {/**404 page redirections */}
                 <Route path="*" element={<NotFoud />} />
             </Routes>
-            <SamyakFooter />
+            {/* <SamyakFooter /> */}
             </Router>
         </>
     )

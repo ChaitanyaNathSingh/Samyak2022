@@ -1,7 +1,9 @@
 // import HomePoster from "../Home/HomePoster";
-// import EventPoster from "./EventPoster";
+// import EventPoster from "./EventPoster"; // will be added after the poster is ready
 import EventContainer from "./EventContainer";
 import React from "react";
+import NavBarSpace from "../BaseComponents/NavBarSpace";
+import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 class Events extends React.Component {
     constructor(props) {
@@ -12,17 +14,18 @@ class Events extends React.Component {
 
         
         this.login = document.querySelector(".event_page");
-        console.log(this.login);
-    }
-    componentDidMount() {
-
     }
     render() {
         return (
-        <div className="events">
-            {/* <EventPoster /> */}
-            <EventContainer isAuth={this.isAuth}/>
-        </div>
+            <>
+                <div className="events" style={{'backgroundColor': 'rgb(40, 40, 43)'}}>
+                    <NavBarSpace />
+                    {/* <NavBarSpace /> */}
+                    {/* <EventPoster /> */}
+                    <EventContainer isAuth={this.isAuth}/>
+                </div>
+                <SamyakFooter />
+            </>
         );
     }
 }

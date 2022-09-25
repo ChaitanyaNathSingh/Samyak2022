@@ -7,6 +7,7 @@ import image1 from './logos/BMW.jfif';
 import image2 from './logos/REDBULL.jpg';
 import image3 from './logos/KTM.png';
 import image4 from './logos/NEXA.jpg';
+import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 const SponsorsBackground = styled.div`
     // grey color
@@ -33,11 +34,14 @@ const OurSponsors = () => {
         },
     ];
     return (
-        <SponsorsBackground>
-            <NavBarSpace />
-            <SponsorsHeading />
-            <SponsorLogos logos={logos}/>
-        </SponsorsBackground>
+        <>
+            <SponsorsBackground>
+                <NavBarSpace />
+                <SponsorsHeading />
+                <SponsorLogos logos={logos}/>
+            </SponsorsBackground>
+            <SamyakFooter />
+        </>
     )
 }
 

@@ -10,6 +10,7 @@ const H6 = styled.h6`
   margin-left: 60px;
   @media (max-width:768px){
     margin:0;
+    width: 180px;
   }
 `;
 

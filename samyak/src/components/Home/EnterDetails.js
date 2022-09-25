@@ -102,7 +102,7 @@ const Cross = styled.div`
 const EnterDetails = (props) => {
     let genderData = ['Select Gender', 'Male', 'Female', 'Others']
     let yearData = ['Select Year', '1st', '2nd', '3rd', '4th', 'Faculty', 'Alumni', 'Others']
-    let departmentData = ['Select Department', 'FED', 'CSE', 'CS&IT', 'AI&DS', 'ECE', 'EEE', 'ECM', 'ME', 'CE', 'BT', 'BCA', 'BBA', 'MBA', 'B.COM','M.Sc. Chemistry', 'M.COM', 'BA-IAS', 'LLB', 'BFA', 'MCA', 'BCA', 'B.SC.VC','ARCHITECTURE', 'BHM', 'AGRICULTURE', 'B.PHARM', 'M.PHARM', 'PHARMA D', 'Others']
+    let departmentData = ['Select Department', 'FED', 'CSE', 'CS&IT', 'AI&DS', 'ECE', 'EEE', 'ECM', 'ME', 'CE', 'BT', 'BCA', 'BBA', 'MBA', 'B.COM','M.Sc. Chemistry', 'M.COM', 'BA-IAS', 'LLB', 'BFA', 'MCA', 'B.SC.VC','ARCHITECTURE', 'BHM', 'AGRICULTURE', 'B.PHARM', 'M.PHARM', 'PHARMA D', 'Others']
     let collegeData = ['Select College', 'KL Vijayawada', 'KL Hyderabad', 'Others']
 
     const { enqueueSnackbar } = useSnackbar();
@@ -114,6 +114,7 @@ const EnterDetails = (props) => {
 
     const collegeChangeHandler = (event) => {
         let enteredValue = event.target.value;
+        console.log(enteredValue);
         if(enteredValue === 'Others') {
           setEnterCollegeName(<BaseInput type="text" name="other_college" placeholder="Enter College Name" value={props.user.profile.college_name}/>)
         } else {
