@@ -12,9 +12,48 @@ import { useEffect, useState } from "react";
 const EditProfile = styled.div`
   float: right;
   width: 100%;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const MainBody = styled.div`
+  width: 85vw;
+  @media (max-width: 768px) {
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+`;
+const ProfileLeft = styled.div`
+  div div div img {
+    border-radius: 50%;
+  }
+  &>div {
+    height: 370px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    width: 400px;
+    padding: 40px 0;
+  }
+`;
+const ProfileRight = styled.div`
+  @media (max-width: 768px) {
+    width: 400px;
+    padding: 0;
+  }
 `;
 
 const UserProfile = (props) => {
@@ -36,14 +75,13 @@ const UserProfile = (props) => {
   return (
     <div style={{background:'#28282B', minHeight:'100vh'}}>
       <br></br>
-      <div
-        className="container"
+      <NavBarSpace />
+      <Container
         style={{ width: "100%", margin: "auto", padding: "auto" }}
       >
-        <NavBarSpace />
-        <div className="main-body" style={{}}>
+        <MainBody>
           <div className="row gutters-sm">
-            <div className="col-md-4 mb-3">
+            <ProfileLeft className="col-md-4 mb-3">
               <div className="card" style={{borderRadius:'20px',backgroundColor: '#0d0a0b',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>
                 <div className="card-body" style={{borderRadius:'20px'}}>
                   <div className="d-flex flex-column align-items-center text-center" >
@@ -56,18 +94,18 @@ const UserProfile = (props) => {
                       style={{backgroundColor: '#000000'}}
                     />
                     <div className="mt-3">
-                      <h4>{props.user?props.user.username:'@samyak'}</h4>
+                      <h4 style={{color: 'white'}}>@{props.user?props.user.username:'samyak'}</h4>
                       <p className=" mb-1" style={{color:'#F5FFFA'}}>
                         {props.user?props.user.first_name+' '+props.user.last_name:''}
                       </p>
                       {/* <ProfileButton  >Change Password</ProfileButton> */}
                       {paidStatus === "true" ?
                         (<div><ProfileButton>PAID</ProfileButton>
-                        <lord-icon
+                        {/* <lord-icon
                         src="https://cdn.lordicon.com/lupuorrc.json"
                         trigger="loop"
                         style={{width:'250px', height:'250px'}}>
-                    </lord-icon>
+                    </lord-icon> */}
                     </div>) :
                       <ProfileButton  onClick={props.handlePayment} customStyle='x-y-z'>
                         <a 
@@ -89,10 +127,10 @@ const UserProfile = (props) => {
                   
                 </ul>
               </div> */}
-            </div>
-            <div className="col-md-8" style={{borderRadius:'20px'}}  >
+            </ProfileLeft>
+            <ProfileRight className="col-md-8" style={{borderRadius:'20px'}}  >
               <div className="card mb-3" style={{borderRadius:'20px',backgroundColor: '#000000',backgroundImage: 'linear-gradient(315deg, #0d0a0b 0%, #009fc2 74%)'}}>
-                <div className="card-body" style={{color:'#F5FFFA'}} >
+                <div style={{color:'#F5FFFA'}} >
                   <br></br>
                   <DetailsObject
                     heading="Name"
@@ -124,10 +162,10 @@ const UserProfile = (props) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </ProfileRight>
           </div>
-        </div>
-      </div>
+        </MainBody>
+      </Container>
     </div>
   );
 };

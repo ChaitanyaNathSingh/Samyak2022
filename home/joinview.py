@@ -24,15 +24,39 @@ class LoginView(APIView):
         return Response({"status": True, "message": "GET, World!"})
     
     def post(self, request):
+        url = request.build_absolute_uri()
         username = request.data['username']
         password = request.data['password']
         # print(username, password)
-        if(request.user.is_authenticated):
-            return Response({"status": True, "message": "You should logout first!"})
+        print(request.user)
+        print(request.user.is_authenticated)
+        # if(request.user.is_authenticated):
+        #     return Response({"status": True, "message": "You should logout first!"})
         status = authenticate(username=username, password=password)
         if status:
             print("Logging in")
-            return Response({"status": True, "message": "Logged In Successfully.!", "csrftoken": get_token(request)})
+            u = User.objects.filter(username=username)[0]
+            result = requests.post(url+"/../../api/token", data={'username': username, 'password': password})
+            result = result.json()
+            userobj ={ 
+                'user': [
+                    {
+                        'tokens': {
+                            'access_token': result['access'],
+                            'refresh_token': result['refresh'],
+                        },
+                    },
+                    {
+                        'details': {
+                            'user_id': u.id,
+                            'username': u.username,
+                            'user_email': u.email,
+                            'isAuth': True
+                        }
+                    }
+                ]
+            }
+            return Response({"status": True, "message": "Login Successful!!", "user": userobj})
         else:
             print("Login Failed")
             return Response({"status": False, "message": "Invalid Credentials.!"})
@@ -51,12 +75,12 @@ class RegisterView(APIView):
             return Response({"status": False, "message": "Username Already Exists.!"})
         elif User.objects.filter(email=displayData['email']).exists():
             return Response({"status": False, "message": "Email Already Exists.!"})
-        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
+        elif Profile.objects.filter(phone=displayData['phone']).exists():
             return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
             Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch'],
-            phone=displayData['phoneno'], year_of_study=displayData['year'], gender=displayData['gender'])
+            phone=displayData['phone'], year_of_study=displayData['year'], gender=displayData['gender'])
             result = requests.post(url+"/../../api/token", data={'username': displayData['username'], 'password': displayData['password']})
             result = result.json()
             userobj ={ 

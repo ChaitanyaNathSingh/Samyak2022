@@ -24,11 +24,13 @@ class Validations {
                 else {
                     this.flash(response.data.message, 'error');
                     this.register.disabled = false;
+                    this.register.value = "Register";
                 }
             })
             .catch(error => {
                 this.flash(error.message, 'error');
                 this.register.disabled = false;
+                this.register.value = "Register";
                 console.log(error); 
             });
         // await axios
@@ -51,7 +53,7 @@ class Validations {
 
     clientValidations(data) {
         let password = data.password;
-        let phoneno = data.phoneno;
+        let phoneno = data.phone;
 
         let year = data.year;
         let college = data.college;
@@ -90,15 +92,17 @@ class Validations {
             isValid = false;
         }
         // check if phoneno is numeric
-        if(phoneno && !isNaN(phoneno)) 
+        // if phoneno length is greater then 0
+        if(phoneno && phoneno.length > 0) 
         for(let i = 0; i < phoneno.length; i++) {
             if(isNaN(parseInt(phoneno[i]))) {
                 this.flash('Phone number must be numeric', 'error');
-                this.register.disabled = false;
                 isValid = false;
                 break;
             }
         }
+        if(this.register)
+        this.register.disabled = false;
         return isValid;
     }
 

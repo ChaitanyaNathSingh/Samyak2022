@@ -1,44 +1,68 @@
-import styled from "styled-components";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import technicalHero from "./technicalHero.jpg";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 
-const Poster = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background: url(${technicalHero}) no-repeat center;
-  -o-object-fit: cover;
-  object-fit: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  @media (max-width:768px){
-    max-height:50vh;
-  }
-`;
+import "swiper/css/bundle";
+import "./EventPoster.css";
 
-const PosterH1 = styled.h1`
-  font-size: 150px;
-  color: #fff;
-  text-align: center;
-  @media (max-width:768px){
-    font-size:50px;
-  }
-`;
+// import required modules
+import { EffectCoverflow, Pagination,Autoplay } from "swiper";
 
-const EventPoster = () => {
+export default function EventPoster() {
   return (
-    <Poster className="event__hero">
-      <PosterH1>
-        EVENTS
-      </PosterH1>
-    </Poster>
+    <>
+      <Swiper
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={"auto"}
+        coverflowEffect={{
+          rotate: 50,
+          stretch:20,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination, Autoplay]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-1.jpg" alt="image1"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="image2"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="image3"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="image4"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="image5"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="image6"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="image7"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="image8"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="image9"/>
+        </SwiperSlide>
+      </Swiper>
+    </>
   );
-};
-
-export default EventPoster;
+}

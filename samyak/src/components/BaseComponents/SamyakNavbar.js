@@ -71,7 +71,7 @@ const NavEle = styled.p`
     display: flex;
     position: relative;
     // color: #0087ca;
-    color: black;
+    // color: black;
     // text-transform: lowercase;
     &:after {
         content: '';
@@ -88,6 +88,10 @@ const NavEle = styled.p`
     &:hover:after {
         transform: scaleX(1);
         transform-origin: bottom left;
+    }
+    a {
+        color: ${props => props.linkColor};
+        text-decoration: none;
     }
 `
 
@@ -205,6 +209,28 @@ const redirect = (navigate, path) => {
 const SamyakNavbar = (props) => {
     const navigate = useNavigate();
     const [showMobileElements, setShowMobileElements] = useState(false);
+    let NavEleColor = {
+        profile: "#fff",
+        home: "#2D112B",
+        events: '#ffcd6a',
+        gallery: '#fff',
+        sponsors: '#fff',   
+        login: '#fff',
+        register: '#fff'
+    }
+    let navEleCol = null;
+    if(window.location.pathname === '/profile') 
+        navEleCol = NavEleColor.profile;
+    else if(window.location.pathname === '/events')
+        navEleCol = NavEleColor.events;
+    else if(window.location.pathname === '/gallery')
+        navEleCol = NavEleColor.gallery;
+    else if(window.location.pathname === '/sponsors')
+        navEleCol = NavEleColor.sponsors;
+    else if(window.location.pathname === '/login' || window.location.pathname === '/register')
+        navEleCol = NavEleColor.login;
+    else
+        navEleCol = NavEleColor.home;
     useEffect(() => {
         const menuBtn = document.querySelector('.menu-icon');
         menuBtn.classList.remove('active');
@@ -248,10 +274,10 @@ const SamyakNavbar = (props) => {
                 </Logos>
                 <NavElements>
                     <Navigation>
-                        <NavEle><Link to='/events'>Events</Link></NavEle>
-                        <NavEle><Link to='/gallery'>Gallery</Link></NavEle>
+                        <NavEle linkColor={navEleCol}><Link to='/events'>Events</Link></NavEle>
+                        <NavEle linkColor={navEleCol}><Link to='/gallery'>Gallery</Link></NavEle>
                         {/* <NavEle><Link to='/team'>Team</Link></NavEle> */}
-                        <NavEle><Link to='/sponsors'>Sponsors</Link></NavEle>
+                        <NavEle linkColor={navEleCol}><Link to='/sponsors'>Sponsors</Link></NavEle>
                     </Navigation>
                 </NavElements>
                 {!isAuth ?

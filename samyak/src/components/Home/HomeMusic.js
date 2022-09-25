@@ -84,7 +84,7 @@ const HomeMusic = () => {
           src={purpleBackground}
           style={{ bottom: 0, transform: "rotate(180deg)" }}
           alt="back2"
-        />
+        />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         <MusicTitle
           className="music-title Mtitle-1"
           style={{ marginTop: "80px" }}

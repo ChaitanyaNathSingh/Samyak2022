@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import styled from "styled-components";
-import EventCard from "../Cards/EventCard";
-
+// import EventCard from "../Cards/EventCard";
+import NewEventCard from "../Cards/NewEventCard";
 import axiosInstance from "../../axios";
 
 // import sdp2 from './sdp2.jpg';
@@ -12,6 +12,7 @@ import axiosInstance from "../../axios";
 const EventContainer = (props) => {
   const EventWrapper = styled.div`
     margin-top: 80px;
+    padding-bottom: 80px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -39,56 +40,50 @@ const EventContainer = (props) => {
 
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const [registeredEvents, setRegisteredEvents] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    const flash = (message, variant) => {
-      enqueueSnackbar(message, {
-        variant: variant,
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        // autoHideDuration: duration,
-      });
-    };
+    // const flash = (message, variant) => {
+    //   enqueueSnackbar(message, {
+    //     variant: variant,
+    //     anchorOrigin: {
+    //       vertical: "top",
+    //       horizontal: "left",
+    //     },
+    //     // autoHideDuration: duration,
+    //   });
+    // };
 
     axiosInstance
       .get("events/")
       .then((response) => {
         setEvents(response.data);
-        let storage = JSON.parse(localStorage.getItem("user"));
-        if (props.isAuth) {
-          axiosInstance
-            .get("registerevent/", {
-              headers: {
-                Authorization: "JWT " + storage.user[0].tokens.access_token,
-              },
-              params: {
-                user_id: storage.user[1].details.user_id,
-              },
-            })
-            .then((res1) => {
-              setRegisteredEvents(res1.data);
-            })
-            .catch((e) => console.log(e));
-        } else {
-          flash("Please Login!", "warning");
-        }
+        // let storage = JSON.parse(localStorage.getItem("user"));
+        // if (props.isAuth) {
+        //   axiosInstance
+        //     .get("registerevent/", {
+        //       headers: {
+        //         Authorization: "JWT " + storage.user[0].tokens.access_token,
+        //       },
+        //       params: {
+        //         user_id: storage.user[1].details.user_id,
+        //       },
+        //     })
+        //     .then((res1) => {
+        //       setRegisteredEvents(res1.data);
+        //     })
+        //     .catch((e) => console.log(e));
+        // } else {
+        //   flash("Please Login!", "warning");
+        // }
       })
       .catch((e) => console.log(e));
-  }, [setEvents, setRegisteredEvents, navigate, props, enqueueSnackbar]);
+  }, [setEvents, navigate, props, enqueueSnackbar]);
 
   return (
     <EventWrapper>
       <Events>
         {events.map((event) =>
-          registeredEvents.filter((revent) => revent.event_name === event.name)
-            .length > 0 ? (
-            <EventCard key={event.name} event={event} isRegistered={true} />
-          ) : (
-            <EventCard key={event.name} event={event} isRegistered={false} />
-          )
+            <NewEventCard key={event.name} event={event} isRegistered={false} />
         )}
       </Events>
     </EventWrapper>

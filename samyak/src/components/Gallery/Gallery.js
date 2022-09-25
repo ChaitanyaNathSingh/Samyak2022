@@ -1,5 +1,6 @@
 // import { Link } from 'react-router-dom';
 import PhotoAlbum from "react-photo-album";
+import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 // import GalleryCard from "../Cards/GalleryCard";
 import './Gallery.css';
@@ -126,6 +127,7 @@ const Gallery = () => {
     }
   ]
   return (
+    <>
     <div className="gallery__container">
       <div className="grid-portfolio" id="portfolio">
         <NavBarSpace />
@@ -159,6 +161,8 @@ const Gallery = () => {
         </div>
       </div>
     </div>
+    <SamyakFooter />
+    </>
   );
 };
 

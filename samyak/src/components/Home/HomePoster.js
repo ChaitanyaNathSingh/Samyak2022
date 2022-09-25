@@ -3,15 +3,17 @@ import styled from "styled-components";
 // import group1 from "./img/SAMYAK_LOGOS/Group 1.png";/
 // import heroBrush from "./img/heroBrushEffect.png";
 import samyak_banner from "./img/Banners/Samyak_Banner.png";
+// import SamyakEvents from "./SamyakEvents";
+// import title3 from './img/SAMYAK_LOGOS/title-3.png';
 
 const HeroContainer = styled.div`
   position: relative;
-  height: 120vh;
+  height: 100vh;
   width: 100vw;
   background-color: #fcc13f;
   margin-bottom: 120px;
   @media screen and (max-width: 768px) {
-    height: 70vh;
+    height: 100vh;
   }
 `;
 
@@ -34,11 +36,14 @@ const ABC = styled.img`
 
 const HomePoster = () => {
   return (
-    <HeroContainer className="hero-cont">
-      <ABC className="abc" src={samyak_banner} alt="samyak_banner" />
-      {/* <ABC className="abc" src={group1} alt="" /> */}
-      {/* <HeroBrushEffect className="heroBrushEffect" src={heroBrush} alt="" /> */}
-    </HeroContainer>
+    <>
+      <HeroContainer className="hero-cont">
+        <ABC className="abc" src={samyak_banner} alt="samyak_banner" />
+        {/* <ABC className="abc" src={group1} alt="" /> */}
+        {/* <HeroBrushEffect className="heroBrushEffect" src={heroBrush} alt="" /> */}
+      </HeroContainer>
+      {/* <img src={title3} style={{'border': '2px solid red', width: '100vw'}} alt="" /> */}
+    </>
   );
 };
 

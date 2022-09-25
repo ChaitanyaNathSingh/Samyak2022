@@ -6,11 +6,11 @@ import './App.css';
 import './components/Bootstrap/css/bootstrap.min.css'
 import './components/Bootstrap/css/light-box.css'
 import './components/Bootstrap/css/templatemo-style.css'
-import './components/Bootstrap/js/main.js';
+// import './components/Bootstrap/js/main.js';
 
 // LOGIN AND REGISTRATION PAGE
-import './components/Bootstrap/js/join_main.js';
-import './components/Bootstrap/css/join_style.css';
+// import './components/Bootstrap/js/join_main.js';
+// import './components/Bootstrap/css/join_style.css';
 
 // import NavBar from './components/BaseComponents/NavBar';
 // import Footer from './components/BaseComponents/Footer';
