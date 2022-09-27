@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 // import HomeEvents from "./HomeEvents";
@@ -13,7 +13,9 @@ import SamyakHomeGallery from "./SamyakHomeGallery";
 // import SamyakPoster from "./SamyakPoster";
 import './Home.css';
 import NewEveningPoster from "./NewEveningPoster";
+import CountDown from "./CountDown/CountDown";
 // import HomeStalls from "./HomeStalls";
+import { ColorContext } from "../../TheRouter";
 
 const ExtraOptions = styled.div`
   background-color: rgb(40, 40, 43);
@@ -27,28 +29,16 @@ const AbsoluteAlignment = styled.div`
 `;
 
 const Home = (props) => {
-  var num = props.randomNum;
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1150 ? true : false);
-  const [backgroundColor, setBackgroundColor] = useState(window.innerWidth <= 1150 ? "#28282B" : (num === 0) ? '#2d112b' : "rgba(0,2,11,255)");
-
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth <= 1150) {
-      setIsMobile(true);
-      setBackgroundColor('#28282B');
-    } else {
-      setIsMobile(false);
-      if(num === 0)
-      setBackgroundColor('#2D112B');
-      else
-      setBackgroundColor("rgba(0,2,11,255)");
-    }
-  });
+  var color = useContext(ColorContext);
+  color = color.colorObj;
+  var backgroundColor = color.backgroundColor;
+  var isMobile = window.innerWidth <= 1150 ? true : false;
   return (
     <ExtraOptions>
-      {isMobile ? <HomePoster /> : (num === 0 ? <NewHomePoster /> : <NewEveningPoster />)}
+      {isMobile ? <HomePoster name={color.id === 0 ? "mobile1" : "mobile2"}/> : (color.primaryColor==='#cf9a2e' ? <NewEveningPoster /> : <NewHomePoster />)}
       {/* <NewEveningPoster /> */}
       <AbsoluteAlignment backgroundColor={backgroundColor}>
+        <CountDown />
         <SamyakEvents />
         <SamyakAbout />
         <SamyakHomeEvent />

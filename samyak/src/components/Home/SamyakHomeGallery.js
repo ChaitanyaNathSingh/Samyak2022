@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import Marquee from "react-fast-marquee";
-import Gallery1 from './img/Gallery/gallery-1.JPG';
-import Gallery2 from './img/Gallery/gallery-2.JPG';
-import Gallery3 from './img/Gallery/gallery-3.JPG';
-import Gallery4 from './img/Gallery/gallery-10.JPG';
-import Gallery5 from './img/Gallery/gallery-5.JPG';
-import Gallery6 from './img/Gallery/gallery-6.JPG';
-import Gallery7 from './img/Gallery/gallery-7.JPG';
-import Gallery8 from './img/Gallery/gallery-8.JPG';
-import Gallery9 from './img/Gallery/gallery-9.JPG';
+import Gallery1 from './img/Gallery/image1.JPG';
+import Gallery2 from './img/Gallery/image2.JPG';
+import Gallery3 from './img/Gallery/image3.JPG';
+import Gallery4 from './img/Gallery/image4.JPG';
+import Gallery5 from './img/Gallery/image5.JPG';
+import Gallery6 from './img/Gallery/image6.JPG';
+import Gallery8 from './img/Gallery/gallery-4.JPG';
+import Gallery9 from './img/Gallery/gallery-6.JPG';
 import HomeNavigateButton from '../UI/HomeNavigateButton';
 import HomeHeading from '../UI/HomeHeading';
 
@@ -77,12 +76,11 @@ const SamyakHomeGallery = () => {
                         <img src={Gallery4} alt="gallery" />
                         <img src={Gallery5} alt="gallery" />
                         <img src={Gallery6} alt="gallery" />
-                        <img src={Gallery7} alt="gallery" />
                         <img src={Gallery8} alt="gallery" />
                         <img src={Gallery9} alt="gallery" />
                     </MarqeeStyle>
                 </HomeGalleryData>
-                <HomeNavigateButton>More Images</HomeNavigateButton>
+                <HomeNavigateButton route="/gallery">More Images</HomeNavigateButton>
                 <HomeYoutube>
                     <iframe src="https://www.youtube.com/embed/v4uoIGEPmvs?&autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&rel=0&amp;" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </HomeYoutube>

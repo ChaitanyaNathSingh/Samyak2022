@@ -1,5 +1,5 @@
 import App from "./App";
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import GoogleLogin from 'react-google-login';
 
@@ -18,6 +18,9 @@ import SamyakNavbar from './components/BaseComponents/SamyakNavbar';
 import NotFoud from "./components/BaseComponents/NotFound";
 import JoinInterface from "./components/Join/JoinInterface";
 // import EnterDetails from "./components/Home/EnterDetails";
+import { getColorObj } from "./Utils/Colors";
+
+const ColorContext = createContext();
 
 const TheRouter = (props) => {
     // GOOGLE LOGIN
@@ -53,17 +56,31 @@ const TheRouter = (props) => {
         authStatus = myuser.isAuth;
     }
     console.log("Auth Status", authStatus);
-    var num = Math.floor(Math.random() * 2);
+    let num = Math.floor(Math.random() * 2);
+    const [colorObj, setColorObj] = useState(getColorObj(num));
+    let value = { colorObj, setColorObj };
+    let isMobile = false;
+    window.addEventListener('resize', () => {
+        // setColorObj(getColorObj(num));
+        if(window.innerWidth <= 1150 && !isMobile) {
+            isMobile = true;
+            setColorObj(getColorObj(num));
+        } else if(window.innerWidth > 1150 && isMobile) {
+            isMobile = false;
+            setColorObj(getColorObj(num));
+        }
+    });
     return(
         <>
+            <ColorContext.Provider value={value}>
             <App /> {/**googleButton={google_button} */}
             {/* {enterDetails} */}
             <Router>
             {/* <NavBar isAuth={this.state.isAuth} setIsAuth={this.setIsAuth}/> */}
             {/* <NavBarSpace /> */}
-            <SamyakNavbar randomNum={num}/> {/**googleButton={google_button} */}
+            <SamyakNavbar/> {/**googleButton={google_button} */}
             <Routes>
-                <Route path="/" element={<Home randomNum={num}/>} />
+                <Route path="/" element={<Home/>} />
                 <Route path="/home" element={<Home />} />
                 <Route exact path="/aboutus" element={<AboutUs />} />
                 <Route exact path="/events" element={<Events />} /> {/* passed is auth to events */}
@@ -84,8 +101,11 @@ const TheRouter = (props) => {
             </Routes>
             {/* <SamyakFooter /> */}
             </Router>
+            </ColorContext.Provider>
         </>
     )
 }
+
+export { ColorContext }
 
 export default TheRouter;

@@ -1,0 +1,50 @@
+.countdown__container {
+    color: #cf9a2e;
+    margin: 0 auto;
+    text-align: center;
+    background-color: '#ffd54f';
+    font-family: 'Montserrat', sans-serif;
+}
+  
+#countdown__heading {
+    font-weight: normal;
+    letter-spacing: .125rem;
+    text-transform: uppercase;
+  }
+  
+#countdown ul li {
+    display: inline-block;
+    font-size: 1.5em;
+    list-style-type: none;
+    padding: 1em;
+    text-transform: uppercase;
+  }
+  
+#countdown ul li span {
+    display: block;
+    font-size: 4.5rem;
+  }
+  
+  .countdown__emoji {
+    display: none;
+    padding: 1rem;
+  }
+  
+  .countdown__emoji span {
+    font-size: 4rem;
+    padding: 0 .5rem;
+  }
+  
+  @media all and (max-width: 768px) {
+    #countdown__heading {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    #countdown ul li {
+      font-size: calc(1.125rem * var(--smaller));
+    }
+    
+    #countdown ul li span {
+      font-size: calc(3.375rem * var(--smaller));
+    }
+  }

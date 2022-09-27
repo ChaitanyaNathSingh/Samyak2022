@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const NavigateButton = styled.div`
     display: flex;
@@ -27,7 +28,7 @@ const HomeNavigateButton = (props) => {
     return (
         <>
             <NavigateButton>
-                <a href="#0">{props.children}</a>
+                <Link to={props.route}>{props.children}</Link>
             </NavigateButton>
         </>
     );

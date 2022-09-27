@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import logoImg from "./SAMYAK_FaceLogo_white.png";
 import styled from "styled-components";
 import { LoginButton, RegisterButton } from "../UI/JoinButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ColorContext } from "../../TheRouter";
 import './NavBar.css';
 
 // const onLoginSuccess = (response) => {
@@ -200,11 +201,13 @@ const Join = styled.div`
 
 const SamyakNavbar = (props) => {
     const navigate = useNavigate();
+    var color = useContext(ColorContext);
+    color = color.colorObj;
     const [showMobileElements, setShowMobileElements] = useState(false);
     let NavEleColor = {
         profile: "#fff",
         // home: "#ef4339",
-        home: (props.randomNum) ? '#cf9a2e' : '#ef4339',
+        home: color.primaryColor,
         events: '#ffcd6a',
         gallery: '#fff',
         sponsors: '#fff',   
@@ -271,6 +274,15 @@ const SamyakNavbar = (props) => {
         isAuth = JSON.parse(myuser).user[1].details.isAuth;
     }
     
+
+    const [isNavElementsVisible, setIsNavElementsVisible] = useState(true);
+    window.addEventListener('scroll', () => {
+        if(isNavElementsVisible && window.scrollY > window.innerHeight) {
+            setIsNavElementsVisible(false);
+        } else if(!isNavElementsVisible && window.scrollY <= window.innerHeight) {
+            setIsNavElementsVisible(true);
+        }
+    });
     return (
         <div className="samyak__navbar">
             <nav>
@@ -281,12 +293,14 @@ const SamyakNavbar = (props) => {
                     </Link>
                 </Logos>
                 <NavElements>
+                    { isNavElementsVisible ?
                     <Navigation>
+                        <NavEle linkColor={navEleCol}><Link to='/'>Home</Link></NavEle>
                         <NavEle linkColor={navEleCol}><Link to='/events'>Events</Link></NavEle>
                         <NavEle linkColor={navEleCol}><Link to='/gallery'>Gallery</Link></NavEle>
                         {/* <NavEle><Link to='/team'>Team</Link></NavEle> */}
                         <NavEle linkColor={navEleCol}><Link to='/sponsors'>Sponsors</Link></NavEle>
-                    </Navigation>
+                    </Navigation> : null }
                 </NavElements>
                 {!isAuth ?
                 <Join>
@@ -310,6 +324,7 @@ const SamyakNavbar = (props) => {
             </nav>
             <MobileNavElements show={showMobileElements}>
                 <MobileNavigation style={{'color': '#5f2d13'}}>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/'>Home</Link></MobileNavEle>
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/events'>Events</Link></MobileNavEle>
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
                     {/* <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle> */}

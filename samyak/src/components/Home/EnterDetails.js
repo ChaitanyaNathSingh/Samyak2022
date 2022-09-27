@@ -29,6 +29,18 @@ const Container = styled.div`
     backdrop-filter: blur(10px);
     border-radius: 10px;
     z-index: 301;
+
+    @media only screen and (max-width: 1024px) {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 1;
+        margin: 0;
+        padding: 0;
+        overflow-y: hidden;
+    }
 `;
 const DetailsForm = styled.div`
     display: flex;
@@ -92,10 +104,13 @@ const Cross = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
-    transform: scale(0.6);
+    transform: scale(0.45);
     cursor: pointer;
     &:hover {
         background-color: #ccc;
+    }
+    @media only screen and (max-width: 1024px) {
+
     }
 `;
 
@@ -166,6 +181,7 @@ const EnterDetails = (props) => {
         <Container className="enter-details">
             <Cross onClick={props.toggleForm}><img src={require('../Profile/payment_status/cross.png')} alt="close" /></Cross>
             <DetailsForm>
+                <br></br><br></br><br></br><br></br>
                 <Heading className="enterDetails__heading">
                     <h2>Update Your Profile</h2>
                 </Heading>

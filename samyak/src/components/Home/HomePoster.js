@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 // import group1 from "./img/SAMYAK_LOGOS/Group 1.png";/
 // import heroBrush from "./img/heroBrushEffect.png";
-import samyak_banner from "./img/Banners/Samyak_Banner.png";
+import mobile0 from "./img/Banners/Samyak_Banner.png";
 // import SamyakEvents from "./SamyakEvents";
 // import title3 from './img/SAMYAK_LOGOS/title-3.png';
+import mobile1 from './img/SAMYAK_LOGOS/mobile1.jpg';
+import mobile2 from './img/SAMYAK_LOGOS/mobile2.jpg';
 
 const HeroContainer = styled.div`
   position: relative;
@@ -34,11 +36,16 @@ const ABC = styled.img`
 //   transform: rotate(180deg);
 // `;
 
-const HomePoster = () => {
+const HomePoster = (props) => {
+  let theImage = mobile0;
+  if(props.name === "mobile1")
+    theImage = mobile1;
+  else if(props.name === "mobile2")
+    theImage = mobile2;
   return (
     <>
       <HeroContainer className="hero-cont">
-        <ABC className="abc" src={samyak_banner} alt="samyak_banner" />
+        <ABC className="abc" src={theImage} alt="samyak" />
         {/* <ABC className="abc" src={group1} alt="" /> */}
         {/* <HeroBrushEffect className="heroBrushEffect" src={heroBrush} alt="" /> */}
       </HeroContainer>
