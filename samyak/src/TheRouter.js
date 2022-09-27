@@ -53,6 +53,7 @@ const TheRouter = (props) => {
         authStatus = myuser.isAuth;
     }
     console.log("Auth Status", authStatus);
+    var num = Math.floor(Math.random() * 2);
     return(
         <>
             <App /> {/**googleButton={google_button} */}
@@ -60,9 +61,9 @@ const TheRouter = (props) => {
             <Router>
             {/* <NavBar isAuth={this.state.isAuth} setIsAuth={this.setIsAuth}/> */}
             {/* <NavBarSpace /> */}
-            <SamyakNavbar /> {/**googleButton={google_button} */}
+            <SamyakNavbar randomNum={num}/> {/**googleButton={google_button} */}
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home randomNum={num}/>} />
                 <Route path="/home" element={<Home />} />
                 <Route exact path="/aboutus" element={<AboutUs />} />
                 <Route exact path="/events" element={<Events />} /> {/* passed is auth to events */}

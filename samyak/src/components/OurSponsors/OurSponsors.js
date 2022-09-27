@@ -5,8 +5,9 @@ import styled from "styled-components";
 
 import image1 from './logos/BMW.jfif';
 import image2 from './logos/REDBULL.jpg';
-import image3 from './logos/KTM.png';
-import image4 from './logos/NEXA.jpg';
+// import image3 from './logos/KTM.png';
+// import image4 from './logos/NEXA.jpg';
+import wefelix from './logos/Wefelix.jpeg';
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 const SponsorsBackground = styled.div`
@@ -25,13 +26,9 @@ const OurSponsors = () => {
             src: image2,
         }, 
         {
-            name: "KTM",
-            src: image3,
-        },
-        {
-            name: "NEXA",
-            src: image4,
-        },
+            name: "Wefelix",
+            src: wefelix,
+        }
     ];
     return (
         <>

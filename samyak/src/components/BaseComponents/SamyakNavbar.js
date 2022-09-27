@@ -73,6 +73,7 @@ const NavEle = styled.p`
     // color: #0087ca;
     // color: black;
     // text-transform: lowercase;
+    font-family: 'Montserrat';
     &:after {
         content: '';
         position: absolute;
@@ -197,21 +198,13 @@ const Join = styled.div`
 `
 
 
-
-const redirect = (navigate, path) => {
-    return () => {
-        navigate(path);
-    }
-}
-
-
-
 const SamyakNavbar = (props) => {
     const navigate = useNavigate();
     const [showMobileElements, setShowMobileElements] = useState(false);
     let NavEleColor = {
         profile: "#fff",
-        home: "#2D112B",
+        // home: "#ef4339",
+        home: (props.randomNum) ? '#cf9a2e' : '#ef4339',
         events: '#ffcd6a',
         gallery: '#fff',
         sponsors: '#fff',   
@@ -231,27 +224,42 @@ const SamyakNavbar = (props) => {
         navEleCol = NavEleColor.login;
     else
         navEleCol = NavEleColor.home;
+    
+    
     useEffect(() => {
         const menuBtn = document.querySelector('.menu-icon');
         menuBtn.classList.remove('active');
         let menuOpen = false;
         menuBtn.addEventListener('click', () => {
-        if(!menuOpen) {
-            menuBtn.classList.add('open');
-            handleMenuClick(true);
-            menuOpen = true;
-        } else {
-            menuBtn.classList.remove('open');
-            handleMenuClick(false);
-            menuOpen = false;
-        }
+            if(!menuOpen) {
+                menuBtn.classList.add('open');
+                handleMenuClick(true);
+                menuOpen = true;
+            } else {
+                menuBtn.classList.remove('open');
+                handleMenuClick(false);
+                menuOpen = false;
+            }
         });
-
     }, [])
 
     const handleMenuClick = (status) => {
         setShowMobileElements(status);
     };
+    const closeNavBar = () => {
+        const menuBtn = document.querySelector('.menu-icon');
+        if(menuBtn) {
+            menuBtn.classList.remove('open');
+            handleMenuClick(false);
+        }
+    };
+    const redirect = (navigate, path) => {
+        // closeNavBar();
+        return () => {
+            closeNavBar();
+            navigate(path);
+        }
+    }
     const userLogout = () => {
         localStorage.removeItem('user');
         navigate('/login');
@@ -302,10 +310,10 @@ const SamyakNavbar = (props) => {
             </nav>
             <MobileNavElements show={showMobileElements}>
                 <MobileNavigation style={{'color': '#5f2d13'}}>
-                    <MobileNavEle><Link className="havala" to='/events'>Events</Link></MobileNavEle>
-                    <MobileNavEle><Link className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/events'>Events</Link></MobileNavEle>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
                     {/* <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle> */}
-                    <MobileNavEle><Link className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
                     {!isAuth ?
                     <div>
                         <LoginButton onClick={redirect(navigate, 'login')}>LOGIN</LoginButton>
