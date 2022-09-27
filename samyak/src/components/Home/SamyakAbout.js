@@ -15,6 +15,8 @@ const HomeSamyakData = styled.div`
         letter-spacing: .6px;
         font-size: 14px;
         line-height: 24px;
+        text-align: justify;
+        text-justify: inter-word;
     }
 `;
 
@@ -24,7 +26,7 @@ const SamyakAbout = () => {
             <div class="home-samyak">
                 <HomeHeading>ABOUT SAMYAK</HomeHeading>
                 <HomeSamyakData>
-                    <p>SAMYAK is a national-level techno-management fest organized by the students of KL University. It is a two- day festival filled with activities, events, workshops, and student performances that drive the students to experience the joy in being part of a synergy.The colours popping throughout, the theme-relevant artworks designed from scratch by the student teams, the elegance in student groups coming together after all the effort they put in until the day of the fest cannot be looked past.</p>
+                    <p>SAMYAK is a National Level Techno Management Fest organized by the students of KL University. It is a two-day festival filled with activities, events, workshops, and student performances that drive the students to experience the joy in being part of a synergy. The colours popping throughout, the theme-relevant artworks designed from scratch by the student teams, the elegance in student groups coming together after all the effort they put in until the day of the fest cannot be looked past.</p>
                 </HomeSamyakData><br></br><br></br>
                 <HomeHeading>ABOUT Atīndrīya - THE COSMIC CON</HomeHeading>
                 <HomeSamyakData>

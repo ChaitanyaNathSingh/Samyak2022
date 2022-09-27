@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import SamyakLogo from './samyak_logo.png';
 
 const FooterSection = styled.div`
@@ -118,6 +119,9 @@ const CopyrightText = styled.div`
     p a {
         color: #ff5e14;
     }
+    @media (max-width: 767px) {
+        font-size: 10px;
+    }
 `;
 // const FooterMenu = styled.div`
 //     ul li {
@@ -151,9 +155,9 @@ const FinalFooter = () => {
                             </FooterText>
                             <FooterSocialIcon class="footer-social-icon">
                                 <span>Follow us</span>
-                                <a href="#0"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                <a href="#0"><i class="fab fa-twitter twitter-bg"></i></a>
-                                <a href="#0"><i class="fab fa-google-plus-g google-bg"></i></a>
+                                <a href="https://www.instagram.com/kl.samyak"><i class="fab fa-brands fa-instagram"></i></a>
+                                <a href="https://www.facebook.com/kl.samyak/"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                <a href="https://www.youtube.com/channel/UCPrOyzURgK0t6qVVeKWUcaQ"><i class="fab fa-brands fa-youtube"></i></a>
                             </FooterSocialIcon>
                         </div>
                         </div>
@@ -163,16 +167,16 @@ const FinalFooter = () => {
                                 <h3>Useful Links</h3>
                             </FooterWidgetHeading>
                             <ul>
-                                <li><a href="#0">Home</a></li>
-                                <li><a href="#0">Events</a></li>
-                                <li><a href="#0">Help</a></li>
-                                <li><a href="#0">Gallery</a></li>
-                                <li><a href="#0">About us</a></li>
-                                <li><a href="#0">Login</a></li>
-                                <li><a href="#0">Profile</a></li>
-                                <li><a href="#0">Register</a></li>
-                                <li><a href="#0">Sponsors</a></li>
-                                <li><a href="#0">What's Happening</a></li>
+                                <li><Link to="/">Home</Link></li>
+                                <li><Link to="/events">Events</Link></li>
+                                <li><Link to="/help">Help</Link></li>
+                                <li><Link to="/gallery">Gallery</Link></li>
+                                <li><Link to="/about">About Us</Link></li>
+                                <li><Link to="/login">Login</Link></li>
+                                <li><Link to="/profile">Profile</Link></li>
+                                <li><Link to="/register">Register</Link></li>
+                                <li><Link to="/sponsor">Sponsors</Link></li>
+                                <li><Link to="/live">What's Happening</Link></li>
                             </ul>
                         </FooterWidget>
                         </div>
@@ -182,7 +186,7 @@ const FinalFooter = () => {
                                 <h3>Mail us</h3>
                             </FooterWidgetHeading>
                             <FooterText class="footer-text mb-25">
-                                <p>Offical : samyak@kluniversity.in</p>
+                                <p>Official : samyak@kluniversity.in</p>
                             </FooterText>
                             <FooterText class="footer-text mb-25">
                                 <p>Information : info.samyak@kluniversity.in</p>

@@ -7,7 +7,6 @@ h1 {
     font-weight: 700;
     margin-top: -20px;
     letter-spacing: 2px;
-    font-size: 4vw;
     text-align: center;
     margin-top: -10px;
 
@@ -27,7 +26,7 @@ span {
 @media only screen and (max-width: 1024px) {
     width: 100vw;
     h1 {
-        font-size: 4vw;
+        font-size: 6vw;
         text-align: center;
         margin-top: -10px;
     }

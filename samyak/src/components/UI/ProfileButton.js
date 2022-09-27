@@ -3,10 +3,15 @@ import React,{useState} from 'react'
 const ProfileButtonStyled = styled.div`
     margin-top: 10px;
     margin-bottom: 10px;
+    button {
+        background-color: #ffb521;
+        padding: 8px 17px;
+        font-size: 16px;
+    }   
 `;
 const ProfileButton = (props) => {
-    const [bgColour, setBgColour] = useState("#000");
-    const [Colour, setColour] = useState("white");
+    const [bgColour, setBgColour] = useState("#ffb521");
+    const [Colour, setColour] = useState("#ffb521");
     return (
         <ProfileButtonStyled>
             {props.customStyle===undefined?(
