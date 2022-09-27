@@ -29,7 +29,7 @@ const SamyakAbout = () => {
                 <HomeHeading>ABOUT Atīndrīya - THE COSMIC CON</HomeHeading>
                 <HomeSamyakData>
                     <p>The “Atīndriya” comes from the idea of bringing the technologies used in Fiction and implementing them wherever possible through various forms of advertising. Fiction is a world without bounds that can be explored endlessly in all the fictitious and non-fictitious aspects that exist.Not confining solely to the creative components of the real or fictional world alone, this time the theme also focuses on identifying and bringing into limelight all the technical areas that have been explored and that are yet to be explored in the aforementioned areas.</p><br></br>
-                    <HomeNavigateButton>Read More</HomeNavigateButton>
+                    <HomeNavigateButton route="/about">Read More</HomeNavigateButton>
                 </HomeSamyakData>
                 <br></br><br></br>
             </div>

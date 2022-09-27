@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // import HomeEvents from './HomeEvents';
 import im2020 from './img/0202.png';
 import imlayer55 from './img/layer_55.png';
+// import CountDown from "./CountDown/CountDown";
 const Parallax = styled.div`
     background-color: #FEDCC8;
     perspective: 100px;
@@ -113,7 +114,7 @@ function Home() {
                 <img src="https://github.com/samdbeckham/blog/blob/master/dev/_assets/images/articles/firewatch/layer_6.png?raw=true" alt='img'/>
             </ParallaxLayer6>
             <ParallaxCover>
-
+                {/* <CountDown /> */}
             </ParallaxCover>
             {/* <HomeEvents /> */}
         </Parallax>

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../axios";
 import { useSnackbar } from "notistack";
 // import NavBarSpace from '../BaseComponents/NavBarSpace';
-import UserProfile from "./UserProfile";
 import EnterDetails from '../Home/EnterDetails';
 
 import { useNavigate } from "react-router-dom";
 // import DisplayDetails from "./DisplayDetails";
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
+import SamyakProfile from "./SamyakProfile";
 
 const Profile = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -130,7 +130,8 @@ const Profile = (props) => {
   return (
     <>
       <div style={{backgroundColor: '#ccc'}}>
-        <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/>
+        {/* <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/> */}
+        <SamyakProfile user={user} handlePayment={handlePayment} toggleForm={toggleUpdateForm}/>
         {/* <DisplayDetails handlePayment={handlePayment} toggleForm={toggleUpdateForm} user={user}/> */}
         {enterDetailsVisible ? <EnterDetails username={username} user={user} toggleForm={toggleUpdateForm}/> : null}
         {/* <NavBarSpace user={user}/> */}
