@@ -45,7 +45,9 @@ const MapBox = styled.div`
         color: #fff;
         line-height: 25px;
         letter-spacing: .6px;
-        margin-top: 20px;   
+        margin-top: 20px;  
+        text-align: justify;
+        text-justify: inter-word; 
     }
     @media only screen and (max-width:1024px) {
         width: 100%;

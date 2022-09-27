@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import ProfileButton from "../UI/ProfileButton";
 
