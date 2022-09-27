@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
+import ProfileButton from "../UI/ProfileButton";
 
 const MailContainer = styled.div`
     position: relative;
@@ -172,6 +173,11 @@ const ProfileAccount = styled.div`
     }
 `;
 
+const PayButton = styled.a`
+    color: black;
+    font-weight: bold;
+`;
+
 const SamyakProfile = (props) => {
     let paidStatus = props.user?props.user.payment?(props.user.payment.payment_status).toString():"false":"false";
     let [samyakLogo, setSamyakLogo] = useState(null);
@@ -186,12 +192,6 @@ const SamyakProfile = (props) => {
     }, [setSamyakLogo, username, name, payment_status]);
 
 
-
-    const navigate = useNavigate();
-    const userLogout = () => {
-        localStorage.removeItem('user');
-        navigate('/login');
-    }
     return  (
         <>
             <MailContainer>
@@ -202,9 +202,12 @@ const SamyakProfile = (props) => {
                         <img src={samyakLogo} alt="" />
                         <h2>{props.user?props.user.username?props.user.username:'loading...':'loading...'}</h2>
                         <ul>
+                            {props.user && props.user.payment && props.user.payment.payment_status ? null :
+                            <ProfileButton  onClick={props.handlePayment} customStyle='x-y-z'>
+                                <PayButton href="#0">Pay now</PayButton>
+                            </ProfileButton>}
                             <li><span>{paidStatus === "true" ? "PAID" : "NOT PAID"}</span></li>
                             <li><span>Change Password</span></li>
-                            <li><span onClick={userLogout}>Logout</span></li>
                         </ul>
                     </ProfileLeft>
                     <ProfileRight>
