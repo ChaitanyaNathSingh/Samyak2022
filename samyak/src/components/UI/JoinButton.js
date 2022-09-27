@@ -9,6 +9,7 @@ const LoginButton = styled.button`
     transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
     box-shadow:0px 0px 0px 2px white inset;
     border: 0px solid black;
+    font-family: 'Montserrat';
     &:hover {
         background-color: #5f2d13;
         box-shadow:0px 0px 0px 2px black inset;
@@ -44,6 +45,7 @@ const RegisterButton = styled.button`
     position: relative;
     z-index: 0;
     border-radius: 5px;
+    font-family: 'Montserrat';
 
     &:before {
         content: '';

@@ -11,7 +11,7 @@ const Heading = styled.h1`
 const SponsorsHeading = () => {
     return(
         <>
-            <Heading>OUR SPONSORS!</Heading>
+            <Heading>OUR SPONSORS AND COLLABORATORS!</Heading>
         </>
     );
 }

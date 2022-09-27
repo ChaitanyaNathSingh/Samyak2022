@@ -48,7 +48,7 @@ def admin_dashboard(request):
         return redirect('/')
     user_count = User.objects.filter().count
     payment_count = Payment.objects.filter(payment_status=True).count()
-    total_amount = payment_count * 210.62
+    total_amount = payment_count * 480
     CSE = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",
                                        user__profile__branch="CSE").count()
     BT = Payment.objects.filter(payment_status=True, user__profile__college_name="KL Vijayawada",

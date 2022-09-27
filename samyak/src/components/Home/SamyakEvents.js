@@ -1,19 +1,12 @@
 import styled from 'styled-components';
 
 import title3 from './img/SAMYAK_LOGOS/title-3.png';
-import samyakLogo from './img/SAMYAK_LOGOS/Logo.png';
 import tech from './img/SAMYAK_LOGOS/tech.svg';
 import nonTech from './img/SAMYAK_LOGOS/non-tech.png';
 import literary from './img/SAMYAK_LOGOS/literary.svg';
 import spot from './img/SAMYAK_LOGOS/spot.svg';
-
-const HideScrollBar = styled.div`
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-`;
+import { HideScrollBar } from '../UI/HideScrollBar';
+import HomeHeading from '../UI/HomeHeading';
 
 const HomeFest = styled(HideScrollBar)`
     margin-top: 3pc;
@@ -33,49 +26,6 @@ const HomeFestImage = styled.div`
         img {
             width: 40vw;
         }
-    }
-`;
-const HomeFestHeading = styled.div`
-    width: 100vw;
-    h1 {
-        color: #cf9a2e;
-        font-weight: 700;
-        margin-top: -20px;
-        letter-spacing: 2px;
-        font-size: 4vw;
-        text-align: center;
-        margin-top: -10px;
-
-        display: block;
-        font-size: 2em;
-        margin-block-start: 0.67em;
-        margin-block-end: 0.67em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-    }
-    p {
-        color: #fff;
-        width: 90vw;
-        margin: auto;
-        padding: 5px 10px;
-        font-weight: 400;
-        letter-spacing: .6px;
-        text-align: center;
-        font-size: 18px;
-        line-height: 30px;
-        background: rgb(0, 0, 0,.1);
-        backdrop-filter: blur(2px);
-    }
-    span {
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    span img {
-        width: 160px;
-        height: auto;
-        width: 100px;
     }
 `;
 const HomeFestData = styled(HideScrollBar)`
@@ -135,13 +85,7 @@ const SamyakEvents = () => {
                 <HomeFestImage>
                     <img src={title3} alt="" />
                 </HomeFestImage><br></br>
-                <HomeFestHeading>
-                    <span>
-                        <img src={samyakLogo} alt="" />
-                        <h1>NATIONAL LEVEL TECHNO MANAGEMENT FEST</h1>
-                        <img src={samyakLogo} alt="" />
-                    </span>
-                </HomeFestHeading>
+                <HomeHeading>NATIONAL LEVEL TECHNO MANAGEMENT FEST</HomeHeading>
                 <HomeFestData>
                     <HomeFestBox>
                         <img src={tech} alt="events" />

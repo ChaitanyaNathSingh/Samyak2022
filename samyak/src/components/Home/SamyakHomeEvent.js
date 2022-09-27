@@ -1,55 +1,118 @@
-import Logo from './img/SAMYAK_LOGOS/Logo.png';
+import styled from 'styled-components';
+import HomeNavigateButton from '../UI/HomeNavigateButton';
 import Edificio from './img/Events/EDIFICIO.png';
 import FortuneSeeker from './img/Events/Fortune Seeker.png';
 import Vogue1 from './img/Events/Vogue 1.png';
+import { HideScrollBar } from '../UI/HideScrollBar';
+import HomeHeading from '../UI/HomeHeading';
+
+const HomeEvents = styled.div`
+    margin-top: 3pc;
+`;
+const HomeEventsData = styled(HideScrollBar)`
+    height: auto;
+    overflow: auto;
+    padding: 20px;
+    white-space: nowrap;
+    width: 100vw;
+`;
+const HomeEventsBox = styled.div`
+    width: 400px;
+    padding: 20px;
+    margin: 10px;
+    display: inline-block;
+    min-height: 570px;
+    border-radius: 3px;
+    text-align: center;
+    animation: border 3s linear infinite alternate;
+    border: 2px solid #ffcd6a;
+    background: rgb(0, 0, 0,.1);
+    backdrop-filter: blur(2px);
+    img {
+        width: 100%;
+        height: auto;
+    }
+    img:hover {
+        opacity: .7;
+        transition: .3s;
+    }
+    h2 {
+        color: #ffcd6a;
+        margin-top: 10px;
+        letter-spacing: 1px;
+    }
+    p {
+        color: #fff;
+        margin-top: 5px;
+        line-height: 25px;
+    }
+    a {
+        position: relative;
+        top: 15px;
+        font-weight: 500;
+        color: #000000;
+        padding: 5px 30px;
+        font-size: 18px;
+        border-radius: 4px;
+        text-decoration: none;
+        /* border: 2px solid #cf9a2e; */
+        background: linear-gradient(to right,#ffca5f,#cf9a2e);
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 340px;
+        min-height: 450px;
+        h2 {
+            font-size: 21px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 24px;
+        }
+        img {
+            width: 250px;
+        }
+    }
+`;
 
 const SamyakHomeEvent = () => {
     return (
         <>
-            <div class="home-events">
-                <div class="home-events-heading">
-                    <span class="common align">
-                        <img src={Logo} alt="" />
-                        <h1>EVENTS</h1>
-                        <img src={Logo} alt="" />
-                    </span>
-                </div>
-                <div class="home-events-data">
-                    <div class="home-events-box" data-aos="zoom-out" data-aos-duration="500">
+            <HomeEvents>
+                <HomeHeading>EVENTS</HomeHeading>
+                <HomeEventsData>
+                    <HomeEventsBox data-aos="zoom-out" data-aos-duration="500">
                         <img src={Edificio} alt="event" />
                         <h2>EDIFICIO</h2>
                         <p>Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit. Nemo sit debitis voluptate<br></br>explicabo qui error doloremque repellendus.</p>
-                        <a href="#0">Register</a>
-                    </div>
-                    <div class="home-events-box" data-aos="zoom-out" data-aos-duration="500" data-aos-delay="200">
+                        <a href="#0">Open</a>
+                    </HomeEventsBox>
+                    <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="200">
                         <img src={FortuneSeeker} alt="event" />
                         <h2>FORTUNE SEEKER</h2>
                         <p>Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit. Nemo sit debitis voluptate<br></br>explicabo qui error doloremque repellendus.</p>
-                        <a href="#0">Register</a>
-                    </div>
-                    <div class="home-events-box" data-aos="zoom-out" data-aos-duration="500" data-aos-delay="400">
+                        <a href="#0">Open</a>
+                    </HomeEventsBox>
+                    <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="400">
                         <img src={Vogue1} alt="event" />
                         <h2>VOGUE</h2>
                         <p>Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit. Nemo sit debitis voluptate<br></br>explicabo qui error doloremque repellendus.</p>
-                        <a href="#0">Register</a>
-                    </div>
-                    <div class="home-events-box" data-aos="zoom-out" data-aos-duration="500" data-aos-delay="600">
+                        <a href="#0">Open</a>
+                    </HomeEventsBox>
+                    <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="600">
                         <img src={Edificio} alt="event" />
                         <h2>EDIFICIO</h2>
                         <p>Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit. Nemo sit debitis voluptate<br></br>explicabo qui error doloremque repellendus.</p>
-                        <a href="#0">Register</a>
-                    </div>
-                    <div class="home-events-box">
+                        <a href="#0">Open</a>
+                    </HomeEventsBox>
+                    <HomeEventsBox>
                         <img src={FortuneSeeker} alt="event" />
                         <h2>FORTUNE SEEKER</h2>
                         <p>Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit. Nemo sit debitis voluptate<br></br>explicabo qui error doloremque repellendus.</p>
-                        <a href="#0">Register</a>
-                    </div>
-                </div>
-                <div class="more-events common">
-                    <a href="#0">More Events</a>
-                </div>
-            </div>
+                        <a href="#0">Open</a>
+                    </HomeEventsBox>
+                </HomeEventsData>
+                <HomeNavigateButton>View More Events</HomeNavigateButton>
+            </HomeEvents>
         </>
     )
 }

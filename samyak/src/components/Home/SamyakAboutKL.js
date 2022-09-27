@@ -1,35 +1,5 @@
 import styled from "styled-components";
-
-import Logo from './img/SAMYAK_LOGOS/Logo.png';
-
-const HomeEventsHeading = styled.div`
-    h1 {
-        color: #cf9a2e;
-        font-weight: 700;
-        margin-top: -20px;
-        letter-spacing: 2px;
-    }
-    span img {
-        width: 160px;
-        height: auto;
-    }
-    span {
-        display: flex;
-        justify-content: center;
-        align-items: center;    
-    }
-    @media only screen and (max-width:1024px) {
-        width: 100%;
-        h1 {
-            font-size: 4vw;
-            text-align: center;
-            margin-top: -10px;
-        }
-        span img {
-            width: 100px;
-        }
-    }
-`;
+import HomeHeading from "../UI/HomeHeading";
 
 const HomeMap = styled.div`
     width: 100%;
@@ -94,13 +64,7 @@ const MapBox = styled.div`
 const SamyakAboutKL = () => {
     return (
         <>
-            <HomeEventsHeading>
-                <span>
-                    <img src={Logo} alt="" />
-                    <h1>ABOUT KL UNIVERSITY</h1>
-                    <img src={Logo} alt="" />
-                </span>
-            </HomeEventsHeading>
+            <HomeHeading>ABOUT KL UNIVERSITY</HomeHeading>
             <HomeMap>
                 <MapData>
                     <iframe title="SamyakLogo" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.6631458656584!2d80.62040591486335!3d16.441925688651654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35f0a2a7d81943%3A0x8ba5d78f65df94b8!2sK%20L%20Deemed%20To%20Be%20University!5e0!3m2!1sen!2sin!4v1663973454915!5m2!1sen!2sin" style={{'border': '0'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
