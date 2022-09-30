@@ -49,6 +49,10 @@ const DetailsForm = styled.div`
     height: 100%;
     width: 900px;
     // border: 2px solid red; // border for testing
+    padding-top: 30px;
+    @media only screen and (max-width: 600px) {
+        padding-top: 90px;
+    }
 `;
 
 const Heading = styled.div`
@@ -121,15 +125,15 @@ const EnterDetails = (props) => {
     let collegeData = ['Select College', 'KL Vijayawada', 'KL Hyderabad', 'Others']
 
     const { enqueueSnackbar } = useSnackbar();
+    let isVerified = false;
     let access_token = null;
     let myuser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
     access_token = (myuser) ? myuser.user[0].tokens.access_token ? myuser.user[0].tokens.access_token : null : null;
+    isVerified = (myuser) ? myuser.user[1].details.isVerified : false;
     let collegename = props.user.profile.college_name;
     const [enterCollegeName, setEnterCollegeName] = useState((collegename !== "KL Vijayawada" && collegename !== "KL Hyderabad" ) ? <BaseInput id="other_college" type="text" name="other_college" placeholder="Enter College Name" value={props.user.profile.college_name}/>: null);
-
     const collegeChangeHandler = (event) => {
         let enteredValue = event.target.value;
-        console.log(enteredValue);
         if(enteredValue === 'Others') {
           setEnterCollegeName(<BaseInput type="text" name="other_college" placeholder="Enter College Name" value={props.user.profile.college_name}/>)
         } else {
@@ -143,6 +147,7 @@ const EnterDetails = (props) => {
         data.first_name = event.target.first_name.value.trim();
         data.last_name = event.target.last_name.value.trim();
         data.email = event.target.email.value.trim();
+        data.phone = event.target.phone.value.trim();
         data.year = event.target.year.value.trim();
         data.college = event.target.college.value.trim();
         if(data.college === 'Others'){
@@ -181,7 +186,7 @@ const EnterDetails = (props) => {
         <Container className="enter-details">
             <Cross onClick={props.toggleForm}><img src={require('../Profile/payment_status/cross.png')} alt="close" /></Cross>
             <DetailsForm>
-                <br></br><br></br><br></br><br></br>
+                {/* <br></br><br></br><br></br><br></br> */}
                 <Heading className="enterDetails__heading">
                     <h2>Update Your Profile</h2>
                 </Heading>
@@ -193,8 +198,12 @@ const EnterDetails = (props) => {
                         <div className="form-group">
                             <BaseInput id="last_name" name="last_name" type="text" placeholder="Last Name" value={props.user.last_name}/>
                         </div>
+                        { !isVerified ?
                         <div className="form-group">
                             <BaseInput id="email" name="email" type="email" placeholder="Email (Use Personal Gmail)" value={props.user.email}/>
+                        </div> : null}
+                        <div className="form-group">
+                            <BaseInput id="phone" name="phone" type="number" placeholder="Phone Number" value={props.user.profile.phone}/>
                         </div>
                         <div className="form-group">
                             <BaseDropDown id="gender" name="gender" options={genderData} value={props.user.profile.gender}/>

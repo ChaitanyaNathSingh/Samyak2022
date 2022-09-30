@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../axios";
 import { useSnackbar } from "notistack";
 // import NavBarSpace from '../BaseComponents/NavBarSpace';
-import EnterDetails from '../Home/EnterDetails';
+import EnterDetails from './EnterDetails';
 
 import { useNavigate } from "react-router-dom";
 // import DisplayDetails from "./DisplayDetails";
@@ -12,18 +12,20 @@ import SamyakProfile from "./SamyakProfile";
 const Profile = (props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [enterDetailsVisible, setEnterDetailsVisible] = useState(false);
 
   const navigate = useNavigate();
 
   let access_token = null;
+  let refresh_token = null;
   let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
   let isAuth = false;
   let username = null;
   if(isNaN(myuser) && myuser !== null && myuser !== undefined && myuser !== "null" && myuser !== "undefined") {  
     myuser = JSON.parse(myuser);
     access_token = myuser.user[0].tokens.access_token;
+    refresh_token = myuser.user[0].tokens.refresh_token;
     username = myuser.user[1].details.username;
     isAuth = myuser.user[1].details.isAuth;
   }
@@ -42,14 +44,36 @@ const Profile = (props) => {
           },
         })
         .then((response) => {
-          // console.log(response.data);
+          console.log(response.data);
+          let mainData = response.data[0];
+          let userobj = { 
+            'user': [
+              {
+                'tokens': {
+                    'access_token': access_token,
+                    'refresh_token': refresh_token,
+                },
+            },
+            {
+                'details': {
+                    'user_id': mainData.id,
+                    'username': mainData.username,
+                    'user_email': mainData.email,
+                    'user_phone': mainData.profile.phone,
+                    'isAuth': true,
+                    'isVerified': mainData.profile.is_verified
+                }
+              }
+            ]
+          }
+          localStorage.setItem("user", JSON.stringify(userobj));
           setUser(response.data[0]);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, [enqueueSnackbar, props, access_token, isAuth]);
+  }, [enqueueSnackbar, props, access_token, isAuth, refresh_token]);
 
   const getUserDetailsFromServer = () => {
     axiosInstance
@@ -80,6 +104,7 @@ const Profile = (props) => {
     let storage = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     let access_token = storage ? storage.user[0].tokens.access_token : null;
     let details = storage ? storage.user[1].details : null;
+    console.log(details);
   if(access_token) {
     axiosInstance
       .post("../home/payment", {
@@ -94,11 +119,11 @@ const Profile = (props) => {
       .then((response) => {
         // setUser(response.data);
         // console.log(response.data);
-        if(response.data) {
+        if(response.data !== "ERROR") {
           window.location.href = response.data;
         }
         else {
-          console.log("Wrong Phone Number");
+          alert("Request Failed");
         }
       })
       .catch((error) => {

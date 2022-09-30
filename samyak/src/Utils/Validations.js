@@ -1,33 +1,54 @@
 // import axios from "axios";
 import axiosInstance from "../axios";
 import { baseURL } from "../axios";
+import emailjs from '@emailjs/browser';
 
 class Validations {
     constructor(flash) {
         this.flash = flash;
         this.register = document.getElementById('register');
     }
-    async serverValidations(data, navigate, setIsAuth) {
+    async serverValidations(data, navigate, setWaiting) {
 
         await axiosInstance
             .post(`${baseURL}/../../home/register`, data)
             .then(response => {
                 if(response.data.status) {
-                    this.flash(response.data.message, 'success');
                     // console.log(response.data)
                     // localStorage.setItem('csrftoken', response.data.csrftoken);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
                     // setIsAuth(true);
-                    navigate('/profile');
+                    // this.flash(response.data.message+', please wait...', 'success');
+                    setWaiting(true);
+                    let form = {
+                        from_name: 'samyak',
+                        to_name: data.first_name+' '+data.last_name,
+                        message: `Your OTP is ${response.data.otp}`,
+                        to_email: data.email
+                    }
+                    emailjs.send('service_a5xt44n', 'template_w7x148g', form, 'SRbHPun0G_wQLdZu_')
+                        .then((result) => {
+                            window.location.href = '/otp';
+                        }, (error) => {
+                            console.log(error.text);
+                            navigate('/profile');
+                        });
+                    // response.data.otp going to hold the otp, got it from server
+                    // we will send the otp to the user email
+                    // sending user to other page to enter otp
+
+                    // navigate('/profile');
                     
                 }
                 else {
+                    setWaiting(false);
                     this.flash(response.data.message, 'error');
                     this.register.disabled = false;
                     this.register.value = "Register";
                 }
             })
             .catch(error => {
+                setWaiting(false);
                 this.flash(error.message, 'error');
                 this.register.disabled = false;
                 this.register.value = "Register";

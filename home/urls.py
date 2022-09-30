@@ -1,6 +1,7 @@
 from django import views
 from django.contrib import admin
 from django.urls import path
+
 from . import views
 from . import joinview
 
@@ -12,6 +13,9 @@ urlpatterns = [
     path('logout', joinview.LogoutView.as_view(), name='logout'),
     path('update', joinview.UpdateView.as_view(), name='update'),
     path("profile", views.ProfileView.as_view(), name="profile"),
+    path("verify_otp", joinview.VerifyOTPView.as_view(), name="verify_otp"),
+    path("resend_otp", joinview.ResendOTPView.as_view(), name="resend_otp"),
+    path("email", joinview.EmailView.as_view(), name="email"),
     path("session", joinview.session_view, name="session"),
     path("csrf", joinview.get_csrf, name="csrf"),
     path("payment", views.PaymentView.as_view(), name="payment"),

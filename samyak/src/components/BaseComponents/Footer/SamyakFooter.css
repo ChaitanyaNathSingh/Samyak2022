@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 * {
@@ -8,23 +8,9 @@
   box-sizing: border-box;
 }
 
-/* body { */
-  /* font-family: com;
-  width: 100vw;
-  overflow-x: hidden;
-  background-color: white;
-  font-family: 'Dosis', sans-serif;
-  color: #252525;
-  overflow-x: hidden; */
-/* } */
-
 button {
   font-family: com;
 }
-/* 
-li {
-  list-style: none;
-} */
 
 a {
   text-decoration: none;
@@ -56,11 +42,6 @@ p {
       -ms-flex-pack: center;
           justify-content: center;
 }
-
-/* li {
-  list-style: none;
-} */
-
 .footer-effect {
   margin-bottom: -40px;
 }
@@ -344,4 +325,4 @@ p {
   .footer .footer-cont .copyright p {
     font-size: 14px;
   }
-}
+} */

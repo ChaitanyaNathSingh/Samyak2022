@@ -17,3 +17,9 @@ code {
   src: local("Montserrat"),
    url("./components/BaseComponents/assets/Mont-Bold.otf") format("truetype");
 }
+
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: local("Montserrat-Regular"),
+   url("./components/BaseComponents/assets/Mont-Regular.otf") format("truetype");
+}

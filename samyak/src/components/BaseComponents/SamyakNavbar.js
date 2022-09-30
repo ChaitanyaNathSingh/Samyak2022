@@ -152,7 +152,7 @@ const MobileNavElements = styled.section`
     right: 0;
     float: right;
     transition: all .3s ease-in-out;
-    z-index: 100;
+    z-index: 201;
     display: none;
     background-color: #fff;
     overflow: hidden;
@@ -231,17 +231,14 @@ const SamyakNavbar = (props) => {
     
     useEffect(() => {
         const menuBtn = document.querySelector('.menu-icon');
-        menuBtn.classList.remove('active');
-        let menuOpen = false;
+        // menuBtn.classList.remove('active');
         menuBtn.addEventListener('click', () => {
-            if(!menuOpen) {
+            if(!menuBtn.classList.contains('open')) {
                 menuBtn.classList.add('open');
                 handleMenuClick(true);
-                menuOpen = true;
             } else {
                 menuBtn.classList.remove('open');
                 handleMenuClick(false);
-                menuOpen = false;
             }
         });
     }, [])
@@ -300,6 +297,7 @@ const SamyakNavbar = (props) => {
                         <NavEle linkColor={navEleCol}><Link to='/gallery'>Gallery</Link></NavEle>
                         {/* <NavEle><Link to='/team'>Team</Link></NavEle> */}
                         <NavEle linkColor={navEleCol}><Link to='/sponsors'>Sponsors</Link></NavEle>
+                        <NavEle linkColor={navEleCol}><Link to='/about'>About</Link></NavEle>
                     </Navigation> : null }
                 </NavElements>
                 {!isAuth ?
@@ -329,6 +327,7 @@ const SamyakNavbar = (props) => {
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
                     {/* <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle> */}
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/about'>About</Link></MobileNavEle>
                     {!isAuth ?
                     <div>
                         <LoginButton onClick={redirect(navigate, 'login')}>LOGIN</LoginButton>

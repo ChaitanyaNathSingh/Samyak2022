@@ -10,6 +10,8 @@ class Profile(models.Model):
     branch = models.CharField(max_length=20)
     year_of_study = models.TextField(max_length=15, default=1)
     gender = models.CharField( max_length=6)
+    otp = models.CharField(max_length=5, default=00000)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

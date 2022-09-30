@@ -8,6 +8,7 @@ import image2 from './logos/REDBULL.jpg';
 // import image3 from './logos/KTM.png';
 // import image4 from './logos/NEXA.jpg';
 import wefelix from './logos/Wefelix.jpeg';
+import amaravati from './logos/AMARAVATI.jpg';
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 const SponsorsBackground = styled.div`
@@ -28,6 +29,10 @@ const OurSponsors = () => {
         {
             name: "Wefelix",
             src: wefelix,
+        },
+        {
+            name: "Amaravati Foundation",
+            src: amaravati,
         }
     ];
     return (

@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 import { SnackbarProvider } from "notistack";
 import './components/BaseComponents/assets/Mont-Bold.otf';
+import './components/BaseComponents/assets/Mont-Regular.otf';
+
+localStorage.setItem("isMobile", window.innerWidth <= 1150);
 
 ReactDOM.render(
   <React.StrictMode>

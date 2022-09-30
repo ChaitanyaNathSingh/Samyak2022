@@ -5,6 +5,7 @@ import styled from "styled-components";
 // import EventCard from "../Cards/EventCard";
 import NewEventCard from "../Cards/NewEventCard";
 import axiosInstance from "../../axios";
+import EventLoader from "./EventLoader";
 
 // import sdp2 from './sdp2.jpg';
 // import sdp4 from './sdp4.jpg';
@@ -41,6 +42,7 @@ const EventContainer = (props) => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
+  const [eventsLoaded, setEventsLoaded] = useState(false);
   useEffect(() => {
     // const flash = (message, variant) => {
     //   enqueueSnackbar(message, {
@@ -57,6 +59,7 @@ const EventContainer = (props) => {
       .get("events/")
       .then((response) => {
         setEvents(response.data);
+        setEventsLoaded(true);
         // let storage = JSON.parse(localStorage.getItem("user"));
         // if (props.isAuth) {
         //   axiosInstance
@@ -80,13 +83,17 @@ const EventContainer = (props) => {
   }, [setEvents, navigate, props, enqueueSnackbar]);
 
   return (
-    <EventWrapper>
-      <Events>
-        {events.map((event) =>
-            <NewEventCard key={event.name} event={event} isRegistered={false} />
-        )}
-      </Events>
-    </EventWrapper>
+    <>
+      {!eventsLoaded ? <EventLoader /> :
+        <EventWrapper>
+          <Events>
+            {events.map((event) =>
+                <NewEventCard key={event.name} event={event} isRegistered={false} />
+            )}
+          </Events>
+        </EventWrapper>
+      }
+    </>
   );
 };
 

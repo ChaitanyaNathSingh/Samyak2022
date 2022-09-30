@@ -26,6 +26,7 @@ const AbsoluteAlignment = styled.div`
   top: 100%;
   background-color: ${(props) => props.backgroundColor};
   background-image: linear-gradient(${(props) => props.backgroundColor}, rgb(21, 20, 20), rgb(21, 20, 20), rgb(21, 20, 20));
+  z-index: 100;
 `;
 
 const Home = (props) => {
@@ -36,7 +37,6 @@ const Home = (props) => {
   return (
     <ExtraOptions>
       {isMobile ? <HomePoster name={color.id === 0 ? "mobile1" : "mobile2"}/> : (color.primaryColor==='#cf9a2e' ? <NewEveningPoster /> : <NewHomePoster />)}
-      {/* <NewEveningPoster /> */}
       <AbsoluteAlignment backgroundColor={backgroundColor}>
         <CountDown />
         <SamyakEvents />
