@@ -210,7 +210,7 @@ class PaymentView(APIView):
         # #uname = request.user
         try:
             response = api.payment_request_create(
-                amount=10,
+                amount=480,
                 purpose='Samyak Registration Fee',
                 buyer_name=username,
                 email=email,
