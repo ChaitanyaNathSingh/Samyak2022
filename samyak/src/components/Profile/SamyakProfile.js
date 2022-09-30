@@ -247,7 +247,7 @@ const SamyakProfile = (props) => {
             <MailContainer>
                 <NavBarSpace />
                 <NavBarSpace />
-                {waiting ? <PleaseWaitPage message="Sending, Please Wait..." /> : null}
+                {waiting ? <PleaseWaitPage message="Sending an OTP, Please Wait..." /> : null}
                 <ProfileData>
                     <ProfileLeft>
                         <img src={samyakLogo} alt="" />
