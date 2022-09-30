@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from 'notistack';
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import ProfileButton from "../UI/ProfileButton";
+import axiosInstance from "../../axios";
+import emailjs from '@emailjs/browser';
+import PleaseWaitPage from "../Join/PleaseWaitPage";
 
 const MailContainer = styled.div`
     position: relative;
@@ -51,7 +56,8 @@ const ProfileLeft = styled.div`
     ul {
         margin: 3pc 0;
         opacity: 1;
-        animation: opacity 1s ease-out .9s forwards;    
+        animation: opacity 1s ease-out .9s forwards;  
+        padding: 0;  
     }
     li {
         list-style-type: none;
@@ -177,25 +183,71 @@ const PayButton = styled.a`
     font-weight: bold;
 `;
 
+const VerifyButton = styled.span`
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+`;
+
 const SamyakProfile = (props) => {
+    const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+    const [waiting, setWaiting] = useState(false);
     let paidStatus = props.user?props.user.payment?(props.user.payment.payment_status).toString():"false":"false";
     let [samyakLogo, setSamyakLogo] = useState(null);
     let username = 'NA', name = 'NA', payment_status = false;
-    if(props.user) {
+    let isVerified = false;
+    if(props.user!==[] && props.user!==null) {
         username = props.user.username;
         name = props.user.first_name+"%20"+props.user.last_name;
         payment_status = props.user.payment && props.user.payment.payment_status ? "PAID" : "NOT PAID";
+        isVerified = props.user.profile.is_verified;
     }
     useEffect(() => {
         setSamyakLogo('https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=Username%20:%20'+username+'%0AFull%20Name%20:%20'+name+'%0APayment%20Status%20:%20'+payment_status+'&choe=UTF-8');
     }, [setSamyakLogo, username, name, payment_status]);
 
-
+    let verified = <span style={{color: 'green', fontWeight: 'bold'}}>Verified</span>;
+    let notVerified = <span style={{color: 'red', fontWeight: 'bold'}}>Not Verified</span>;
+    const handleVerifyRequest = () => {
+        flash('Requesting...', 'info');
+        axiosInstance
+            .post('../home/resend_otp', {
+                username: props.user.username,
+            })
+            .then((res) => {
+                if(res.data.status) {
+                    setWaiting(true);
+                    let form = {
+                        from_name: 'samyak',
+                        to_name: props.user.first_name+' '+props.user.last_name,
+                        message: `Your OTP is ${res.data.otp}`,
+                        to_email: props.user.email
+                    }
+                    emailjs.send('service_a5xt44n', 'template_w7x148g', form, 'SRbHPun0G_wQLdZu_')
+                        .then((result) => {
+                            window.location.href = '/otp';
+                        }, (error) => {
+                            console.log(error.text);
+                            navigate('/profile');
+                        });
+                }   
+                else {
+                    flash('Error', 'error');
+                    setWaiting(false);
+                }
+            })
+    };
+    const flash = (message, messageVariant) => {
+        enqueueSnackbar(message, { variant: messageVariant, autoHideDuration: 3000 });
+    };
     return  (
         <>
             <MailContainer>
                 <NavBarSpace />
                 <NavBarSpace />
+                {waiting ? <PleaseWaitPage message="Sending, Please Wait..." /> : null}
                 <ProfileData>
                     <ProfileLeft>
                         <img src={samyakLogo} alt="" />
@@ -213,14 +265,14 @@ const SamyakProfile = (props) => {
                         <ProfileAccount id="account">
                             <span>
                                 <p>FULL NAME :</p>
-                                <h2>{props.user.first_name?(props.user.first_name +' '+ props.user.last_name):'loading...'}</h2>
+                                <h2>{props.user?props.user.first_name?(props.user.first_name +' '+ props.user.last_name):'loading...':'loading...'}</h2>
                             </span>
                             <span>
                                 <p>ID NUMBER :</p>
                                 <h2>{props.user?props.user.username?props.user.username:'loading...':'loading...'}</h2>
                             </span>
                             <span>
-                                <p>EMAIL :</p>
+                                <p>EMAIL : {(isVerified) ? verified : notVerified} {!isVerified ? <VerifyButton onClick={handleVerifyRequest}>(Click to Verify)</VerifyButton> : null} </p>
                                 <h2>{props.user?props.user.email?props.user.email:'loading...':'loading...'}</h2>
                             </span>
                             <span>

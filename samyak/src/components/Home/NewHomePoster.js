@@ -3,7 +3,6 @@ import styled from 'styled-components';
 // import HomeEvents from './HomeEvents';
 import im2020 from './img/0202.png';
 import imlayer55 from './img/layer_55.png';
-// import CountDown from "./CountDown/CountDown";
 const Parallax = styled.div`
     background-color: #FEDCC8;
     perspective: 100px;
@@ -17,7 +16,6 @@ const Parallax = styled.div`
     bottom: 0;
     margin-left: -1500px;
     z-index: 2;
-
     // hide scroll bar
     &::-webkit-scrollbar {
         display: none;
@@ -33,7 +31,6 @@ const ParallaxLayer = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-
     img {
         display: block;
         position: absolute;
@@ -77,7 +74,7 @@ const ParallaxCover = styled.div`
     background: #2D112B;
     display: block;
     position: absolute;
-    width: 100%;
+    width: 3000px;
     top: 100%;
     left: 0;
     right: 0;
@@ -85,7 +82,7 @@ const ParallaxCover = styled.div`
     z-index: 2;
 `;
 
-function Home() {
+function Home(props) {
     return (
         <section>
         <Parallax>
@@ -112,10 +109,10 @@ function Home() {
             </ParallaxLayer5>
             <ParallaxLayer6>
                 <img src="https://github.com/samdbeckham/blog/blob/master/dev/_assets/images/articles/firewatch/layer_6.png?raw=true" alt='img'/>
-            </ParallaxLayer6>
             <ParallaxCover>
-                {/* <CountDown /> */}
             </ParallaxCover>
+            </ParallaxLayer6>
+
             {/* <HomeEvents /> */}
         </Parallax>
         {/* <EmptySpace></EmptySpace> */}

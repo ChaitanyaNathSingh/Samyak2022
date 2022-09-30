@@ -42,7 +42,7 @@ class ProfileResource(resources.ModelResource):
 
 class ProfileAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = ProfileResource
-    list_display = ('user', 'first_name', 'last_name', 'email', 'phone', 'branch', 'year_of_study', 'college_name', 'gender')
+    list_display = ('user', 'first_name', 'last_name', 'email', 'phone', 'branch', 'year_of_study', 'college_name', 'gender', 'is_verified')
     list_filter = ('branch', 'gender', 'year_of_study')
     search_fields = ['user__username', 'user__email', 'user__first_name', 'user__last_name', 'user__profile__phone']
     ordering = ['user__username', 'branch', 'year_of_study', 'college_name', 'gender']

@@ -16,7 +16,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Profile, Event, Payment, Team
 
 import requests
-import json
+import random
 
 class LoginView(APIView):
     def get(self, request):
@@ -36,6 +36,7 @@ class LoginView(APIView):
         if status:
             print("Logging in")
             u = User.objects.filter(username=username)[0]
+            p = Profile.objects.filter(user = u)[0]
             result = requests.post(url+"/../../api/token", data={'username': username, 'password': password})
             result = result.json()
             userobj ={ 
@@ -51,7 +52,9 @@ class LoginView(APIView):
                             'user_id': u.id,
                             'username': u.username,
                             'user_email': u.email,
-                            'isAuth': True
+                            'user_phone': p.phone,
+                            'isAuth': True,
+                            'isVerified': p.is_verified
                         }
                     }
                 ]
@@ -70,6 +73,8 @@ class RegisterView(APIView):
         print(request.data)
         url = request.build_absolute_uri()
         displayData = request.data
+        # random 5 digit number
+        otp = random.randint(10000, 99999)
         print("IN CREATE")
         if User.objects.filter(username=displayData['username']).exists():
             return Response({"status": False, "message": "Username Already Exists.!"})
@@ -79,8 +84,8 @@ class RegisterView(APIView):
             return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
-            Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch'],
-            phone=displayData['phone'], year_of_study=displayData['year'], gender=displayData['gender'])
+            p = Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch'],
+            phone=displayData['phone'], year_of_study=displayData['year'], gender=displayData['gender'], otp=otp, is_verified=False)
             result = requests.post(url+"/../../api/token", data={'username': displayData['username'], 'password': displayData['password']})
             result = result.json()
             userobj ={ 
@@ -96,12 +101,14 @@ class RegisterView(APIView):
                         'user_id': u.id,
                         'username': u.username,
                         'user_email': u.email,
-                        'isAuth': True
+                        'user_phone': p.phone,
+                        'isAuth': True,
+                        'isVerified': False
                         }
                     }
                 ]
             }
-            return Response({"status": True, "message": "Login Successful!!", "csrftoken": get_token(request), "user": userobj})
+            return Response({"status": True, "message": "Login Successful!!", "user": userobj, "otp": otp})
 
 class LogoutView(APIView):
     # authentication_classes = [SessionAuthentication]
@@ -114,6 +121,46 @@ class LogoutView(APIView):
             logout(request)
             return Response({"status": True, "message": "Logged Out Successfully.!"})
         return Response({"status": False, "message": "Not Logged In.!"})
+
+
+class EmailView(APIView):
+    def get(self, request):
+        print("email get", request.query_params)
+        return Response({"status": True, "message": "GET, World!"})
+    def post(self, request):
+        print("email post", request.data)
+        data = {
+            'service_id': 'service_a5xt44n',
+            'template_id': 'template_w7x148g',
+            'user_id': 'SRbHPun0G_wQLdZu_',
+        }
+        result = requests.post('https://api.emailjs.com/api/v1.0/email/send', json=data)
+        print(result)
+        return Response({"status": True, "message": "POST, World!"})
+
+
+class VerifyOTPView(APIView):
+    def post(self, request):
+        print(request.data)
+        username = request.data.get('username')
+        userObj = User.objects.get(username=username)
+        profileObj = Profile.objects.get(user=userObj)
+        if profileObj.otp == request.data.get('otp'):
+            profileObj.is_verified = True
+            profileObj.save()
+            return Response({"status": True, "message": "OTP Verified.!"})
+        return Response({"status": False, "message": "Invalid OTP.!"})
+
+class ResendOTPView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        userObj = User.objects.get(username=username)
+        profileObj = Profile.objects.get(user=userObj)
+        # random 5 digit number
+        otp = random.randint(10000, 99999)
+        profileObj.otp = otp
+        profileObj.save()
+        return Response({"status": True, "message": "OTP Sent.!", "otp": otp})
 
 class UpdateView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -132,6 +179,7 @@ class UpdateView(APIView):
         userObj.first_name = request.data.get('first_name')
         userObj.last_name = request.data.get('last_name')
         userObj.email = request.data.get('email')
+        profileObj.phone = request.data.get('phone')
         profileObj.year_of_study = request.data.get('year')
         profileObj.college_name = request.data.get('college')
         profileObj.branch = request.data.get('branch')

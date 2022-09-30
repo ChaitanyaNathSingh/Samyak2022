@@ -164,7 +164,7 @@ class PaymentTempSerializers(serializers.ModelSerializer):
 class ProfileTempSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['phone','branch','year_of_study','gender','college_name']
+        fields = ['phone','branch','year_of_study','gender','college_name','is_verified']
 class UserDetailsSerializer(serializers.ModelSerializer):
     profile = ProfileTempSerializers()
     payment = PaymentTempSerializers()
@@ -182,6 +182,7 @@ class ProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserDetailsSerializer
     def get_queryset(self):
+        # print(self.request.user)
         return User.objects.filter(username=self.request.user)
 
 class PaymentView(APIView):
@@ -198,10 +199,10 @@ class PaymentView(APIView):
         print("CONFIGURING PAYMENTS")
         username = request.data['username']
         email = request.data['email']
-        # phone = request.data['phone']
+        phone = request.data['phone']
         user = User.objects.get(username=username)
         print(user)
-        #phone = request.data.phone
+        # phone = request.data.phone
         payment_obj, _ = Payment.objects.get_or_create(
             user=user,
             payment_status=False
@@ -209,11 +210,11 @@ class PaymentView(APIView):
         # #uname = request.user
         try:
             response = api.payment_request_create(
-                amount=480,
+                amount=10,
                 purpose='Samyak Registration Fee',
                 buyer_name=username,
                 email=email,
-                # phone=phone,
+                phone=phone,
                 redirect_url='https://klsamyakbackend.in/home/paymentsuccess'
             )
             print(response)
@@ -224,16 +225,15 @@ class PaymentView(APIView):
                 print(response['payment_request']['longurl'])
                 return Response(response['payment_request']['longurl'])
             else:
-                return Response(False)
+                return Response("ERROR")
 
         except Exception as e:
             print("ERROR RESPOONSE")
-            return Response({"status": False})
+            return Response("ERROR")
 
     
 class PaymentSuccessView(APIView):
     def get(self, request):
-        print()
         payment_request_id = request.GET.get('payment_request_id')
         payment_id = request.GET.get('payment_id')
         response = api.payment_request_payment_status(
@@ -241,25 +241,30 @@ class PaymentSuccessView(APIView):
             payment_id=payment_id,
         )
         # print(payment_request_id, payment_id)
-        print(response)
+        # print(response)
         username = response['payment_request']['buyer_name']   # username
+        u = User.objects.get(username=username)
         stats = response['payment_request']['payment']['status']
-        print(stats)
+        # print(stats)
         if stats != "Failed":
-            payment_obj = Payment.objects.get(receipt_id=payment_request_id)
-            payment_obj.payment_status = True
-            payment_obj.mojo_id = response['payment_request']['payment']['payment_id']
-            payment_obj.save()
-            p = Profile.objects.get(user=User.objects.get(username=username))
-            p.is_paid = True
-            p.save()
-            # return Response({"status" : True})
-            return HttpResponseRedirect("http://klsamyak.in/profile")
+            payment_obj = Payment.objects.get(user=u)
+            # if payment obj is not null
+            if payment_obj is not None:
+                payment_obj.payment_status = True
+                payment_obj.mojo_id = response['payment_request']['payment']['payment_id']
+                payment_obj.save()
+                p = Profile.objects.get(user=u)
+                p.is_paid = True
+                p.save()
+                # return Response({"status" : True})
+                return HttpResponseRedirect("https://klsamyak.in/profile")
+            else:
+                HttpResponseRedirect("https://klsamyak.in/login")
         else:
-            return Response({"status" : 'FAILED'})
+            print("PAYMENT FAILED")
+            return HttpResponseRedirect("https://klsamyak.in/profile")
     
-    def post(self, request):
-        print("IN POST ReQUUEST")
+    def post(self):
         return Response({'status': 'post request'})
 
 

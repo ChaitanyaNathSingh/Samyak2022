@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import BaseDropDown from "../UI/BaseDropDown";
 import BaseInput from "../UI/BaseInput";
@@ -5,9 +6,12 @@ import { FormContainer, SubmitButton } from "./JoinInterface";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 import Validations from "../../Utils/Validations";
+import PleaseWaitPage from "./PleaseWaitPage";
 
 
 const UserRegister = () => {
+    const [enterCollegeName, setEnterCollegeName] = useState(null);
+    const [waiting, setWaiting] = useState(false);
     let genderData = ['Select Gender', 'Male', 'Female', 'Others']
     let yearData = ['Select Year', '1st', '2nd', '3rd', '4th', 'Faculty', 'Alumni', 'Others']
     let departmentData = ['Select Department', 'FED', 'CSE', 'CS&IT', 'AI&DS', 'ECE', 'EEE', 'ECM', 'ME', 'CE', 'BT', 'BBA', 'MBA', 'B.COM','M.Sc. Chemistry', 'M.COM', 'BA-IAS', 'LLB', 'BFA', 'MCA', 'BCA', 'B.SC.VC','ARCHITECTURE', 'BHM', 'AGRICULTURE', 'B.PHARM', 'M.PHARM', 'PHARMA D', 'Others']
@@ -24,6 +28,16 @@ const UserRegister = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
+
+    const collegeChangeHandler = (event) => {
+        let enteredValue = event.target.value;
+        console.log(enteredValue);
+        if(enteredValue === 'Others') {
+          setEnterCollegeName(<BaseInput type="text" name="other_college" placeholder="Enter College Name"/>)
+        } else {
+          setEnterCollegeName(null);
+        }
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         let register = document.getElementById("register");
@@ -45,7 +59,7 @@ const UserRegister = () => {
         let validations = new Validations(flash);
         if(validations.clientValidations(data)) {
             register.value = "Registering...";
-            validations.serverValidations(data, navigate);
+            validations.serverValidations(data, navigate, setWaiting);
         }
     }
 
@@ -55,20 +69,24 @@ const UserRegister = () => {
         enqueueSnackbar(message, { variant: messageVariant, autoHideDuration: 3000 });
     };
     return (
+        <>
+        {waiting ? <PleaseWaitPage /> : null }
         <FormContainer onSubmit={handleSubmit}>
             <BaseInput label="ID Number" name="username" type="text" id="username" icon={icons.id}/>
             <BaseInput label="First Name" type="text" name="first_name" id="first_name" icon={icons.name}/>
             <BaseInput label="Last Name" type="text" name="last_name" id="last_name" icon={icons.name}/>
-            <BaseInput label="Email" name="email" type="email" id="email" icon={icons.email}/>
+            <BaseInput label="Email" name="email" type="email" id="email" placeholder="Email (Use Personal Gmail)" icon={icons.email}/>
             <BaseInput label="Password" name="password" type="password" id="password" icon={icons.lock}/>
-            <BaseInput label="Phone Number" name="phone" type="text" id="phone" icon={icons.phone}/>
+            <BaseInput label="Phone Number" name="phone" type="text" id="phone" placeholder="Phone Number (without country code)" icon={icons.phone}/>
             <BaseDropDown label="Gender" name="gender" type="text" id="gender" options={genderData}/>
-            <BaseDropDown label="College" name="college" type="text" id="college" options={collegeData}/>
+            <BaseDropDown label="College" onChange={collegeChangeHandler} name="college" type="text" id="college" options={collegeData}/>
+            {enterCollegeName}
             <BaseDropDown label="Year" name="year" type="text" id="year" options={yearData}/>
             <BaseDropDown label="Department" name="department" type="text" id="department" options={departmentData}/>
             <SubmitButton type="submit" name="submit" id="register" value="Register" />
             <p>Already have an account? <Link to={'/login'}>Sign In</Link></p>
         </FormContainer>
+        </>
     )
 }
 
