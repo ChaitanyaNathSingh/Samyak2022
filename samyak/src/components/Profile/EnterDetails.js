@@ -146,6 +146,7 @@ const EnterDetails = (props) => {
         data.username = props.username;
         data.first_name = event.target.first_name.value.trim();
         data.last_name = event.target.last_name.value.trim();
+        if(!isVerified)
         data.email = event.target.email.value.trim();
         data.phone = event.target.phone.value.trim();
         data.year = event.target.year.value.trim();
@@ -166,6 +167,10 @@ const EnterDetails = (props) => {
             )
                 .then((response) => {
                     if(response.data.status) {
+                        let myuser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+                        myuser.user[1].details.user_email = data.email;
+                        myuser.user[1].details.user_phone = data.phone;
+                        localStorage.setItem('user', JSON.stringify(myuser));
                         flash(response.data.message, 'success');
                         props.toggleForm();
                     }  
