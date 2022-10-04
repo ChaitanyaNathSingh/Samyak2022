@@ -168,6 +168,7 @@ const EnterDetails = (props) => {
                 .then((response) => {
                     if(response.data.status) {
                         let myuser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+                        if(!isVerified)
                         myuser.user[1].details.user_email = data.email;
                         myuser.user[1].details.user_phone = data.phone;
                         localStorage.setItem('user', JSON.stringify(myuser));

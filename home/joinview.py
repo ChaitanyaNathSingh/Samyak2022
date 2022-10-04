@@ -185,10 +185,10 @@ class UpdateView(APIView):
         # print(request.data)
         username = request.data.get('username')
         userObj = User.objects.get(username=username)
-        # check if user with this email exist or not
-        if Profile.objects.filter(user__email=request.data.get('email'), is_verified=True).exclude(id=userObj.id).exists():
-            return Response({"status": False, "message": "Account with that email already exists.!"})
         profileObj = Profile.objects.get(user=userObj)
+        # check if user with this email exist or not
+        if not profileObj.is_verified and Profile.objects.filter(user__email=request.data.get('email'), is_verified=True).exclude(id=userObj.id).exists():
+            return Response({"status": False, "message": "Account with that email already exists.!"})
         userObj.first_name = request.data.get('first_name')
         userObj.last_name = request.data.get('last_name')
         if not profileObj.is_verified:
