@@ -1,3 +1,4 @@
+import re
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -65,20 +66,32 @@ class LoginView(APIView):
             return Response({"status": False, "message": "Invalid Credentials.!"})
 
 class RegisterView(APIView):
-    def get(self, request):
-        print("register get", request.query_params)
+    def check_email_client_validity(self, email):
+        if len(email) > 7:
+            if re.match("^.+@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$", email) != None:
+                return True
+        return False
+    def check_email_server_validity(self, email):
+        return Profile.objects.filter(user__email=email, is_verified=True).exists()
+
+
+    def get(self):
+        # print("register get", request.query_params)
         return Response({"status": True, "message": "GET, World!"})
     
     def post(self, request):
         print(request.data)
         url = request.build_absolute_uri()
         displayData = request.data
+        isEmailClientValid = self.check_email_client_validity(displayData['email'])
+        isVerifiedEmailExist = self.check_email_server_validity(displayData['email'])
         # random 5 digit number
         otp = random.randint(10000, 99999)
-        print("IN CREATE")
         if User.objects.filter(username=displayData['username']).exists():
             return Response({"status": False, "message": "Username Already Exists.!"})
-        elif User.objects.filter(email=displayData['email']).exists():
+        elif not isEmailClientValid:
+            return Response({"status": False, "message": "Invalid Email.!"})
+        elif isVerifiedEmailExist:
             return Response({"status": False, "message": "Email Already Exists.!"})
         elif Profile.objects.filter(phone=displayData['phone']).exists():
             return Response({"status": False, "message": "Phone Number Already Exists.!"})
@@ -165,20 +178,21 @@ class ResendOTPView(APIView):
 class UpdateView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request):
-        print("update get", request.query_params)
+        # print("update get", request.query_params)
         return Response({"status": True, "message": "GET, World!"})
     
     def post(self, request):
-        print(request.data)
+        # print(request.data)
         username = request.data.get('username')
         userObj = User.objects.get(username=username)
         # check if user with this email exist or not
-        if User.objects.filter(email=request.data.get('email')).exclude(id=userObj.id).exists():
+        if Profile.objects.filter(user__email=request.data.get('email'), is_verified=True).exclude(id=userObj.id).exists():
             return Response({"status": False, "message": "Account with that email already exists.!"})
         profileObj = Profile.objects.get(user=userObj)
         userObj.first_name = request.data.get('first_name')
         userObj.last_name = request.data.get('last_name')
-        userObj.email = request.data.get('email')
+        if not profileObj.is_verified:
+            userObj.email = request.data.get('email')
         profileObj.phone = request.data.get('phone')
         profileObj.year_of_study = request.data.get('year')
         profileObj.college_name = request.data.get('college')
