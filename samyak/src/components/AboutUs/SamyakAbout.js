@@ -259,7 +259,7 @@ const SamyakAbout = () => {
                                 </span>
                                 <span class="col-50">
                                     <h3>When</h3>
-                                    <p>Oct 17, 2022</p>
+                                    <p>Oct 20, 2022</p>
                                 </span>
                             </AboutLocation><br></br>
                             <HomeNavigateButton route="/register">REGISTER</HomeNavigateButton>

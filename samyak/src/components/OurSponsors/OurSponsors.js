@@ -4,7 +4,7 @@ import SponsorLogos from "./SponsorLogos";
 import styled from "styled-components";
 
 import image1 from './logos/BMW.jfif';
-import image2 from './logos/REDBULL.jpg';
+// import image2 from './logos/REDBULL.jpg';
 // import image3 from './logos/KTM.png';
 // import image4 from './logos/NEXA.jpg';
 import wefelix from './logos/Wefelix.jpeg';
@@ -21,10 +21,6 @@ const OurSponsors = () => {
         {
             name: "BMW MOTORRAD",
             src: image1,
-        }, 
-        {
-            name: "REDBULL",
-            src: image2,
         }, 
         {
             name: "Wefelix",

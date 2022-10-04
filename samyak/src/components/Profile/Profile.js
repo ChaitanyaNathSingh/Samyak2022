@@ -44,7 +44,6 @@ const Profile = (props) => {
           },
         })
         .then((response) => {
-          console.log(response.data);
           let mainData = response.data[0];
           let userobj = { 
             'user': [
