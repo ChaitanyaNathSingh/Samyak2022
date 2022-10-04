@@ -4,6 +4,7 @@ import EventContainer from "./EventContainer";
 import React from "react";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
+import EventFilters from "./EventFilters";
 
 class Events extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class Events extends React.Component {
     render() {
         return (
             <>
+                <EventFilters />
                 <div className="events" style={{'backgroundColor': 'rgb(40, 40, 43)'}}>
                     <NavBarSpace />
                     {/* <NavBarSpace /> */}

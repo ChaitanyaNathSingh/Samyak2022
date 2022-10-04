@@ -15,7 +15,7 @@ const CountDown = () => {
     let mm = String(today.getMonth() + 1).padStart(2, "0");
     let yyyy = today.getFullYear();
     let nextYear = yyyy + 1;
-    let dayMonth = "10/17/";
+    let dayMonth = "10/20/";
     let birthday = dayMonth + yyyy;
     
     today = mm + "/" + dd + "/" + yyyy;
@@ -28,10 +28,15 @@ const CountDown = () => {
     let x = setInterval(() => {
         const now = new Date().getTime();
         let distance = countDown - now;
-        document.getElementById("countdown__days").innerText = Math.floor(distance / day);
-        document.getElementById("countdown__hours").innerText = Math.floor((distance % day) / hour);
-        document.getElementById("countdown__minutes").innerText = Math.floor((distance % hour) / minute);
-        document.getElementById("countdown__seconds").innerText = Math.floor((distance % minute) / second);
+        let days, hours, minutes, seconds;
+        days = document.getElementById("countdown__days");
+        hours = document.getElementById("countdown__hours");
+        minutes = document.getElementById("countdown__minutes");
+        seconds = document.getElementById("countdown__seconds");
+        if(days) days.innerText = Math.floor(distance / day)
+        if(hours) hours.innerText = Math.floor((distance % day) / hour)
+        if(minutes) minutes.innerText = Math.floor((distance % hour) / minute)
+        if(seconds) seconds.innerText = Math.floor((distance % minute) / second)
 
         if(distance < 0) {
             document.getElementById("countdown__headline").innerText = "It's my birthday!";
