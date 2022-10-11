@@ -13,6 +13,7 @@ const HomeEventsBox = styled.div`
   border: 2px solid #ffcd6a;
   background: rgb(0, 0, 0,.1);
   backdrop-filter: blur(2px);
+  margin-bottom: 35px;
   img {
     width: 100%;
     height: 100%;
@@ -87,10 +88,12 @@ const ImageHolder = styled.div`
 `;
 
 const NewEventCard = (props) => {
-  const loadHandler = () => {
+  const loadHandler = (event) => {
     console.log("Image loaded");
-    let loader = document.querySelector(".event__loader");
-    loader.style.display = "none";
+    let parent = event.target.parentElement;
+    let loaderTag = parent.children[1];
+    // let loader = document.querySelector(".event__loader");
+    loaderTag.style.display = "none";
   }
   return(
     <HomeEventsBox data-aos="zoom-out" data-aos-duration="500">

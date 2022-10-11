@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import imgs from "./img1.jpg";
+// import teamData from "./TeamData";
 const TeamSection = styled.div`
     background-color:black;
 	min-height: 100vh;
