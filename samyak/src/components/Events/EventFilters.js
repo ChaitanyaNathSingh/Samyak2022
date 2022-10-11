@@ -11,6 +11,7 @@ const ContainerLeft = styled.div`
     left: 3%;
     transform: translate(-50%, 50%) rotate(90deg);
     width: 80vh;
+    z-index: 100;
 `;
 const ContainerRight = styled.div`
     position: absolute;
@@ -19,6 +20,7 @@ const ContainerRight = styled.div`
     left: 97%;
     transform: translate(-50%, 50%) rotate(90deg);
     width: 80vh;
+    z-index: 100;
 `;
 
 const Slider = styled.div`
@@ -69,45 +71,59 @@ const EventTypeContent = styled.div`
 `;
 
 
-const EventFilters = () => {
+const EventFilters = (props) => {
     const allBranches = createRef(null);
     const branchInput = createRef(null);
     const allEventTypes = createRef(null);
     const eventTypeInput = createRef(null);
     useEffect(() => {
+        let departmentName, eventTypeName;
         let branches = allBranches.current.childNodes;
-        branches[0].style.opacity = 1;
+        let eventTypes = allEventTypes.current.childNodes;
+        departmentName = branches[parseInt(branchInput.current.value)-1].innerHTML;
+        eventTypeName = eventTypes[parseInt(eventTypeInput.current.value)-1].innerHTML;
+        if(branchInput.current.value === "1") {
+            branches[0].style.opacity = 1;
+        }
         branchInput.current.addEventListener('change', () => {
-            for(let i=0;i<branches.length;i++) {
-                if(branchInput.current.value === (i+1).toString()) {
-                    branches[i].style.opacity = 1;
+            if(branchInput.current) {props.allEvents.filter(event => event.department === branches[parseInt(branchInput.current.value)-1].innerHTML);
+                departmentName = branches[parseInt(branchInput.current.value)-1].innerHTML;
+                for(let i=0;i<branches.length;i++) {
+                    if(branchInput.current.value === (i+1).toString()) {
+                        branches[i].style.opacity = 1;
+                    }
+                    else {
+                        branches[i].style.opacity = 0.3;
+                    }
                 }
-                else {
-                    branches[i].style.opacity = 0.3;
-                }
+                props.setEvents(departmentName, eventTypeName);
             }
         })
 
 
-        let eventTypes = allEventTypes.current.childNodes;
-        eventTypes[0].style.opacity = 1;
+        if(eventTypeInput.current.value === "1") 
+            eventTypes[0].style.opacity = 1;
         eventTypeInput.current.addEventListener('change', () => {
-            for(let i=0;i<eventTypes.length;i++) {
-                if(eventTypeInput.current.value === (i+1).toString()) {
-                    eventTypes[i].style.opacity = 1;
+            if(eventTypeInput.current) {
+                eventTypeName = eventTypes[parseInt(eventTypeInput.current.value)-1].innerHTML;
+                for(let i=0;i<eventTypes.length;i++) {
+                    if(eventTypeInput.current.value === (i+1).toString()) {
+                        eventTypes[i].style.opacity = 1;
+                    }
+                    else {
+                        eventTypes[i].style.opacity = 0.3;
+                    }
                 }
-                else {
-                    eventTypes[i].style.opacity = 0.3;
-                }
+                props.setEvents(departmentName, eventTypeName);
             }
         });
-    }, [allBranches, branchInput, allEventTypes, eventTypeInput]);
+    }, [allBranches, branchInput, allEventTypes, eventTypeInput, props]);
     return (
         <>
             <ContainerLeft>
                 <Slider>
                     <BranchesContent ref={allBranches}>
-                        <div id="branch1">ALL</div>
+                        <div id="branch1">All</div>
                         <div id="branch2">CSE</div>
                         <div id="branch3">ECE</div>
                         <div id="branch4">EEE</div>
@@ -133,13 +149,14 @@ const EventFilters = () => {
 
 
             <ContainerRight>
-                <RangeInput ref={eventTypeInput} type="range" min="1" max="4" defaultValue={1} className="myRange"/>
+                <RangeInput ref={eventTypeInput} type="range" min="1" max="5" defaultValue={1} className="myRange"/>
                 <Slider>
                     <EventTypeContent ref={allEventTypes}>
-                        <div id="event-type1">Technical</div>
-                        <div id="event-type2">NonTechnical</div>
-                        <div id="event-type3">Literary</div>
-                        <div id="event-type4">Spot</div>
+                        <div id="event-type1">All</div>
+                        <div id="event-type2">Technical</div>
+                        <div id="event-type3">NonTechnical</div>
+                        <div id="event-type4">Literary</div>
+                        <div id="event-type5">Spot</div>
                     </EventTypeContent>
                 </Slider>
             </ContainerRight>
