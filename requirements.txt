@@ -1,0 +1,8 @@
+django
+mysqlclient==2.1.0
+djangorestframework
+django-cors-headers
+django-import-export
+djangorestframework-simplejwt
+Pillow
+instamojo-wrapper

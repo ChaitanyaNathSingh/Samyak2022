@@ -1,0 +1,255 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="refresh" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'admin.css' %}" rel="stylesheet">
+</head>
+
+<body style="font-family: sans-serif;">
+    <nav class="horizontal-nav">
+        <a href="#" id="nav-toggle-btn">
+            <svg width="30" height="30">
+                    <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+                    <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+                    <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+                </svg>
+        </a>
+        <a href="#">
+            <h2 style="float:right;margin-right: 20px;color:aliceblue;text-shadow: #757575;">
+                Admin Dashboard
+                </h2</a>
+    </nav>
+    <div id="sidenav">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <ul class="side-nav-items">
+            <li class="side-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="side-item">
+                <a href="#">Admin Dashboard</a>
+            </li>
+            <li class="side-item">
+                <a href="#">Home</a>
+            </li>
+            <li class="side-item">
+                <a href="#">Profile</a>
+            </li>
+            <li class="side-item">
+                <a href="{% url 'admin:logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    <div id="main" style="margin-left: 15px;margin-right:10px;margin-top: 80px;color:aliceblue">
+        <h1 style="color:white;text-align:center;">Total Overview</h1>
+        <hr style="width:50%;border-top: 3px dashed yellow;">
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <h3>
+                        Total Users &nbsp;&nbsp;
+                        <i style="color: rgb(223, 18, 18);font-size:35px;" class="fa fa-users"></i>
+                    </h3>
+                    <p>{{ user_count }}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <h3>
+                        Total Payments &nbsp;&nbsp;
+                        <i style="color: rgb(231, 247, 10);font-size:35px;" class="fa fa-thumbs-up"></i>
+                    </h3>
+                    <p>{{ payment_count }}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <h3>
+                        Amount &nbsp;&nbsp;
+                        <i style="color: rgb(18, 223, 52);font-size:35px;" class="fa fa-money"></i>
+                    </h3>
+                    <p>{{ total_amount }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h1 style="color:white;text-align:center;">Department Wise Overview</h1>
+            <div class="column1">
+                <div class="card">
+                    <h3>CSE Payments</h3>
+                    <p>{{ CSE }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BT Payments</h3>
+                    <p>{{ BT }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>ECM Payments</h3>
+                    <p>{{ ECM }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>EEE Payments</h3>
+                    <p>{{ EEE }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>ME Payments</h3>
+                    <p>{{ ME }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>AI&DS Payments</h3>
+                    <p>{{ AIDS }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>CS&IT Payments</h3>
+                    <p>{{ CSIT }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>LLB Payments</h3>
+                    <p>{{ LLB }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BBA Payments</h3>
+                    <p>{{ BBA }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>MBA Payments</h3>
+                    <p>{{ MBA }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>ECE Payments</h3>
+                    <p>{{ ECE }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>CE Payments</h3>
+                    <p>{{ CE }}</p>
+                </div>
+            </div>
+
+            <div class="column1">
+                <div class="card">
+                    <h3>B.Com. Payments</h3>
+                    <p>{{ BCom }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BA-IAS Payments</h3>
+                    <p>{{ BAIAS }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BFA Payments</h3>
+                    <p>{{ BFA }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>Architecture Payments</h3>
+                    <p>{{ Arch }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BHM Payments</h3>
+                    <p>{{ BHM }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>Agriculture Payments</h3>
+                    <p>{{ Agri }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>FED Payments</h3>
+                    <p>{{ FED }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>BCA Payments</h3>
+                    <p>{{ BCA }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>B.Sc. VC Payments</h3>
+                    <p>{{ BSCVC }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>M.Com. Payments</h3>
+                    <p>{{ MCom }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>B.Pharam Payments</h3>
+                    <p>{{ BPharam }}</p>
+                </div>
+            </div>
+            <div class="column1">
+                <div class="card">
+                    <h3>M.Pharam Payments</h3>
+                    <p>{{ MPharam }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function removeScrollBarPushing() {
+            const offsetY = document.documentElement.scrollTop;
+            let i = 0;
+            const time = setInterval(function() {
+                if (i++ < 2) {
+                    clearInterval(time);
+                }
+                document.documentElement.scrollTop = offsetY;
+            }, 1);
+        }
+
+        // open sidenav
+        document.getElementById('nav-toggle-btn').addEventListener('click', function() {
+
+            document.getElementById('sidenav').classList.add('show');
+
+            removeScrollBarPushing();
+            document.getElementById("main").style.marginLeft = "18%";
+        });
+        // close sidenav
+        document.querySelector('#sidenav .closebtn').addEventListener('click', function() {
+
+            document.getElementById('sidenav').classList.remove('show');
+            document.getElementById("main").style.marginLeft = "15px";
+        });
+    </script>
+</body>
+
+</html>

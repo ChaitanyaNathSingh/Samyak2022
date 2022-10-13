@@ -1,0 +1,247 @@
+.ourteam-chief {
+    position: relative;
+    top: 20vh;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: ourteam 1s linear;
+}
+.ourteam-chief-only {
+    width: 480px;
+    height: 500px;
+    margin: auto;
+    border-radius: 10px;
+    transition: .5s;
+    /* border: 3px solid rgb(233, 225, 225); */
+    box-shadow: 0 4px 8px 0 rgb(245, 242, 242), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.ourteam-chief-card {
+    width: 300px;
+    height: 480px;
+    margin: auto;
+    margin-top: 11vh;
+    margin-left: 12vh;
+    border-radius: 10px;
+    transition: .5s;
+    /* border: 3px solid rgb(255, 80, 80); */
+    box-shadow: 0 4px 8px 0 rgb(252, 250, 250), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.ourteam-chief-card:hover,.ourteam-chief-only:hover {
+    transform: translateY(-1.5vh);
+}
+.ourteam-chief-card img,.ourteam-chief-only img {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.ourteam-chief-icon {
+    position: relative;
+    top: -3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    size: 0vh;
+   
+}
+#chief {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-position: center;
+}
+.chief-info {
+    position: relative;
+    top: -15px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Poppins',sans-serif;
+}
+.chief-info h5 {
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.chief-info h4 {
+    font-weight: 450;
+    font-size: 20px;
+}
+.chief-info p {
+    font-weight: 400;
+    margin-top: 5px;
+}
+.chief-social {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 22px;
+    opacity: 0;
+    transition: .3s;
+}
+.chief-social a {
+    padding: 10px;
+}
+.chief-social a:hover {
+    transition: .3s;
+    transform: translateY(-10px);
+}
+.chief-social a i:hover {
+    color: red;
+}
+.ourteam-chief-card:hover .chief-social {
+    opacity: 1;
+}
+.ourteam-chief-only:hover .chief-social {
+    opacity: 1;
+}
+#hr-one {
+    position: relative;
+    top: 10vh;
+    width: 90%;
+    margin: auto;
+    opacity: .4;
+    animation: hr 1s linear;
+}
+.ourteam-members {
+    position: relative;
+    top: 10vh;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.ourteam-members-1 {
+    position: relative;
+    top: 5vh;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+#invisible {
+    visibility: hidden;
+}
+.ourteam-animated-count {
+    position: relative;
+    top: 20vh;
+    margin: auto;
+}
+
+
+@media print {
+    body {
+        visibility: hidden;
+    }
+   
+}
+@keyframes ourteam {
+    0% {
+        top: 500px;
+        opacity: 0;
+    }
+    100% {
+        top: 25vh;
+        opacity: 1;
+    }
+}
+@keyframes hr {
+    0% {
+        top: 500px;
+        opacity: 0;
+    }
+    100% {
+        top: 30vh;
+        opacity: 1;
+    }
+}
+@keyframes left {
+    0% {
+        left: -300px;
+        opacity: 0;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+@keyframes right {
+    0% {
+        right: -300px;
+        opacity: 0;
+    }
+    100% {
+        right: 0;
+        opacity: 1;
+    }
+}
+@keyframes update {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270px);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@media only screen and (max-width:923px) {
+    .for-logo {
+        width: 100%;
+    }
+    #two {
+        visibility: visible;
+    }
+   
+    @keyframes two {
+        0% {
+            top: -300px;
+            opacity: 0;
+        }
+        100% {
+            top: 0;
+            opacity: 1;
+        }
+    }
+    .ourteam-chief-card,.ourteam-chief-only {
+        width:300px;
+        height:480px;
+    }
+       
+    #invisible {
+        display: none;
+    }
+
+}
+@media only screen and (min-width:800px) and (max-width:1200px) {
+    .navigation-bar ul li {
+        margin: auto;
+    }
+}
