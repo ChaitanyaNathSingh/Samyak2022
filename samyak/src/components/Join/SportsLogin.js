@@ -6,7 +6,7 @@ import axiosInstance from "../../axios";
 
 import { FormContainer, SubmitButton } from "./JoinInterface";
 
-const UserLogin = () => {
+const SportsLogin = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -19,7 +19,7 @@ const UserLogin = () => {
     data.password = event.target.password.value.trim();
     login.value = "Checking...";
     axiosInstance
-      .post("../home/login", data)
+      .post("../home/sport-login", data)
       .then((response) => {
         if(response.data.status) {
           flash(response.data.message, "success");
@@ -117,14 +117,11 @@ const UserLogin = () => {
           Don't have an account? <Link to={"/register"}>Sign Up</Link>
         </p>
         <p>
-          Sports Login? <Link to={"/sports-login"}>Sport Login</Link>
-        </p>
-        <p>
-          Sports Register? <Link to={"/sports-register"}>Sport Register</Link>
+            Normal Login? <Link to={"/login"}>Sign In</Link>
         </p>
       </FormContainer>
     </>
   );
 };
 
-export default UserLogin;
+export default SportsLogin;

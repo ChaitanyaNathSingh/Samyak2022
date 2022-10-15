@@ -63,17 +63,17 @@ const Holder = styled.div`
     }
 `;
 
-const OtpPage = () => {
+const FacultyOtp = () => {
     const navigate = useNavigate();
 
-    let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
-    let username = null;
+    let myuser = localStorage.getItem("emp") ? localStorage.getItem("emp") : null;
+    let empid = null;
     if(isNaN(myuser) && myuser !== null && myuser !== undefined && myuser !== "null" && myuser !== "undefined") {
         myuser = JSON.parse(myuser);
-        username = myuser.user[1].details.username;
+        empid = myuser.emp[1].details.empid;
     }
     else {
-        window.location.href = "/login";
+        window.location.href = "/y21sdp1attendance";
     }
 
     const clickEvent = (first, last) => {
@@ -96,18 +96,18 @@ const OtpPage = () => {
         }
         else {
             // send otp to server and check
-            axiosInstance.post('../home/verify_otp', {
+            axiosInstance.post('../home/verify-faculty-otp', {
                     otp: value,
-                    username: username,
+                    empid: empid,
                     isSports: false
                 })
                 .then((res) => {
                     if(res.data.status) {
-                        let user = localStorage.getItem("user");
-                        user = JSON.parse(user);
-                        user.user[1].details.isVerified = true;
-                        localStorage.setItem("user", JSON.stringify(user));
-                        navigate('/profile');
+                        let emp = localStorage.getItem("emp");
+                        emp = JSON.parse(emp);
+                        emp.emp[1].details.isVerified = true;
+                        localStorage.setItem("emp", JSON.stringify(emp));
+                        navigate('/y21sdp1attendanceform');
                     }
                     else {
                         alert('You have entered wrong otp');
@@ -137,4 +137,4 @@ const OtpPage = () => {
     );
 }
 
-export default OtpPage;
+export default FacultyOtp;

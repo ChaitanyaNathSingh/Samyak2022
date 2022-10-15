@@ -23,6 +23,11 @@ class PaymentSerializers(serializers.ModelSerializer):
         model = Payment
         fields = '__all__'
 
+class SportPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['__all__']
+
 class TeamSerializers(serializers.ModelSerializer):
     class Meta:
         model = Team

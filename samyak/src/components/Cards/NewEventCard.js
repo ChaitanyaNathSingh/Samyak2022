@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 // import Edificio from '../Home/img/Events/EDIFICIO.png';
 
@@ -7,6 +6,7 @@ const HomeEventsBox = styled.div`
   padding: 20px;
   display: inline-block;
   min-height: 570px;
+  height: auto;
   border-radius: 3px;
   text-align: center;
   animation: border 3s linear infinite alternate;
@@ -27,11 +27,25 @@ const HomeEventsBox = styled.div`
     margin-top: 10px;
     letter-spacing: 1px;
   }
-  p {
+  .event__description {
     color: #fff;
     margin-top: 5px;
     line-height: 25px;
+    height: 100px;
+    overflow: auto;
+    position: relative;
   }
+  .event__description::-webkit-scrollbar {
+    width: 5px;
+    color: white;
+  }
+  .event__description::-webkit-scrollbar-thumb {
+    background: #ffcd6a;
+  }
+  .event__description::-webkit-scrollbar-track {
+    background: #333;
+  }
+
   a {
     position: relative;
     top: 15px;
@@ -43,6 +57,9 @@ const HomeEventsBox = styled.div`
     text-decoration: none;
     /* border: 2px solid #cf9a2e; */
     background: linear-gradient(to right,#ffca5f,#cf9a2e);
+
+    display: inline-block;
+    margin-bottom: 10px;
   }
   @media only screen and (max-width: 1024px) {
     width: 340px;
@@ -50,7 +67,7 @@ const HomeEventsBox = styled.div`
     h2 {
       font-size: 21px;
     }
-    p {
+    .event__description {
       font-size: 14px;
       line-height: 24px;
     }
@@ -102,10 +119,13 @@ const NewEventCard = (props) => {
           <span className='event__loader'>Loading...</span>
         </ImageHolder>
         <h2>{props.event.name}</h2>
-        <p>{props.event.description}</p>
+        <div className='event__description'>
+          <p>{props.event.description}</p>
+        </div>
         <a href="#0">Open</a>
     </HomeEventsBox>
   );
 }
 
 export default NewEventCard;
+

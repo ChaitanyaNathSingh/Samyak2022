@@ -9,7 +9,7 @@ import NoEvents from "./NoEvents";
 
 const EventContainer = (props) => {
   const EventWrapper = styled.div`
-    margin-top: 80px;
+    // margin-top: 80px;
     padding-bottom: 80px;
     display: -webkit-box;
     display: -ms-flexbox;

@@ -63,7 +63,7 @@ const Holder = styled.div`
     }
 `;
 
-const OtpPage = () => {
+const SportOtpPage = () => {
     const navigate = useNavigate();
 
     let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
@@ -99,7 +99,7 @@ const OtpPage = () => {
             axiosInstance.post('../home/verify_otp', {
                     otp: value,
                     username: username,
-                    isSports: false
+                    isSports: true
                 })
                 .then((res) => {
                     if(res.data.status) {
@@ -137,4 +137,4 @@ const OtpPage = () => {
     );
 }
 
-export default OtpPage;
+export default SportOtpPage;
