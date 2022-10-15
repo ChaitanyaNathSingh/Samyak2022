@@ -57,10 +57,10 @@ const Attendance = () => {
             alert("Please fill all the fields")
             return
         }
-        // else if(!klumailid.endsWith("@kluniversity.in")) {
-        //     alert("Please enter a valid KLU mail id")
-        //     return
-        // }
+        else if(!klumailid.endsWith("@kluniversity.in")) {
+            alert("Please enter a valid KLU mail id")
+            return
+        }
 
         let sendOtpButton = document.getElementById("sendotp");
         sendOtpButton.disabled = true;
