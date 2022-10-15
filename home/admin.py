@@ -289,8 +289,14 @@ class LearnathonStudentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     save_on_top = True
 admin.site.register(LearnathonStudent, LearnathonStudentAdmin)
 
-
+class FacultyDataResource(resources.ModelResource):
+    class Meta:
+        model = FacultyData
+        import_id_fields = ['empid']
+        skip_unchanged = True
+        report_skipped = True
 class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = FacultyDataResource
     list_display = ('empid', 'mail_id', 'name')
     search_fields = ('empid', 'mail_id', 'name')
     save_as = True
