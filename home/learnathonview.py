@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import LearnathonFaculty, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember, BusinessSystem, LearnathonStudent
+from .models import LearnathonFaculty, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember, BusinessSystem, LearnathonStudent, FacultyData
 import json
 import random
 import requests
@@ -24,8 +24,12 @@ class FacultyLearnathonRegisterView(APIView):
 
     def post(self, request):
         url = request.build_absolute_uri()
-        empid = "sdp1_"+request.data.get('empid')
-        klumailid = "sdp1_"+request.data.get('klumailid')
+        empid = request.data.get('empid')
+        klumailid = request.data.get('klumailid')
+        faculty = FacultyData.objects.filter(empid=empid, mail_id=klumailid).exists()
+        print(faculty)
+        if not faculty:
+            return Response({"status": False, "message": "Invalid credentials"})
         password = "Faculty@123"
         otp = random.randint(10000, 99999)
         if not User.objects.filter(username=empid).exists():
@@ -135,6 +139,15 @@ class SaveRubricsView(APIView):
                     elif review_type == 'review4':
                         pfsd.review4_score = total
                     pfsd.save()
+                else:
+                    if review_type == 'review1':
+                        PFSDRubric.objects.create(student=ls, review1_score=total)
+                    elif review_type == 'review2':
+                        PFSDRubric.objects.create(student=ls, review2_score=total)
+                    elif review_type == 'review3':
+                        PFSDRubric.objects.create(student=ls, review3_score=total)
+                    elif review_type == 'review4':
+                        PFSDRubric.objects.create(student=ls, review4_score=total)
             else:
                 if MSWDRubric.objects.filter(student=ls).exists():
                     mswd = MSWDRubric.objects.get(student=ls)
@@ -147,4 +160,13 @@ class SaveRubricsView(APIView):
                     elif review_type == 'review4':
                         mswd.review4_score = total
                     mswd.save()
+                else:
+                    if review_type == 'review1':
+                        MSWDRubric.objects.create(student=ls, review1_score=total)
+                    elif review_type == 'review2':
+                        MSWDRubric.objects.create(student=ls, review2_score=total)
+                    elif review_type == 'review3':
+                        MSWDRubric.objects.create(student=ls, review3_score=total)
+                    elif review_type == 'review4':
+                        MSWDRubric.objects.create(student=ls, review4_score=total)
         return Response({"status": True, "message": "Rubrics saved successfully!!"})

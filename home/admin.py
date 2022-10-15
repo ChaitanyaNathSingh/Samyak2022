@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BusinessSystem, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember
+from .models import BusinessSystem, FacultyData, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from django.contrib.auth.models import User
@@ -288,6 +288,14 @@ class LearnathonStudentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     save_as = True
     save_on_top = True
 admin.site.register(LearnathonStudent, LearnathonStudentAdmin)
+
+
+class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('empid', 'mail_id', 'name')
+    search_fields = ('empid', 'mail_id', 'name')
+    save_as = True
+    save_on_top = True
+admin.site.register(FacultyData, FacultyDataAdmin)
 
 
 class MSWDRubricAdmin(admin.ModelAdmin):

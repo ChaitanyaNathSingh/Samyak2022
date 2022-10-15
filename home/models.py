@@ -137,7 +137,17 @@ class LearnathonStudent(models.Model):
     is_present = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.group_name + ' ' + self.group_name
+        return self.studentId + ' ' + self.group_name
+
+
+class FacultyData(models.Model):
+    empid = models.CharField(max_length=100, default=None, primary_key=True)
+    name = models.CharField(max_length=100, default=None)
+    mail_id = models.CharField(max_length=100, default=None) 
+
+    def __str__(self):
+        return self.empid + ' ' + self.name
+
 
 class MSWDRubric(models.Model):
     student = models.ForeignKey(LearnathonStudent, on_delete=models.CASCADE)
