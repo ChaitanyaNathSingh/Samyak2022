@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -107,7 +108,8 @@ class MarkAttendanceView(APIView):
         studentIds = request.data['studentIds']
         for i in studentIds:
             student = LearnathonStudent.objects.get(id=i['id'])
-            student.is_present = True
+            student.is_present = False
+            student.updated_at = datetime.now()
             student.save()
         return Response({"status": True, "message": "Attendance marked successfully!!"})
 
@@ -119,54 +121,116 @@ class SaveRubricsView(APIView):
         return Response({'message': 'Hello, world!'})
 
     def post(self, request):
-        studentIds = request.data['studentIds']
+        presentStudentIds = request.data['presentStudentIds']
+        absentStudentIds = request.data['absentStudentIds']
         total = request.data['total']
         review_type = request.data['review_type']
         subject = request.data['subject']
         # print(studentIds)
-        print(total, review_type, subject)
-        for i in studentIds:
+        # print(presentStudentIds, absentStudentIds)
+        # print(total, review_type, subject)
+        for i in presentStudentIds:
             ls = LearnathonStudent.objects.get(id=i['id'])
             if subject == "PFSD":
                 if PFSDRubric.objects.filter(student=ls).exists():
                     pfsd = PFSDRubric.objects.get(student=ls)
                     if review_type == 'review1':
                         pfsd.review1_score = total
+                        pfsd.review1_time = datetime.now()
                     elif review_type == 'review2':
                         pfsd.review2_score = total
+                        pfsd.review2_time = datetime.now()
                     elif review_type == 'review3':
                         pfsd.review3_score = total
+                        pfsd.review3_time = datetime.now()
                     elif review_type == 'review4':
                         pfsd.review4_score = total
+                        pfsd.review4_time = datetime.now()
                     pfsd.save()
                 else:
                     if review_type == 'review1':
-                        PFSDRubric.objects.create(student=ls, review1_score=total)
+                        PFSDRubric.objects.create(student=ls, review1_score=total, review1_time=datetime.now())
                     elif review_type == 'review2':
-                        PFSDRubric.objects.create(student=ls, review2_score=total)
+                        PFSDRubric.objects.create(student=ls, review2_score=total, review2_time=datetime.now())
                     elif review_type == 'review3':
-                        PFSDRubric.objects.create(student=ls, review3_score=total)
+                        PFSDRubric.objects.create(student=ls, review3_score=total, review3_time=datetime.now())
                     elif review_type == 'review4':
-                        PFSDRubric.objects.create(student=ls, review4_score=total)
+                        PFSDRubric.objects.create(student=ls, review4_score=total, review4_time=datetime.now())
             else:
                 if MSWDRubric.objects.filter(student=ls).exists():
                     mswd = MSWDRubric.objects.get(student=ls)
                     if review_type == 'review1':
                         mswd.review1_score = total
+                        mswd.review1_time = datetime.now()
                     elif review_type == 'review2':
                         mswd.review2_score = total
+                        mswd.review2_time = datetime.now()
                     elif review_type == 'review3':
                         mswd.review3_score = total
+                        mswd.review3_time = datetime.now()
                     elif review_type == 'review4':
                         mswd.review4_score = total
+                        mswd.review4_time = datetime.now()
                     mswd.save()
                 else:
                     if review_type == 'review1':
-                        MSWDRubric.objects.create(student=ls, review1_score=total)
+                        MSWDRubric.objects.create(student=ls, review1_score=total, review1_time=datetime.now())
                     elif review_type == 'review2':
-                        MSWDRubric.objects.create(student=ls, review2_score=total)
+                        MSWDRubric.objects.create(student=ls, review2_score=total, review2_time=datetime.now())
                     elif review_type == 'review3':
-                        MSWDRubric.objects.create(student=ls, review3_score=total)
+                        MSWDRubric.objects.create(student=ls, review3_score=total, review3_time=datetime.now())
                     elif review_type == 'review4':
-                        MSWDRubric.objects.create(student=ls, review4_score=total)
+                        MSWDRubric.objects.create(student=ls, review4_score=total, review4_time=datetime.now())
+        for i in absentStudentIds:
+            ls = LearnathonStudent.objects.get(id=i['id'])
+            if subject == "PFSD":
+                if PFSDRubric.objects.filter(student=ls).exists():
+                    pfsd = PFSDRubric.objects.get(student=ls)
+                    if review_type == 'review1':
+                        pfsd.review1_score = 0
+                        pfsd.review1_time = datetime.now()
+                    elif review_type == 'review2':
+                        pfsd.review2_score = 0
+                        pfsd.review2_time = datetime.now()
+                    elif review_type == 'review3':
+                        pfsd.review3_score = 0
+                        pfsd.review3_time = datetime.now()
+                    elif review_type == 'review4':
+                        pfsd.review4_score = 0
+                        pfsd.review4_time = datetime.now()
+                    pfsd.save()
+                else:
+                    if review_type == 'review1':
+                        PFSDRubric.objects.create(student=ls, review1_score=0, review1_time=datetime.now())
+                    elif review_type == 'review2':
+                        PFSDRubric.objects.create(student=ls, review2_score=0, review2_time=datetime.now())
+                    elif review_type == 'review3':
+                        PFSDRubric.objects.create(student=ls, review3_score=0, review3_time=datetime.now())
+                    elif review_type == 'review4':
+                        PFSDRubric.objects.create(student=ls, review4_score=0, review4_time=datetime.now())
+            else:
+                if MSWDRubric.objects.filter(student=ls).exists():
+                    mswd = MSWDRubric.objects.get(student=ls)
+                    if review_type == 'review1':
+                        mswd.review1_score = 0
+                        mswd.review1_time = datetime.now()
+                    elif review_type == 'review2':
+                        mswd.review2_score = 0
+                        mswd.review2_time = datetime.now()
+                    elif review_type == 'review3':
+                        mswd.review3_score = 0
+                        mswd.review3_time = datetime.now()
+                    elif review_type == 'review4':
+                        mswd.review4_score = 0
+                        mswd.review4_time = datetime.now()
+                    mswd.save()
+                else:
+                    if review_type == 'review1':
+                        MSWDRubric.objects.create(student=ls, review1_score=0, review1_time=datetime.now())
+                    elif review_type == 'review2':
+                        MSWDRubric.objects.create(student=ls, review2_score=0, review2_time=datetime.now())
+                    elif review_type == 'review3':
+                        MSWDRubric.objects.create(student=ls, review3_score=0, review3_time=datetime.now())
+                    elif review_type == 'review4':
+                        MSWDRubric.objects.create(student=ls, review4_score=0, review4_time=datetime.now())
         return Response({"status": True, "message": "Rubrics saved successfully!!"})

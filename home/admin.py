@@ -142,7 +142,7 @@ class PaymentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = PaymentResource
     list_display = ('user', 'firstname', 'lastname', 'receipt_id', 'email', 'userdepartment',
                     'phone', 'transaction_amount', 'payment_status', 'payment_time', 'mojo_id')
-    list_filter = ('payment_status', 'user__profile__branch')
+    list_filter = ('payment_status', 'user__profile__branch', 'user__profile__year_of_study')
     search_fields = ('user__username', 'user__email', 'user__first_name',
                      'user__last_name', 'user__profile__phone', 'mojo_id')
     ordering = ['user', 'receipt_id', 'payment_time']
@@ -255,7 +255,7 @@ admin.site.register(TeamMember, TeamMemberAdmin)
 
 
 # LEARNATHON (15/10/2022) (STUDENT ATTENDANCE and REMARKS)
-class LearnathonFacultyAdmin(admin.ModelAdmin):
+class LearnathonFacultyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('empid', 'klumailid', 'otp', 'is_verified')
     search_fields = ('empid', 'klumailid')
     save_as = True
@@ -283,8 +283,9 @@ class LearnathonStudentResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 class LearnathonStudentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('studentId', 'group_name', 'cluster', 'business_system', 'branch', 'subject', 'is_present')
-    search_fields = ('studentId', 'group_name', 'cluster', 'business_system_id__num', 'business_system_id__name', 'branch', 'subject', 'is_present')
+    list_display = ('studentId', 'group_name', 'cluster', 'business_system', 'branch', 'subject', 'is_absent', 'updated_at')
+    search_fields = ('studentId', 'group_name', 'cluster', 'business_system_id__num', 'business_system_id__name', 'branch', 'subject', 'is_absent')
+    list_filter = ('is_absent', 'cluster', 'branch', 'subject')
     save_as = True
     save_on_top = True
 admin.site.register(LearnathonStudent, LearnathonStudentAdmin)
@@ -294,7 +295,7 @@ class FacultyDataResource(resources.ModelResource):
         model = FacultyData
         import_id_fields = ['empid']
         skip_unchanged = True
-        
+
         report_skipped = True
 class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = FacultyDataResource
@@ -305,14 +306,14 @@ class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 admin.site.register(FacultyData, FacultyDataAdmin)
 
 
-class MSWDRubricAdmin(admin.ModelAdmin):
-    list_display = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+class MSWDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('student', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
     search_fields = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True
     save_on_top = True
 admin.site.register(MSWDRubric, MSWDRubricAdmin)
-class PFSDRubricAdmin(admin.ModelAdmin):
-    list_display = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+class PFSDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('student', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
     search_fields = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True
     save_on_top = True

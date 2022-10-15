@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import HomeNavigateButton from '../UI/HomeNavigateButton';
-import Edificio from './img/Events/EDIFICIO.jpg';
+// import Edificio from './img/Events/EDIFICIO.jpg';
 // import FortuneSeeker from './img/Events/Fortune Seeker.jpg';
 import csgo from './img/Events/csgo.jpg';
 import bgmi from './img/Events/bgmi.jpg';
@@ -92,12 +92,6 @@ const SamyakHomeEvent = () => {
                         <img src={bgmi} alt="bgmi" />
                         <h2>BGMI</h2>
                         <p>Play and compete with other fantabulous <br></br>players to claim the Crown and win a wholesome <br></br>amount of cash prize.</p>
-                        <a href="#0">Open</a>
-                    </HomeEventsBox>
-                    <HomeEventsBox data-aos="zoom-out" data-aos-duration="500">
-                        <img src={Edificio} alt="event" />
-                        <h2>EDIFICIO</h2>
-                        <p>It is a platform for all Civil Engineering students<br></br> to exhibit Model/Prototype. Show your skills with<br></br> the best in your specialization.</p>
                         <a href="#0">Open</a>
                     </HomeEventsBox>
                     <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="400">

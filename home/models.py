@@ -134,7 +134,8 @@ class LearnathonStudent(models.Model):
     business_system = models.ForeignKey(BusinessSystem, on_delete=models.CASCADE, default=None)
     branch = models.CharField(max_length=100, default=None) # CSE or CSEIT
     subject = models.CharField(max_length=100, default=None) # PFSD or MSWD
-    is_present = models.BooleanField(default=False)
+    is_absent = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.studentId + ' ' + self.group_name
@@ -153,12 +154,16 @@ class MSWDRubric(models.Model):
     student = models.ForeignKey(LearnathonStudent, on_delete=models.CASCADE)
     review1_score = models.IntegerField(default=0)
     review1_total = models.IntegerField(default=20)
+    review1_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review2_score = models.IntegerField(default=0)
     review2_total = models.IntegerField(default=25)
+    review2_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review3_score = models.IntegerField(default=0)
     review3_total = models.IntegerField(default=25)
+    review3_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review4_score = models.IntegerField(default=0)
     review4_total = models.IntegerField(default=25)
+    review4_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
 
     def __str__(self):
         return self.student.group_name
@@ -167,12 +172,16 @@ class PFSDRubric(models.Model):
     student = models.ForeignKey(LearnathonStudent, on_delete=models.CASCADE)
     review1_score = models.IntegerField(default=0)
     review1_total = models.IntegerField(default=20)
+    review1_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review2_score = models.IntegerField(default=0)
     review2_total = models.IntegerField(default=20)
+    review2_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review3_score = models.IntegerField(default=0)
     review3_total = models.IntegerField(default=15)
+    review3_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
     review4_score = models.IntegerField(default=0)
     review4_total = models.IntegerField(default=20)
+    review4_time = models.DateTimeField(auto_now=False, blank=True, null=True, default=None)
 
     def __str__(self):
         return self.student.group_name
