@@ -220,13 +220,18 @@ const RubricForm = () => {
 
     const formHandler = (e) => {
         e.preventDefault();
-        let studentTags = document.querySelectorAll("input[type='checkbox']:checked");
-        let studentIds = [];
+        // let studentTags = document.querySelectorAll("input[type='checkbox']:not(:checked)");
+        let studentTags = document.querySelectorAll("input[type='checkbox']");
+        let absentStudentIds = [];
+        let presentStudentIds = [];
+        for(let i = 0; i < studentTags.length; i++) {
+            if(studentTags[i].checked)
+                absentStudentIds.push({id: studentTags[i].name, studentId: studentTags[i].value});
+            else
+                presentStudentIds.push({id: studentTags[i].name, studentId: studentTags[i].value});
+        }
         let review_type = e.target.review.value;
         let subject = e.target.subject.value;
-        studentTags.forEach((studentTag) => {
-            studentIds.push({id: studentTag.name, studentId: studentTag.value});
-        });
         if(review_type === "Select Review") {
             alert("Please fill the questions before submitting");
             return;
@@ -241,7 +246,8 @@ const RubricForm = () => {
         // console.log(total);
         axiosInstance
             .post("../home/save-rubrics", {
-                studentIds: studentIds,
+                presentStudentIds: presentStudentIds,
+                absentStudentIds: absentStudentIds,
                 total: total,
                 review_type: review_type,
                 subject: subject
@@ -254,6 +260,8 @@ const RubricForm = () => {
                 // console.log(res.data);
                 alert(res.data.message);
                 setIsStudentsVisible(false);
+                setAreQuestionsVisible("0");
+                setisReviewTypeVisible(false);
                 document.getElementById("cluster").value = "Select Team";
             })
             .catch(e => console.log(e));
@@ -278,7 +286,7 @@ const RubricForm = () => {
                                 name={student.id}
                                 value={student.studentId}
                             />
-                            <label htmlFor={`custom-checkbox-1`}>{student.studentId}</label>
+                            <label htmlFor={`custom-checkbox-1`}>is {student.studentId} absent?</label>
                         </LeftSection>)): null}
                         {isReviewTypeVisible ?
                         <BaseDropDown onChange={reviewChangeHandler} label="Review" name="review" type="text" id="review" options={["Select Review", "review1", "review2", "review3", "review4"]} /> : null}
@@ -334,7 +342,7 @@ const RubricForm = () => {
                         
                         <SubmitButton type="submit" name="submit" id="submit-attendance" value="Submit" />
                         <br></br>
-                        <p><Link to={'/y21sdp1attendanceform'}>click here</Link> to go to Rubric Form</p>
+                        <p><Link to={'/y21sdp1attendanceform'}>click here</Link> to go to Attendance Form</p>
                     </Form>
                 </Fields>
             </Container>

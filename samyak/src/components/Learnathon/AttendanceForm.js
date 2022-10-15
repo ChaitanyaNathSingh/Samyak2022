@@ -228,7 +228,7 @@ const AttendanceForm = () => {
                                 name={student.id}
                                 value={student.studentId}
                             />
-                            <label htmlFor={`custom-checkbox-1`}>{student.studentId}</label>
+                            <label htmlFor={`custom-checkbox-1`}>is {student.studentId} absent?</label>
                         </LeftSection>)): null}
                         <SubmitButton type="submit" name="submit" id="submit-attendance" value="Submit" />
                         <br></br>
