@@ -108,7 +108,7 @@ class MarkAttendanceView(APIView):
         studentIds = request.data['studentIds']
         for i in studentIds:
             student = LearnathonStudent.objects.get(id=i['id'])
-            student.is_present = False
+            student.is_absent = True
             student.updated_at = datetime.now()
             student.save()
         return Response({"status": True, "message": "Attendance marked successfully!!"})

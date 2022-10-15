@@ -134,7 +134,7 @@ class LearnathonStudent(models.Model):
     business_system = models.ForeignKey(BusinessSystem, on_delete=models.CASCADE, default=None)
     branch = models.CharField(max_length=100, default=None) # CSE or CSEIT
     subject = models.CharField(max_length=100, default=None) # PFSD or MSWD
-    is_absent = models.BooleanField(default=True)
+    is_absent = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
