@@ -59,7 +59,7 @@ const UserRegister = () => {
         let validations = new Validations(flash);
         if(validations.clientValidations(data)) {
             register.value = "Registering...";
-            validations.serverValidations(data, navigate, setWaiting);
+            validations.serverValidations(data, navigate, setWaiting, 'register');
         }
     }
 
@@ -85,6 +85,12 @@ const UserRegister = () => {
             <BaseDropDown label="Department" name="department" type="text" id="department" options={departmentData}/>
             <SubmitButton type="submit" name="submit" id="register" value="Register" />
             <p>Already have an account? <Link to={'/login'}>Sign In</Link></p>
+            <p>
+            Sports Login? <Link to={"/sports-login"}>Sport Login</Link>
+            </p>
+            <p>
+            Sports Register? <Link to={"/sports-register"}>Sport Register</Link>
+            </p>
         </FormContainer>
         </>
     )

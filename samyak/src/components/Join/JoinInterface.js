@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
+import SportsLogin from "./SportsLogin";
+import SportsRegister from "./SportsRegister";
 import UserLogin from "./UserLogin";
 import UserRegister from "./UserRegister";
 
@@ -93,15 +95,34 @@ const JoinInterface = (props) => {
         navigation: "Sign In",
     });
     if(userForm.form !== props.form) {
-        setUserForm(props.form==="LoginForm" ? {
-            heading: "LOGIN",
-            form: "LoginForm",
-            navigation: "Sign Up",
-        }: {
-            heading: "REGISTER",
-            form: "RegisterForm",
-            navigation: "Sign In",
-        });
+        if(props.form === "LoginForm") {
+            setUserForm({
+                heading: "LOGIN",
+                form: "LoginForm",
+                navigation: "Sign Up",
+            });
+        }
+        else if(props.form === "RegisterForm") {
+            setUserForm({
+                heading: "REGISTER",
+                form: "RegisterForm",
+                navigation: "Sign In",
+            });
+        }
+        else if(props.form === "SportsLogin") {
+            setUserForm({
+                heading: "SPORTS LOGIN",
+                form: "SportsLogin",
+                navigation: "Sign Up",
+            });
+        }
+        else if(props.form === "SportsRegister") {
+            setUserForm({
+                heading: "SPORTS REGISTER",
+                form: "SportsRegister",
+                navigation: "Sign In",
+            });
+        }
     }
     return (
         <>
@@ -113,7 +134,10 @@ const JoinInterface = (props) => {
                             <h1>{userForm.heading}</h1>
                         </Heading>
                         {/**Form */}
-                        { userForm.form === "LoginForm" ? <UserLogin /> : <UserRegister /> }
+                        { userForm.form === "LoginForm" ? <UserLogin /> :
+                        userForm.form === "RegisterForm" ? <UserRegister /> : 
+                        userForm.form === "SportsLogin" ? <SportsLogin /> :
+                        userForm.form === "SportsRegister" ? <SportsRegister /> : null}
                     </JoinForm>
                 </Container>
                 {/**Assist Navigation */}

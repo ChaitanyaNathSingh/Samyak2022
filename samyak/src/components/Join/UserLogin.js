@@ -116,6 +116,12 @@ const UserLogin = () => {
         <p>
           Don't have an account? <Link to={"/register"}>Sign Up</Link>
         </p>
+        <p>
+          Sports Login? <Link to={"/sports-login"}>Sport Login</Link>
+        </p>
+        <p>
+          Sports Register? <Link to={"/sports-register"}>Sport Register</Link>
+        </p>
       </FormContainer>
     </>
   );

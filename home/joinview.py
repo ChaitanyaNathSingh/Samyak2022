@@ -14,7 +14,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Profile, Event, Payment, Team
+from .models import Profile, Event, Payment, Team, TeamLeader, TeamMember
 
 import requests
 import random
@@ -55,7 +55,8 @@ class LoginView(APIView):
                             'user_email': u.email,
                             'user_phone': p.phone,
                             'isAuth': True,
-                            'isVerified': p.is_verified
+                            'isVerified': p.is_verified,
+                            'isSports': False,
                         }
                     }
                 ]
@@ -116,7 +117,8 @@ class RegisterView(APIView):
                         'user_email': u.email,
                         'user_phone': p.phone,
                         'isAuth': True,
-                        'isVerified': False
+                        'isVerified': False,
+                        'isSports': False,
                         }
                     }
                 ]
@@ -157,11 +159,18 @@ class VerifyOTPView(APIView):
         print(request.data)
         username = request.data.get('username')
         userObj = User.objects.get(username=username)
-        profileObj = Profile.objects.get(user=userObj)
-        if profileObj.otp == request.data.get('otp'):
-            profileObj.is_verified = True
-            profileObj.save()
-            return Response({"status": True, "message": "OTP Verified.!"})
+        if not request.data.get('isSports'):
+            profileObj = Profile.objects.get(user=userObj)
+            if profileObj.otp == request.data.get('otp'):
+                profileObj.is_verified = True
+                profileObj.save()
+                return Response({"status": True, "message": "OTP Verified.!"})
+        else:
+            teamLeaderObj = TeamLeader.objects.get(user=userObj)
+            if teamLeaderObj.otp == request.data.get('otp'):
+                teamLeaderObj.is_verified = True
+                teamLeaderObj.save()
+                return Response({"status": True, "message": "Sport OTP Verified.!"})
         return Response({"status": False, "message": "Invalid OTP.!"})
 
 class ResendOTPView(APIView):
@@ -201,6 +210,105 @@ class UpdateView(APIView):
         userObj.save()
         profileObj.save()
         return Response({"status": True, "message": "Profile Updated Successfully.!"})
+
+
+
+
+class SportLoginView(APIView):
+    def post(self, request):
+        url = request.build_absolute_uri()
+        username = request.data['username']
+        password = request.data['password']
+        status = authenticate(username=username, password=password)
+        if status:
+            user = User.objects.get(username=username)
+            tl = TeamLeader.objects.get(user=user)
+            result = requests.post(url+"/../../api/token", data={'username': username, 'password': password})
+            result = result.json()
+            userobj ={ 
+                'user': [
+                    {
+                        'tokens': {
+                            'access_token': result['access'],
+                            'refresh_token': result['refresh'],
+                        },
+                    },
+                    {
+                        'details': {
+                            'user_id': user.id,
+                            'username': user.username,
+                            'user_email': user.email,
+                            'user_phone': tl.phoneno,
+                            'isAuth': True,
+                            'isVerified': tl.is_verified,
+                            'isSports': True,
+                        }
+                    }
+                ]
+            }
+            return Response({"status": True, "message": "Login Successful!!", "user": userobj})
+        else:
+            print("Login Failed")
+            return Response({"status": False, "message": "Invalid Credentials.!"})
+
+class SportRegisterView(APIView):
+    def get(self, request):
+        print("sport get", request.query_params)
+        return Response({"status": True, "message": "GET, World!"})
+    
+    def post(self, request):
+        otp = random.randint(10000, 99999)
+        username = request.data.get('username')
+        team_name = request.data.get('teamname')
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
+        phoneno = request.data.get('phone')
+        college_name= request.data.get('college')
+        gender = request.data.get('gender')
+        game_type = request.data.get('game')
+        team_count = request.data.get('teamsize')
+        tl = TeamLeader.objects.create(user=user, team_name=team_name, phoneno=phoneno, college_name=college_name, gender=gender, game_type=game_type, team_count=team_count, otp=otp, is_verified=False)
+        url = request.build_absolute_uri()
+        result = requests.post(url+"/../../api/token", data={'username': username, 'password': password})
+        result = result.json()
+        userobj ={ 
+            'user': [
+                {
+                    'tokens': {
+                        'access_token': result['access'],
+                        'refresh_token': result['refresh'],
+                    },
+                },
+                {
+                    'details': {
+                        'user_id': user.id,
+                        'username': user.username,
+                        'user_email': user.email,
+                        'user_phone': tl.phoneno,
+                        'isAuth': True,
+                        'isVerified': False,
+                        'isSports': True,
+                    }
+                }
+            ]
+        }
+        # print(userobj)
+        # TeamLeader.objects.create(user=user, phoneno=phoneno, game_type=game_type, team_count=team_count)
+
+        return Response({"status": True, "user": userobj, "message": "Leader Registered Successfully.!", "otp": otp})
+
+class SportTeamView(APIView): # adding team member by a team leader
+    def post(self, request):
+        # print("sport team post", request.data)
+        data = request.data
+        team_leader = TeamLeader.objects.filter(username=data['teamleader_username'])
+        if len(team_leader) == 0:
+            return Response({"status": False, "message": "Team Leader not found.!"})
+        TeamMember.objects.create(team_leader=team_leader.first(), username=data.get('username'), first_name=data.get('first_name'), last_name=data.get('last_name'))
+        return Response({"status": True, "message": "Team Member Added Successfully.!"})
 
 
 # @authenticate_classes([TokenAuthentication])

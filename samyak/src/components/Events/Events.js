@@ -55,6 +55,7 @@ class Events extends React.Component {
                 <EventFilters allEvents={this.state.allEvents} filteredEvents={this.state.filteredEvents} setEvents={this.setEvents}/> : null}
                 <div className="events" style={{'backgroundColor': 'rgb(40, 40, 43)'}}>
                     {this.state.filteredEvents.length !== 0 ? <NavBarSpace /> : null}
+                    <NavBarSpace />
                     {/* <NavBarSpace /> */}
                     {/* <EventPoster /> */}
                     <EventContainer isAuth={this.isAuth} allEvents={this.state.filteredEvents} allEventsLoaded={this.state.allEventsLoaded} />

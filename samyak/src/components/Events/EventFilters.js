@@ -126,37 +126,22 @@ const EventFilters = (props) => {
                         <div id="branch1">All</div>
                         <div id="branch2">CSE</div>
                         <div id="branch3">ECE</div>
-                        <div id="branch4">EEE</div>
-                        <div id="branch5">ECM</div>
-                        <div id="branch6">MEC</div>
-                        <div id="branch7">Civil</div>
-                        <div id="branch8">CSE</div>
-                        <div id="branch9">ECE</div>
-                        <div id="branch10">EEE</div>
-                        <div id="branch11">ECM</div>
-                        <div id="branch12">MEC</div>
-                        <div id="branch13">Civil</div>
-                        <div id="branch14">CSE</div>
-                        <div id="branch15">ECE</div>
-                        <div id="branch16">EEE</div>
-                        <div id="branch17">ECM</div>
-                        <div id="branch18">MEC</div>
-                        <div id="branch19">Civil</div>
+                        <div id="branch4">MEC</div>
+                        <div id="branch5">BA_IAS</div>
                     </BranchesContent>
                 </Slider>
-                <RangeInput ref={branchInput} type="range" min="1" max="19" defaultValue={1} className="myRange"/>
+                <RangeInput ref={branchInput} type="range" min="1" max="5" defaultValue={1} className="myRange"/>
             </ContainerLeft>
 
 
             <ContainerRight>
-                <RangeInput ref={eventTypeInput} type="range" min="1" max="5" defaultValue={1} className="myRange"/>
+                <RangeInput ref={eventTypeInput} type="range" min="1" max="4" defaultValue={1} className="myRange"/>
                 <Slider>
                     <EventTypeContent ref={allEventTypes}>
                         <div id="event-type1">All</div>
                         <div id="event-type2">Technical</div>
                         <div id="event-type3">NonTechnical</div>
-                        <div id="event-type4">Literary</div>
-                        <div id="event-type5">Spot</div>
+                        <div id="event-type4">General</div>
                     </EventTypeContent>
                 </Slider>
             </ContainerRight>
@@ -165,3 +150,4 @@ const EventFilters = (props) => {
 }  
 
 export default EventFilters;
+

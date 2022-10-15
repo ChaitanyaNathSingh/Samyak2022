@@ -21,6 +21,11 @@ import { getColorObj } from "./Utils/Colors";
 import SamyakAbout from "./components/AboutUs/SamyakAbout";
 import { ContactUs } from "./components/Join/Email";
 import OtpPage from "./components/Join/OtpPage";
+// import SportOtpPage from "./components/Join/SportOtpPage";
+import Attendance from "./components/Learnathon/Attendance";
+import AttendanceForm from "./components/Learnathon/AttendanceForm";
+import FacultyOtp from "./components/Learnathon/FacultyOtp";
+import RubricForm from "./components/Learnathon/RubricForm";
 
 const ColorContext = createContext();
 
@@ -99,13 +104,26 @@ const TheRouter = (props) => {
                 <Route exact path="/register" element={<Register />}/> */}
                 <Route exact path="/login" element={<JoinInterface form="LoginForm"/>} />
                 <Route exact path="/register" element={<JoinInterface form="RegisterForm"/>} />
+                {/* <Route exact path="/sports-login" element={<JoinInterface form="SportsLogin"/>} />
+                <Route exact path="/sports-register" element={<JoinInterface form="SportsRegister"/>} /> */}
+
                 <Route exact path="/email" element={<ContactUs />} />
                 <Route exact path="/otp" element={<OtpPage />} />
+                {/* <Route exact path="/sport-otp" element={<SportOtpPage />} /> */}
 
                 <Route exact path="/profile" element={<Profile status="false"/>} />  {/* passed is auth to profile */}
                 { /** router for /profile?paymentstatus=success */ }
                 <Route path="/admin" element={<Admin path="admin"/>} />
                 <Route path="/admin_dashboard" element={<Admin path="admin_dashboard"/>} />
+
+
+                {/* Learnathon */}
+                <Route path="/faculty-otp" element={<FacultyOtp />} />
+                <Route path="/y21learnathon" element={<Attendance />} />
+                <Route path="/y21sdp1attendanceform" element={<AttendanceForm />} />
+                <Route path="/y21sdp1rubricform" element={<RubricForm />} />
+
+
                 {/**404 page redirections */}
                 <Route path="*" element={<NotFoud />} />
             </Routes>

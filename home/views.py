@@ -5,11 +5,11 @@ from unicodedata import name
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .serializers import UserSerializers, PaymentSerializers, EventSerializers, ProfileSerializers, TeamSerializers
+from .serializers import UserSerializers, PaymentSerializers, SportPaymentSerializer, EventSerializers, ProfileSerializers, TeamSerializers
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from .models import Profile, Event, Payment, Team
+from .models import Profile, Event, Payment, Team, SportPayment, TeamLeader, TeamMember
 from rest_framework import serializers, viewsets
 from rest_framework import permissions
 from rest_framework.decorators import api_view
@@ -161,26 +161,45 @@ class PaymentTempSerializers(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+class SportPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SportPayment
+        fields = '__all__'
 class ProfileTempSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['phone','branch','year_of_study','gender','college_name','is_verified']
+class TeamLeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeamLeader
+        fields = ['team_name', 'phoneno', 'college_name', 'gender', 'game_type', 'team_count', 'payment_status']
 class UserDetailsSerializer(serializers.ModelSerializer):
     profile = ProfileTempSerializers()
     payment = PaymentTempSerializers()
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'profile', 'payment']
+class SportUserDetailsSerializer(serializers.ModelSerializer):
+    teamleader = TeamLeaderSerializer()
+    payment = SportPaymentSerializer()
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'teamleader', 'payment']
+    
 class UserAPIView(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserDetailsSerializer
     def get_object(self):
         return self.request.user
-
-      
 class ProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserDetailsSerializer
+    def get_queryset(self):
+        # print(self.request.user)
+        return User.objects.filter(username=self.request.user)
+class SportProfileView(ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = SportUserDetailsSerializer
     def get_queryset(self):
         # print(self.request.user)
         return User.objects.filter(username=self.request.user)
@@ -258,6 +277,94 @@ class PaymentSuccessView(APIView):
                 p.save()
                 # return Response({"status" : True})
                 return HttpResponseRedirect("https://klsamyak.in/profile")
+            else:
+                HttpResponseRedirect("https://klsamyak.in/login")
+        else:
+            print("PAYMENT FAILED")
+            return HttpResponseRedirect("https://klsamyak.in/profile")
+    
+    def post(self):
+        return Response({'status': 'post request'})
+
+
+
+
+
+
+
+
+class SportPaymentView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SportPaymentSerializer
+
+    def get(self, request):
+        print("SUCCESS METHOD")
+        print(request)
+        Response({"status": 'UNAUTHORIZED'})
+
+    def post(self, request):
+        print(request.data)
+        print("CONFIGURING PAYMENTS")
+        username = request.data['username']
+        email = request.data['email']
+        phone = request.data['phone']
+        teamleader = TeamLeader.objects.get(username=username)
+        print(teamleader)
+        # phone = request.data.phone
+        payment_obj, _ = SportPayment.objects.get_or_create(
+            team_leader=teamleader,
+            payment_status=False
+        )
+        # #uname = request.user
+        try:
+            response = api.payment_request_create(
+                amount=1150,
+                purpose='Samyak Registration Fee',
+                buyer_name=username,
+                email=email,
+                phone=phone,
+                redirect_url='https://klsamyakbackend.in/home/sportpaymentsuccess'
+            )
+            print(response)
+            if(response['success']):
+                payment_obj.receipt_id = response['payment_request']['id']
+                payment_obj.transaction_amount = int(float(response['payment_request']['amount']))
+                payment_obj.save()
+                print(response['payment_request']['longurl'])
+                return Response(response['payment_request']['longurl'])
+            else:
+                return Response("ERROR")
+
+        except Exception as e:
+            print("ERROR RESPOONSE")
+            return Response("ERROR")
+
+    
+class SportPaymentSuccessView(APIView):
+    def get(self, request):
+        payment_request_id = request.GET.get('payment_request_id')
+        payment_id = request.GET.get('payment_id')
+        response = api.payment_request_payment_status(
+            id=payment_request_id,
+            payment_id=payment_id,
+        )
+        # print(payment_request_id, payment_id)
+        # print(response)
+        username = response['payment_request']['buyer_name']   # username
+        tl = TeamLeader.objects.get(username=username)
+        stats = response['payment_request']['payment']['status']
+        # print(stats)
+        if stats != "Failed":
+            payment_obj = SportPayment.objects.get(team_leader=tl)
+            # if payment obj is not null
+            if payment_obj is not None:
+                payment_obj.payment_status = True
+                payment_obj.mojo_id = response['payment_request']['payment']['payment_id']
+                payment_obj.save()
+                tl.payment_status = True
+                tl.save()
+                TeamMember.objects.filter(team_leader=tl).update(payment_status=True)
+                return HttpResponseRedirect("https://klsamyak.in/sport-profile")
             else:
                 HttpResponseRedirect("https://klsamyak.in/login")
         else:
