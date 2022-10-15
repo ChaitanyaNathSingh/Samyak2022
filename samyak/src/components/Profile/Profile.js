@@ -22,12 +22,14 @@ const Profile = (props) => {
   let myuser = localStorage.getItem("user") ? localStorage.getItem("user") : null;
   let isAuth = false;
   let username = null;
+  let isSports = false;
   if(isNaN(myuser) && myuser !== null && myuser !== undefined && myuser !== "null" && myuser !== "undefined") {  
     myuser = JSON.parse(myuser);
     access_token = myuser.user[0].tokens.access_token;
     refresh_token = myuser.user[0].tokens.refresh_token;
     username = myuser.user[1].details.username;
     isAuth = myuser.user[1].details.isAuth;
+    isSports = myuser.user[1].details.isSports;
   }
   if (!isAuth) {
     window.location.href = "/login";
@@ -38,13 +40,14 @@ const Profile = (props) => {
     if (isAuth) {
       // console.log("Update User Payment Status");
       axiosInstance
-        .get("../home/profile", {
+        .get("../home/"+(!isSports?'profile':'sport-profile'), {
           headers: {
             Authorization: "JWT " + access_token,
           },
         })
         .then((response) => {
           let mainData = response.data[0];
+          console.log(mainData);
           let userobj = { 
             'user': [
               {
@@ -58,9 +61,10 @@ const Profile = (props) => {
                     'user_id': mainData.id,
                     'username': mainData.username,
                     'user_email': mainData.email,
-                    'user_phone': mainData.profile.phone,
+                    'user_phone': (!isSports)?mainData.profile.phone:mainData.profile.phoneno,
                     'isAuth': true,
-                    'isVerified': mainData.profile.is_verified
+                    'isVerified': mainData.profile.is_verified,
+                    'isSports': isSports
                 }
               }
             ]
@@ -72,11 +76,11 @@ const Profile = (props) => {
           console.log(error);
         });
     }
-  }, [enqueueSnackbar, props, access_token, isAuth, refresh_token]);
+  }, [enqueueSnackbar, props, access_token, isAuth, refresh_token, isSports]);
 
   const getUserDetailsFromServer = () => {
     axiosInstance
-        .get("../home/profile", {
+        .get("../home/"+(!isSports?'profile':'sport-profile'), {
           headers: {
             Authorization: "JWT " + access_token,
           },

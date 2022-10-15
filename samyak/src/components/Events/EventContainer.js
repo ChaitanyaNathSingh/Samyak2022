@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
 import styled from "styled-components";
 // import EventCard from "../Cards/EventCard";
 import NewEventCard from "../Cards/NewEventCard";
-import axiosInstance from "../../axios";
 import EventLoader from "./EventLoader";
+import NoEvents from "./NoEvents";
 
 // import sdp2 from './sdp2.jpg';
 // import sdp4 from './sdp4.jpg';
 
 const EventContainer = (props) => {
   const EventWrapper = styled.div`
-    margin-top: 80px;
+    // margin-top: 80px;
     padding-bottom: 80px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -38,12 +35,7 @@ const EventContainer = (props) => {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   `;
-
-  const navigate = useNavigate();
-  const [events, setEvents] = useState([]);
-  const { enqueueSnackbar } = useSnackbar();
-  const [eventsLoaded, setEventsLoaded] = useState(false);
-  useEffect(() => {
+  // useEffect(() => {
     // const flash = (message, variant) => {
     //   enqueueSnackbar(message, {
     //     variant: variant,
@@ -55,42 +47,16 @@ const EventContainer = (props) => {
     //   });
     // };
 
-    axiosInstance
-      .get("events/")
-      .then((response) => {
-        setEvents(response.data);
-        setEventsLoaded(true);
-        // let storage = JSON.parse(localStorage.getItem("user"));
-        // if (props.isAuth) {
-        //   axiosInstance
-        //     .get("registerevent/", {
-        //       headers: {
-        //         Authorization: "JWT " + storage.user[0].tokens.access_token,
-        //       },
-        //       params: {
-        //         user_id: storage.user[1].details.user_id,
-        //       },
-        //     })
-        //     .then((res1) => {
-        //       setRegisteredEvents(res1.data);
-        //     })
-        //     .catch((e) => console.log(e));
-        // } else {
-        //   flash("Please Login!", "warning");
-        // }
-      })
-      .catch((e) => console.log(e));
-  }, [setEvents, navigate, props, enqueueSnackbar]);
-
   return (
     <>
-      {!eventsLoaded ? <EventLoader /> :
+      {!props.allEventsLoaded ? <EventLoader /> :
         <EventWrapper>
+          {props.allEvents.length === 0 ? <NoEvents /> :
           <Events>
-            {events.map((event) =>
+            {props.allEvents.map((event) =>
                 <NewEventCard key={event.name} event={event} isRegistered={false} />
             )}
-          </Events>
+          </Events>}
         </EventWrapper>
       }
     </>

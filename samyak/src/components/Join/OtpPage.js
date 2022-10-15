@@ -98,7 +98,8 @@ const OtpPage = () => {
             // send otp to server and check
             axiosInstance.post('../home/verify_otp', {
                     otp: value,
-                    username: username
+                    username: username,
+                    isSports: false
                 })
                 .then((res) => {
                     if(res.data.status) {

@@ -8,10 +8,10 @@ class Validations {
         this.flash = flash;
         this.register = document.getElementById('register');
     }
-    async serverValidations(data, navigate, setWaiting) {
+    async serverValidations(data, navigate, setWaiting, serverUrl) {
 
         await axiosInstance
-            .post(`${baseURL}/../../home/register`, data)
+            .post(`${baseURL}/../../home/${serverUrl}`, data)
             .then(response => {
                 if(response.data.status) {
                     // console.log(response.data)
@@ -28,7 +28,7 @@ class Validations {
                     }
                     emailjs.send('service_a5xt44n', 'template_w7x148g', form, 'SRbHPun0G_wQLdZu_')
                         .then((result) => {
-                            window.location.href = '/otp';
+                            window.location.href = '/'+(serverUrl==='register'?'otp':'sport-otp');
                         }, (error) => {
                             console.log(error.text);
                             navigate('/profile');
@@ -81,6 +81,9 @@ class Validations {
         let gender = data.gender;
         let branch = data.branch;
 
+        let game = data.game;
+        // let teamsize = data.teamsize;
+
         let isValid = true;
         if(password && password.length < 8) {
             this.flash('Password must be at least 8 characters long', 'error');
@@ -92,7 +95,7 @@ class Validations {
             this.register.disabled = false;
             isValid = false;
         }
-        if(year === 'Select Year') {
+        if(year && year === 'Select Year') {
             this.flash('Please select year', 'error');
             this.register.disabled = false;
             isValid = false;
@@ -107,8 +110,13 @@ class Validations {
             this.register.disabled = false;
             isValid = false;
         }
-        if(branch === 'Select Department') {
+        if(branch && branch === 'Select Department') {
             this.flash('Plese select department', 'error');
+            this.register.disabled = false;
+            isValid = false;
+        }
+        if(game && game === 'Select Game') {
+            this.flash('Please select game', 'error');
             this.register.disabled = false;
             isValid = false;
         }
