@@ -107,7 +107,7 @@ const FacultyOtp = () => {
                         emp = JSON.parse(emp);
                         emp.emp[1].details.isVerified = true;
                         localStorage.setItem("emp", JSON.stringify(emp));
-                        navigate('/y21sdp1attendanceform');
+                        navigate('/y21learnathon-home');
                     }
                     else {
                         alert('You have entered wrong otp');

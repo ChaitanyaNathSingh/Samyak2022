@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 import BaseDropDown from "../UI/BaseDropDown";
 import axiosInstance from "../../axios";
@@ -333,6 +333,8 @@ const RubricForm = () => {
                         </div> : null}
                         
                         <SubmitButton type="submit" name="submit" id="submit-attendance" value="Submit" />
+                        <br></br>
+                        <p><Link to={'/y21sdp1attendanceform'}>click here</Link> to go to Rubric Form</p>
                     </Form>
                 </Fields>
             </Container>

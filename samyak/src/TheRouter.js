@@ -26,6 +26,7 @@ import Attendance from "./components/Learnathon/Attendance";
 import AttendanceForm from "./components/Learnathon/AttendanceForm";
 import FacultyOtp from "./components/Learnathon/FacultyOtp";
 import RubricForm from "./components/Learnathon/RubricForm";
+import LearnathonHome from "./components/Learnathon/LearnathonHome";
 
 const ColorContext = createContext();
 
@@ -122,7 +123,7 @@ const TheRouter = (props) => {
                 <Route path="/y21learnathon" element={<Attendance />} />
                 <Route path="/y21sdp1attendanceform" element={<AttendanceForm />} />
                 <Route path="/y21sdp1rubricform" element={<RubricForm />} />
-
+                <Route path="/y21learnathon-home" element={<LearnathonHome />} />
 
                 {/**404 page redirections */}
                 <Route path="*" element={<NotFoud />} />
