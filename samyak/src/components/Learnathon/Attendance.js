@@ -57,8 +57,12 @@ const Attendance = () => {
             alert("Please fill all the fields")
             return
         }
+        else if(empid.length > 4) {
+            alert("Invalid Emp ID");
+            return;
+        }
         else if(!klumailid.endsWith("@kluniversity.in")) {
-            alert("Please enter a valid KLU mail id")
+            alert("Please enter a valid KLU mail id");
             return
         }
 
@@ -85,6 +89,11 @@ const Attendance = () => {
                         }, (error) => {
                             console.log(error.text);
                         });
+                }
+                else {
+                    alert(res.data.message);
+                    sendOtpButton.disabled = false;
+                    sendOtpButton.value = "Send OTP";
                 }
             })
             .catch(err => {
