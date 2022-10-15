@@ -294,6 +294,7 @@ class FacultyDataResource(resources.ModelResource):
         model = FacultyData
         import_id_fields = ['empid']
         skip_unchanged = True
+        
         report_skipped = True
 class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = FacultyDataResource
