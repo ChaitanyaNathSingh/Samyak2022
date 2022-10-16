@@ -72,11 +72,11 @@ const UserRegister = () => {
         <>
         {waiting ? <PleaseWaitPage /> : null }
         <FormContainer onSubmit={handleSubmit}>
-            <BaseInput label="ID Number" name="username" type="text" id="username" icon={icons.id}/>
-            <BaseInput label="First Name" type="text" name="first_name" id="first_name" icon={icons.name}/>
-            <BaseInput label="Last Name" type="text" name="last_name" id="last_name" icon={icons.name}/>
+            <BaseInput label="ID Number" name="username" type="text" id="username" icon={icons.id} maxLength="15"/>
+            <BaseInput label="First Name" type="text" name="first_name" id="first_name" icon={icons.name} maxLength="25"/>
+            <BaseInput label="Last Name" type="text" name="last_name" id="last_name" icon={icons.name} maxLength="25"/>
             <BaseInput label="Email" name="email" type="email" id="email" placeholder="Email (Use Personal Gmail)" icon={icons.email}/>
-            <BaseInput label="Password" name="password" type="password" id="password" icon={icons.lock}/>
+            <BaseInput label="Password" name="password" type="password" id="password" icon={icons.lock} maxLength="25"/>
             <BaseInput label="Phone Number" name="phone" type="text" id="phone" placeholder="Phone Number (without country code)" icon={icons.phone}/>
             <BaseDropDown label="Gender" name="gender" type="text" id="gender" options={genderData}/>
             <BaseDropDown label="College" onChange={collegeChangeHandler} name="college" type="text" id="college" options={collegeData}/>

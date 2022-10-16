@@ -9,6 +9,7 @@ import image1 from './logos/BMW.jfif';
 // import image4 from './logos/NEXA.jpg';
 import wefelix from './logos/Wefelix.jpeg';
 import amaravati from './logos/AMARAVATI.jpg';
+import chandana_grand from './logos/CHANDANA_GRAND.jpg';
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 
 const SponsorsBackground = styled.div`
@@ -29,6 +30,10 @@ const OurSponsors = () => {
         {
             name: "Amaravati Foundation",
             src: amaravati,
+        },
+        {
+            name: "Chandana Grand",
+            src: chandana_grand
         }
     ];
     return (

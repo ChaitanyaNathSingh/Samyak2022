@@ -37,7 +37,7 @@ const BaseInput = (props) => {
     <InputContainer className="input__container" url={props.icon} color='blue'>
       {/* <input id={props.id} type={props.type} className="form-control" placeholder={props.placeholder} name={props.name} defaultValue={props.value} required /> */}
       <label htmlFor={props.id}>{props.label}</label><br></br>
-      <span><input type={props.type} name={props.name} id={props.id} defaultValue={props.value} placeholder={props.placeholder} required /></span>
+      <span><input type={props.type} name={props.name} id={props.id} defaultValue={props.value} placeholder={props.placeholder} maxLength={props.maxLength} required /></span>
     </InputContainer>
   );
 };

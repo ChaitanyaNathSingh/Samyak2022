@@ -27,10 +27,13 @@ class FacultyLearnathonRegisterView(APIView):
         url = request.build_absolute_uri()
         empid = request.data.get('empid')
         klumailid = request.data.get('klumailid')
-        faculty = FacultyData.objects.filter(empid=empid, mail_id=klumailid).exists()
-        print(faculty)
-        if not faculty:
+        faculty_name = None
+        facultyList = FacultyData.objects.filter(empid=empid, mail_id=klumailid)
+        facultyStatus = facultyList.exists()
+        # print(faculty)
+        if not facultyStatus:
             return Response({"status": False, "message": "Invalid credentials"})
+        faculty_name = facultyList.first().name
         password = "Faculty@123"
         otp = random.randint(10000, 99999)
         if not User.objects.filter(username=empid).exists():
@@ -52,6 +55,7 @@ class FacultyLearnathonRegisterView(APIView):
                     "details": {
                         'empid': empid,
                         'klumailid': klumailid,
+                        'name': faculty_name,
                         'isAuth': True,
                         'isVerified': False,
                     }
