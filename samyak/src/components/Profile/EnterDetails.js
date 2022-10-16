@@ -199,10 +199,10 @@ const EnterDetails = (props) => {
                 <TheForm className="enterDetails__form" onSubmit={formHandler}> {/**FORM */}
                     <Fields className="enterDetails__fields">
                         <div className="form-group">
-                            <BaseInput id="first_name" name="first_name" type="text" placeholder="First Name" value={props.user.first_name}/>
+                            <BaseInput id="first_name" name="first_name" type="text" placeholder="First Name" value={props.user.first_name} maxLength="25"/>
                         </div>
                         <div className="form-group">
-                            <BaseInput id="last_name" name="last_name" type="text" placeholder="Last Name" value={props.user.last_name}/>
+                            <BaseInput id="last_name" name="last_name" type="text" placeholder="Last Name" value={props.user.last_name} maxLength="25"/>
                         </div>
                         { !isVerified ?
                         <div className="form-group">
