@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Background from './img/SAMYAK_LOGOS/NeonBg.jpg';
+// import Background from './img/SAMYAK_LOGOS/NeonBg.jpg';
 import BlueLogo from './img/SAMYAK_LOGOS/BlueLogo.png';
 
 const HomeContainer = styled.div`

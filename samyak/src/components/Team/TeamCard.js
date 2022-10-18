@@ -2,15 +2,23 @@ import React from 'react'
 import styled from 'styled-components'
 // import imgs from "./img1.jpg";
 const TeamItem = styled.div`
-  flex-basis: calc(25% - 30px);
-  max-width: calc(25% - 30px);
+  // flex-basis: calc(25% - 30px);
+  // max-width: calc(25% - 30px);
+  width: 262px;
   transition: all 0.5s ease;
   margin-bottom: 40px;
-
+  // border: 2px solid red;
+  margin: 10px;
+  .image-holder { 
+    // width: 258px;
+    height: 322px;
+    width = width: calc((width) * 5 / 4);
+  }
   img {
     display: block;
     width: 100%;
     border-radius: 8px;
+    // border: 2px solid green;
   }
   .inner {
     position: relative;
@@ -64,12 +72,23 @@ const TeamItem = styled.div`
   }
 
   @media (max-width: 991px) {
-    flex-basis: calc(50% - 30px);
-    max-width: calc(50% - 30px);
+    // flex-basis: calc(50% - 30px);
+    width: 425px;
+    .image-holder {
+      // width: 428px;
+      height: 534px;
+      width = width: calc((width) * 5 / 4);
+    } 
   }
   @media (max-width: 767px) {
-    flex-basis: calc(100%);
-    max-width: calc(100%);
+    // flex-basis: calc(100%);
+    width: 510px;
+    height: height: calc((width) * 5 / 4);
+    .image-holder {
+      // width: 326px;
+      height: 637px;
+      width: width: calc((width) * 5 / 4);
+    }
   }
 `;
 
@@ -77,7 +96,9 @@ function TeamCard(props) {
     return (
         <>
             <TeamItem>
-              <img src={props.image} alt="team-1" />
+              <div className='image-holder'>
+                <img src={props.image} alt="team-1" />
+              </div>
               <div className="inner">
                 <div className="info">
                   <h5>{props.name}</h5>
