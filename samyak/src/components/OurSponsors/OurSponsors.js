@@ -20,6 +20,10 @@ const SponsorsBackground = styled.div`
 const OurSponsors = () => {
     const logos = [
         {
+            name: "Chandana Grand",
+            src: chandana_grand
+        },
+        {
             name: "BMW MOTORRAD",
             src: image1,
         }, 
@@ -30,10 +34,6 @@ const OurSponsors = () => {
         {
             name: "Amaravati Foundation",
             src: amaravati,
-        },
-        {
-            name: "Chandana Grand",
-            src: chandana_grand
         }
     ];
     return (

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import HomeNavigateButton from '../UI/HomeNavigateButton';
 // import Edificio from './img/Events/EDIFICIO.jpg';
 // import FortuneSeeker from './img/Events/Fortune Seeker.jpg';
+// import pbl from './img/Events/pgl.jpg';
 import csgo from './img/Events/csgo.jpg';
 import bgmi from './img/Events/bgmi.jpg';
 import guessthesong from './img/Events/guessthesong.jpg';
@@ -82,6 +83,12 @@ const SamyakHomeEvent = () => {
             <HomeEvents>
                 <HomeHeading>EVENTS</HomeHeading>
                 <HomeEventsData>
+                    {/* <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="600">
+                        <img src={pbl} alt="csgo" />
+                        <h2>PBL</h2>
+                        <p>Take this opportunity of winning a humongous <br></br>cash prize by showcasing your skills in <br></br>CS: GO and make sure to grab the first three places.</p>
+                        <a href="#0">Open</a>
+                    </HomeEventsBox> */}
                     <HomeEventsBox data-aos="zoom-out" data-aos-duration="500" data-aos-delay="600">
                         <img src={csgo} alt="csgo" />
                         <h2>CSGO</h2>

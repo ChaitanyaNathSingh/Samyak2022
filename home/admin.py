@@ -135,7 +135,8 @@ class PaymentResource(resources.ModelResource):
 
     class Meta:
         model = Payment
-        exclude = ('user', 'receipt_id', 'payment_mode')
+        exclude = ('receipt_id', 'payment_mode')
+        import_id_fields = ['user_id']
 
 
 class PaymentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
@@ -307,14 +308,22 @@ admin.site.register(FacultyData, FacultyDataAdmin)
 
 
 class MSWDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('student', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
-    search_fields = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+    list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+    search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True
     save_on_top = True
+    def studentID(self, obj):
+        return obj.student.studentId
+    def groupName(self, obj):
+        return obj.student.group_name
 admin.site.register(MSWDRubric, MSWDRubricAdmin)
 class PFSDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('student', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
-    search_fields = ('student', 'review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+    list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+    search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True
     save_on_top = True
+    def studentID(self, obj):
+        return obj.student.studentId
+    def groupName(self, obj):
+        return obj.student.group_name
 admin.site.register(PFSDRubric, PFSDRubricAdmin)

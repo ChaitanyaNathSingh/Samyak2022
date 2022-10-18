@@ -1,9 +1,32 @@
-// import { Link } from 'react-router-dom';
+import styled from "styled-components";
 import PhotoAlbum from "react-photo-album";
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 import NavBarSpace from "../BaseComponents/NavBarSpace";
 // import GalleryCard from "../Cards/GalleryCard";
 import './Gallery.css';
+
+
+const HomeYoutube = styled.div`
+    width: auto;
+    height: auto;
+    margin-top: 3pc;
+
+    display: flex;
+    justify-content: space-evenly;
+    iframe {
+        width: 70%;
+        height: 500px;
+        margin: auto;
+        border-radius: 15px;
+        border: 2px solid #838383;
+    }
+    @media only screen and (max-width:1024px) {
+        iframe {
+            width: 95%;
+            height: 220px;
+        }
+    }
+`;
 
 // const bigPortFolioIcon = require("../Bootstrap/img/big_portfolio_item_4.png");
 // const bigPortfolioItem2 = require("../Bootstrap/img/big_portfolio_item_2.png");
@@ -131,8 +154,12 @@ const Gallery = () => {
     <div className="gallery__container">
       <div className="grid-portfolio" id="portfolio">
         <NavBarSpace />
-        <div style={{width:'80vw',margin:'auto',pointerEvents:'none'}}><iframe style={{zIndex:'-1'}} width="100%" height="538" src="https://www.youtube.com/embed/0J8LyBPddj0?autoplay=1&loop=1&mute=1&controls=0&playlist=0J8LyBPddj0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe><p style={{zIndex:'1'}}>&nbsp;</p></div>
-
+        {/* <div style={{width:'80vw',margin:'auto',pointerEvents:'none'}}><iframe style={{zIndex:'-1'}} width="100%" height="538" src="https://www.youtube.com/embed/0J8LyBPddj0?autoplay=1&loop=1&mute=1&controls=0&playlist=0J8LyBPddj0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe><p style={{zIndex:'1'}}>&nbsp;</p></div> */}
+        <HomeYoutube>
+                    {/* <iframe src="https://www.youtube.com/embed/hRa6ILGqyok?&autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&rel=0&amp;" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/hRa6ILGqyok" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </HomeYoutube>
+        <NavBarSpace />
         <div className="gallery-container">
           <PhotoAlbum layout="rows" photos={photos} />
           {/* <div className="row">

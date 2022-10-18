@@ -225,6 +225,8 @@ const SamyakNavbar = (props) => {
         navEleCol = NavEleColor.sponsors;
     else if(window.location.pathname === '/login' || window.location.pathname === '/register')
         navEleCol = NavEleColor.login;
+    else if(window.location.pathname === '/team')
+        navEleCol = NavEleColor.gallery;
     else
         navEleCol = NavEleColor.home;
     
@@ -295,6 +297,7 @@ const SamyakNavbar = (props) => {
                         <NavEle linkColor={navEleCol}><Link to='/'>Home</Link></NavEle>
                         <NavEle linkColor={navEleCol}><Link to='/events'>Events</Link></NavEle>
                         <NavEle linkColor={navEleCol}><Link to='/gallery'>Gallery</Link></NavEle>
+                        <NavEle linkColor={navEleCol}><Link to='/team'>Team</Link></NavEle>
                         {/* <NavEle><Link to='/team'>Team</Link></NavEle> */}
                         <NavEle linkColor={navEleCol}><Link to='/sponsors'>Sponsors</Link></NavEle>
                         <NavEle linkColor={navEleCol}><Link to='/about'>About</Link></NavEle>
@@ -325,6 +328,7 @@ const SamyakNavbar = (props) => {
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/'>Home</Link></MobileNavEle>
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/events'>Events</Link></MobileNavEle>
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/gallery'>Gallery</Link></MobileNavEle>
+                    <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/team'>Team</Link></MobileNavEle>
                     {/* <MobileNavEle><Link className="havala" to='/team'>Team</Link></MobileNavEle> */}
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/sponsors'>Sponsors</Link></MobileNavEle>
                     <MobileNavEle><Link onClick={closeNavBar} className="havala" to='/about'>About</Link></MobileNavEle>
