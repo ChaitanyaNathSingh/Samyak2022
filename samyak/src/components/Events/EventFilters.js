@@ -124,26 +124,28 @@ const EventFilters = (props) => {
                 <Slider>
                     <BranchesContent ref={allBranches}>
                         <div id="branch1">All</div>
+                        <div id="event-type4">General</div>
+                        <div id="event-type5">Mega</div>
                         <div id="branch2">CSE</div>
                         <div id="branch3">ECE</div>
                         <div id="branch4">MEC</div>
                         <div id="branch5">AI&DS</div>
                         <div id="branch6">BA_IAS</div>
+                        <div id="branch7">FineArts</div>
+                        <div id="branch8">BHM</div>
                     </BranchesContent>
                 </Slider>
-                <RangeInput ref={branchInput} type="range" min="1" max="6" defaultValue={1} className="myRange"/>
+                <RangeInput ref={branchInput} type="range" min="1" max="10" defaultValue={1} className="myRange"/>
             </ContainerLeft>
 
 
             <ContainerRight>
-                <RangeInput ref={eventTypeInput} type="range" min="1" max="5" defaultValue={1} className="myRange"/>
+                <RangeInput ref={eventTypeInput} type="range" min="1" max="3" defaultValue={1} className="myRange"/>
                 <Slider>
                     <EventTypeContent ref={allEventTypes}>
                         <div id="event-type1">All</div>
                         <div id="event-type2">Technical</div>
                         <div id="event-type3">NonTechnical</div>
-                        <div id="event-type4">General</div>
-                        <div id="event-type5">Mega</div>
                     </EventTypeContent>
                 </Slider>
             </ContainerRight>
