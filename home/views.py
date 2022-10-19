@@ -1,7 +1,6 @@
 from dataclasses import fields
 import profile
 from pyexpat import model
-from unicodedata import name
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -32,6 +31,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
+
+import requests
 
 api = Instamojo(api_key=settings.API_KEY, auth_token=settings.AUTH_TOKEN)
 # Create your views here.
@@ -196,7 +197,9 @@ class ProfileView(ListAPIView):
     serializer_class = UserDetailsSerializer
     def get_queryset(self):
         # print(self.request.user)
-        return User.objects.filter(username=self.request.user)
+        # image = requests.get('https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=Username%20:%20190030240%0AFull%20Name%20:%20Sri%20Hasan%20Prakash%0APayment%20Status%20:%20Paid&choe=UTF-8')
+        result = User.objects.filter(username=self.request.user)     # result.append(image)
+        return result
 class SportProfileView(ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = SportUserDetailsSerializer

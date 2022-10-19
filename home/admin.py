@@ -307,7 +307,57 @@ class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 admin.site.register(FacultyData, FacultyDataAdmin)
 
 
+class MSWDRubricResource(resources.ModelResource):
+    studentId = fields.Field(column_name='Id Number')
+    groupName = fields.Field(column_name='Group Name')
+    review1Score = fields.Field(column_name='Review1 Score')
+    review1Total = fields.Field(column_name='Review1 Total')
+    review1Time = fields.Field(column_name='Review1 Time')
+    review2Score = fields.Field(column_name='Review2 Score')
+    review2Total = fields.Field(column_name='Review2 Total')
+    review2Time = fields.Field(column_name='Review2 Time')
+    review3Score = fields.Field(column_name='Review3 Score')
+    review3Total = fields.Field(column_name='Review3 Total')
+    review3Time = fields.Field(column_name='Review3 Time')
+    review4Score = fields.Field(column_name='Review4 Score')
+    review4Total = fields.Field(column_name='Review4 Total')
+    review4Time = fields.Field(column_name='Review4 Time')
+    def dehydrate_studentId(self, obj):
+        return obj.student.studentId
+    def dehydrate_groupName(self, obj):
+        return obj.student.group_name
+    def dehydrate_review1Score(self, obj):
+        return obj.review1_score
+    def dehydrate_review1Total(self, obj):
+        return obj.review1_total
+    def dehydrate_review1Time(self, obj):
+        return obj.review1_time
+    def dehydrate_review2Score(self, obj):
+        return obj.review2_score
+    def dehydrate_review2Total(self, obj):
+        return obj.review2_total
+    def dehydrate_review2Time(self, obj):
+        return obj.review2_time
+    def dehydrate_review3Score(self, obj):
+        return obj.review3_score
+    def dehydrate_review3Total(self, obj):
+        return obj.review3_total
+    def dehydrate_review3Time(self, obj):
+        return obj.review3_time
+    def dehydrate_review4Score(self, obj):
+        return obj.review4_score
+    def dehydrate_review4Total(self, obj):
+        return obj.review4_total
+    def dehydrate_review4Time(self, obj):
+        return obj.review4_time
+    class Meta:
+        model = MSWDRubric
+        fields = ('studentId', 'group_name', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ('id', 'updated_at', 'created_at')
 class MSWDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = MSWDRubricResource
     list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
     search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True
@@ -317,7 +367,59 @@ class MSWDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def groupName(self, obj):
         return obj.student.group_name
 admin.site.register(MSWDRubric, MSWDRubricAdmin)
+
+
+class PFSDRubricResource(resources.ModelResource):
+    studentId = fields.Field(column_name='Id Number')
+    groupName = fields.Field(column_name='Group Name')
+    review1Score = fields.Field(column_name='Review1 Score')
+    review1Total = fields.Field(column_name='Review1 Total')
+    review1Time = fields.Field(column_name='Review1 Time')
+    review2Score = fields.Field(column_name='Review2 Score')
+    review2Total = fields.Field(column_name='Review2 Total')
+    review2Time = fields.Field(column_name='Review2 Time')
+    review3Score = fields.Field(column_name='Review3 Score')
+    review3Total = fields.Field(column_name='Review3 Total')
+    review3Time = fields.Field(column_name='Review3 Time')
+    review4Score = fields.Field(column_name='Review4 Score')
+    review4Total = fields.Field(column_name='Review4 Total')
+    review4Time = fields.Field(column_name='Review4 Time')
+    def dehydrate_studentId(self, obj):
+        return obj.student.studentId
+    def dehydrate_groupName(self, obj):
+        return obj.student.group_name
+    def dehydrate_review1Score(self, obj):
+        return obj.review1_score
+    def dehydrate_review1Total(self, obj):
+        return obj.review1_total
+    def dehydrate_review1Time(self, obj):
+        return obj.review1_time
+    def dehydrate_review2Score(self, obj):
+        return obj.review2_score
+    def dehydrate_review2Total(self, obj):
+        return obj.review2_total
+    def dehydrate_review2Time(self, obj):
+        return obj.review2_time
+    def dehydrate_review3Score(self, obj):
+        return obj.review3_score
+    def dehydrate_review3Total(self, obj):
+        return obj.review3_total
+    def dehydrate_review3Time(self, obj):
+        return obj.review3_time
+    def dehydrate_review4Score(self, obj):
+        return obj.review4_score
+    def dehydrate_review4Total(self, obj):
+        return obj.review4_total
+    def dehydrate_review4Time(self, obj):
+        return obj.review4_time
+    class Meta:
+        model = PFSDRubric
+        fields = ('studentId', 'group_name', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ('id', 'updated_at', 'created_at')
 class PFSDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = PFSDRubricResource
     list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
     search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
     save_as = True

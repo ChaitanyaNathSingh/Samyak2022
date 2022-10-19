@@ -22,7 +22,7 @@ const NoEvents = () => {
     return (
         <>
             <Container>
-                <h1>No Events Found with that Combination!!</h1>
+                <h1>Our team is continuously working on them. You will see them soon.</h1>
             </Container>
         </>
     );
