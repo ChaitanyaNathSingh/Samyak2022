@@ -9,7 +9,7 @@ import Home from './components/Home/Home';
 import Events from './components/Events/Events';
 import Gallery from './components/Gallery/Gallery';
 import OurSponsors from './components/OurSponsors/OurSponsors';
-import Team from './components/Team/Team';
+// import Team from './components/Team/Team';
 // import Join from './components/Join/Join';
 import Profile from './components/Profile/Profile';
 import Admin from './components/Admin/Admin';

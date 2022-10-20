@@ -121,7 +121,7 @@ const EventDescription = (props) => {
                 setEventData(res.data.data);
             })
             .catch(err => console.log(err));
-    }, []);
+    }, [params]);
     return(
         <>
             <Container>
