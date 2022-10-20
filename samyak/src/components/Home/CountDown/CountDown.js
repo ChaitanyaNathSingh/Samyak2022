@@ -39,7 +39,7 @@ const CountDown = () => {
         if(seconds) seconds.innerText = Math.floor((distance % minute) / second)
 
         if(distance < 0) {
-            document.getElementById("countdown__headline").innerText = "It's my birthday!";
+            document.getElementById("countdown__headline").innerText = "#GOSAMYAK!";
             document.getElementById("countdown").style.display = "none";
             document.getElementById("countdown__content").style.display = "block";
             clearInterval(x);
