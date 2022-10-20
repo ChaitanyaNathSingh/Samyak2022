@@ -19,6 +19,8 @@ urlpatterns = [
     path("verify_otp", joinview.VerifyOTPView.as_view(), name="verify_otp"),
     path("resend_otp", joinview.ResendOTPView.as_view(), name="resend_otp"),
     path("email", joinview.EmailView.as_view(), name="email"),
+    # dynamic route
+    path("event/event_name", views.EventInfoView.as_view(), name="event_info"),
     path("session", joinview.session_view, name="session"),
     path("csrf", joinview.get_csrf, name="csrf"),
     path("payment", views.PaymentView.as_view(), name="payment"),
