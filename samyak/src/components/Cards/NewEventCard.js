@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import Edificio from '../Home/img/Events/EDIFICIO.png';
 
@@ -105,13 +106,17 @@ const ImageHolder = styled.div`
 `;
 
 const NewEventCard = (props) => {
+  // const navigate = useNavigate();
   const loadHandler = (event) => {
-    console.log("Image loaded");
     let parent = event.target.parentElement;
     let loaderTag = parent.children[1];
     // let loader = document.querySelector(".event__loader");
     loaderTag.style.display = "none";
   }
+  // const openEvent = () => {
+  //   console.log(props.event.name);
+  //   navigate(`/events/${props.event.name}`);
+  // };
   return(
     <HomeEventsBox data-aos="zoom-out" data-aos-duration="500">
         <ImageHolder>
@@ -122,7 +127,8 @@ const NewEventCard = (props) => {
         <div className='event__description'>
           <p>{props.event.description}</p>
         </div>
-        <a href="#0">Open</a>
+        {/* <a href="#0" onClick={openEvent}>Open</a> */}
+        <Link to={`/events/${props.event.name}`}>Open</Link>
     </HomeEventsBox>
   );
 }

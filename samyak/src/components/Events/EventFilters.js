@@ -76,6 +76,13 @@ const EventFilters = (props) => {
     const branchInput = createRef(null);
     const allEventTypes = createRef(null);
     const eventTypeInput = createRef(null);
+    let distictBranches = [];
+    for(let i=0;i<props.allEvents.length;i++) {
+        if(!distictBranches.includes(props.allEvents[i].department)) {
+            distictBranches.push(props.allEvents[i].department);
+        }
+    }
+    distictBranches.sort();
     useEffect(() => {
         let departmentName, eventTypeName;
         let branches = allBranches.current.childNodes;
@@ -124,18 +131,12 @@ const EventFilters = (props) => {
                 <Slider>
                     <BranchesContent ref={allBranches}>
                         <div id="branch1">All</div>
-                        <div id="event-type4">General</div>
-                        <div id="event-type5">Mega</div>
-                        <div id="branch2">CSE</div>
-                        <div id="branch3">ECE</div>
-                        <div id="branch4">MEC</div>
-                        <div id="branch5">AI&DS</div>
-                        <div id="branch6">BA_IAS</div>
-                        <div id="branch7">FineArts</div>
-                        <div id="branch8">BHM</div>
+                        {distictBranches.map((branch, index) => {
+                            return <div id={'branch'+(index+2)} key={index}>{branch}</div>
+                        })}
                     </BranchesContent>
                 </Slider>
-                <RangeInput ref={branchInput} type="range" min="1" max="10" defaultValue={1} className="myRange"/>
+                <RangeInput ref={branchInput} type="range" min="1" max={distictBranches.length+1} defaultValue={1} className="myRange"/>
             </ContainerLeft>
 
 

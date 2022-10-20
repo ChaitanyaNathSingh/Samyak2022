@@ -388,3 +388,18 @@ class EventsViewSet(viewsets.ModelViewSet):
     #     print(request)
     #     return Response({'data': 'hi'})
 
+class EventInfoView(APIView):
+    permission_classes = [permissions.AllowAny]
+    # receive dynamic routes of eventId
+
+
+    def get(self, request):
+        event_name = request.GET.get('name')
+        print(event_name)
+        if not event_name:
+            return Response({'status': 'error'})
+        try:
+            event = Event.objects.get(name=event_name)
+        except:
+            return Response({'status': False, "message": "Event not found"})
+        return Response({"status": True, "data": EventSerializers(event).data})

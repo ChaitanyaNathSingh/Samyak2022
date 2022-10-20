@@ -6,6 +6,7 @@ import NavBarSpace from "../BaseComponents/NavBarSpace";
 import SamyakFooter from "../BaseComponents/Footer/SamyakFooter";
 import EventFilters from "./EventFilters";
 import axiosInstance from "../../axios";
+// import EventDescription from "./EventDescription";
 
 class Events extends React.Component {
     constructor(props) {
