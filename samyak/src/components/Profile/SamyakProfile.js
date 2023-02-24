@@ -225,7 +225,8 @@ const SamyakProfile = (props) => {
                         message: `Your OTP is ${res.data.otp}`,
                         to_email: props.user.email
                     }
-                    emailjs.send('service_a5xt44n', 'template_w7x148g', form, 'SRbHPun0G_wQLdZu_')
+                    // emailjs.sendForm('service_a5xt44n', 'template_w7x148g', form.current, 'SRbHPun0G_wQLdZu_') // emailjs official account
+                    emailjs.send('service_hnlp0jp', 'template_c7ujukg', form, 'Kx2XUnBQJ2ciSewte')
                         .then((result) => {
                             window.location.href = '/otp';
                         }, (error) => {
