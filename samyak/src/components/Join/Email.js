@@ -8,7 +8,8 @@ export const ContactUs = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_a5xt44n', 'template_w7x148g', form.current, 'SRbHPun0G_wQLdZu_')
+    // emailjs.sendForm('service_a5xt44n', 'template_w7x148g', form.current, 'SRbHPun0G_wQLdZu_') // emailjs official account
+    emailjs.send('service_hnlp0jp', 'template_c7ujukg', form, 'Kx2XUnBQJ2ciSewte') // emailjs backup account
       .then((result) => {
           console.log(result.text);
       }, (error) => {

@@ -83,7 +83,8 @@ const Attendance = () => {
                         message: `Your OTP for SDP Review is ${res.data.otp}`,
                         to_email: klumailid
                     }
-                    emailjs.send('service_a5xt44n', 'template_s9uwvhg', form, 'SRbHPun0G_wQLdZu_')
+                    // emailjs.sendForm('service_a5xt44n', 'template_w7x148g', form.current, 'SRbHPun0G_wQLdZu_') // emailjs official account
+                    emailjs.send('service_hnlp0jp', 'template_c7ujukg', form, 'Kx2XUnBQJ2ciSewte') // emailjs backup account
                         .then((result) => {
                             window.location.href = '/faculty-otp';
                         }, (error) => {
