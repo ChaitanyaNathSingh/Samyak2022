@@ -108,13 +108,13 @@ const Profile = (props) => {
     let access_token = storage ? storage.user[0].tokens.access_token : null;
     let details = storage ? storage.user[1].details : null;
     isVerified = details.isVerified;
-    if(!isVerified) {
-      enqueueSnackbar("User not verified..!", {
-        variant: 'error'
-        // autoHideDuration: duration,
-      });
-      return;
-    }
+//     if(!isVerified) {
+//       enqueueSnackbar("User not verified..!", {
+//         variant: 'error'
+//         // autoHideDuration: duration,
+//       });
+//       return;
+//     }
   if(access_token) {
     axiosInstance
       .post("../home/payment", {
