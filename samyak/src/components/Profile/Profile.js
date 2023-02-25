@@ -103,11 +103,11 @@ const Profile = (props) => {
   };
 
   const handlePayment = () => {
-    let isVerified = false;
+//     let isVerified = false;
     let storage = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     let access_token = storage ? storage.user[0].tokens.access_token : null;
     let details = storage ? storage.user[1].details : null;
-    isVerified = details.isVerified;
+//     isVerified = details.isVerified;
 //     if(!isVerified) {
 //       enqueueSnackbar("User not verified..!", {
 //         variant: 'error'
