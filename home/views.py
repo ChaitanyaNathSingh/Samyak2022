@@ -137,10 +137,6 @@ class UsersViewSet(viewsets.ModelViewSet):
         print("IN CREATE")
         if User.objects.filter(username=displayData['username']).exists():
             return Response({"status": False, "message": "Username Already Exists.!"})
-        elif User.objects.filter(email=displayData['email']).exists():
-            return Response({"status": False, "message": "Email Already Exists.!"})
-        elif Profile.objects.filter(phone=displayData['phoneno']).exists():
-            return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
             Profile.objects.create(user=u, phone=displayData['phoneno'], college_name=displayData['college'], branch=displayData['branch']
