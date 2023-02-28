@@ -14,6 +14,7 @@ urlpatterns = [
     path('register', joinview.RegisterView.as_view(), name='register'),
     path('logout', joinview.LogoutView.as_view(), name='logout'),
     path('update', joinview.UpdateView.as_view(), name='update'),
+    path('change_password', joinview.ChangePasswordView.as_view(), name='change_password'),
     path("profile", views.ProfileView.as_view(), name="profile"),
     path("sport-profile", views.SportProfileView.as_view(), name="sportprofile"),
     path("verify_otp", joinview.VerifyOTPView.as_view(), name="verify_otp"),

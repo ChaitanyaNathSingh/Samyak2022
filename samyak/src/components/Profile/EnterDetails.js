@@ -94,12 +94,12 @@ const Fields = styled.div`
 `;
 
 const Actions = styled.div`
-display: flex;
-justify-content: right;
-// border: 2px solid blue; // border for testing
-& button {
-    padding: 2.5px 10px;
-}
+    display: flex;
+    justify-content: right;
+    // border: 2px solid blue; // border for testing
+    & button {
+        padding: 2.5px 10px;
+    }
 `;
 
 const Cross = styled.div`

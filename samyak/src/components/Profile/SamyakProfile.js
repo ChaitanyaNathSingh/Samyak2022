@@ -259,7 +259,7 @@ const SamyakProfile = (props) => {
                                 <PayButton href="#0">Pay now</PayButton>
                             </ProfileButton>}
                             <li><span>{paidStatus === "true" ? "PAID" : "NOT PAID"}</span></li>
-                            <li><span>Change Password</span></li>
+                            <li onClick={props.toggleChangePasswordForm}><span>Change Password</span></li>
                         </ul>
                     </ProfileLeft>
                     <ProfileRight>
