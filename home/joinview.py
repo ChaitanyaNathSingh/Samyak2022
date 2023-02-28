@@ -85,17 +85,17 @@ class RegisterView(APIView):
         url = request.build_absolute_uri()
         displayData = request.data
         isEmailClientValid = self.check_email_client_validity(displayData['email'])
-        isVerifiedEmailExist = self.check_email_server_validity(displayData['email'])
+        # isVerifiedEmailExist = self.check_email_server_validity(displayData['email'])
         # random 5 digit number
         otp = random.randint(10000, 99999)
         if User.objects.filter(username=displayData['username']).exists():
             return Response({"status": False, "message": "Username Already Exists.!"})
         elif not isEmailClientValid:
             return Response({"status": False, "message": "Invalid Email.!"})
-        elif isVerifiedEmailExist:
-            return Response({"status": False, "message": "Email Already Exists.!"})
-        elif Profile.objects.filter(phone=displayData['phone']).exists():
-            return Response({"status": False, "message": "Phone Number Already Exists.!"})
+        # elif isVerifiedEmailExist:
+        #     return Response({"status": False, "message": "Email Already Exists.!"})
+        # elif Profile.objects.filter(phone=displayData['phone']).exists():
+        #     return Response({"status": False, "message": "Phone Number Already Exists.!"})
         else:
             u = User.objects.create_user(username=displayData['username'], first_name=displayData['first_name'], last_name=displayData['last_name'], email=displayData['email'], password=displayData['password'])
             p = Profile.objects.create(user=u, college_name=displayData['college'], branch=displayData['branch'],
@@ -210,6 +210,22 @@ class UpdateView(APIView):
         userObj.save()
         profileObj.save()
         return Response({"status": True, "message": "Profile Updated Successfully.!"})
+    
+
+class ChangePasswordView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        if request.data.get('new_password') != request.data.get('confirm_password'):
+            return Response({"status": False, "message": "Password and Confirm Password doesn't match.!"})
+        username = request.data.get('username')
+        if username is None:
+            username = request.user.username
+        userObj = User.objects.get(username=username)
+        if userObj.check_password(request.data.get('old_password')):
+            userObj.set_password(request.data.get('new_password'))
+            userObj.save()
+            return Response({"status": True, "message": "Password Changed Successfully.!"})
+        return Response({"status": False, "message": "Invalid Old Password.!"})
 
 
 

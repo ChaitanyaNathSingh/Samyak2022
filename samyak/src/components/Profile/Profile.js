@@ -3,6 +3,7 @@ import axiosInstance from "../../axios";
 import { useSnackbar } from "notistack";
 // import NavBarSpace from '../BaseComponents/NavBarSpace';
 import EnterDetails from './EnterDetails';
+import ChangePassword from "./ChangePassword";
 
 import { useNavigate } from "react-router-dom";
 // import DisplayDetails from "./DisplayDetails";
@@ -14,6 +15,7 @@ const Profile = (props) => {
 
   const [user, setUser] = useState(null);
   const [enterDetailsVisible, setEnterDetailsVisible] = useState(false);
+  const [changePasswordVisible, setChangePasswordVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -102,6 +104,10 @@ const Profile = (props) => {
     }
   };
 
+  const toggleChangePasswordForm = () => {
+    setChangePasswordVisible(!changePasswordVisible);
+  }
+
   const handlePayment = () => {
 //     let isVerified = false;
     let storage = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
@@ -166,9 +172,10 @@ const Profile = (props) => {
     <>
       <div style={{backgroundColor: '#ccc'}}>
         {/* <UserProfile user={user} handlePayment={handlePayment} registeredEvents={null} toggleForm={toggleUpdateForm}/> */}
-        <SamyakProfile user={user} handlePayment={handlePayment} toggleForm={toggleUpdateForm}/>
+        <SamyakProfile user={user} handlePayment={handlePayment} toggleForm={toggleUpdateForm} toggleChangePasswordForm={toggleChangePasswordForm}/>
         {/* <DisplayDetails handlePayment={handlePayment} toggleForm={toggleUpdateForm} user={user}/> */}
         {enterDetailsVisible ? <EnterDetails username={username} user={user} toggleForm={toggleUpdateForm}/> : null}
+        {changePasswordVisible ? <ChangePassword  toggleForm={toggleChangePasswordForm}/> : null}
         {/* <NavBarSpace user={user}/> */}
       </div>
       <SamyakFooter />
