@@ -41,7 +41,7 @@ def home(request):
     return HttpResponse("<h1>Samyak Project</h1>")
 
 def test(request):
-    return HttpResponse("<h1>Samyak Project Testing Page</h1>")
+    return HttpResponse("<h1>Samyak Project Testing Page by Team</h1>")
 
 @login_required(login_url='/admin')
 def admin_dashboard(request):
