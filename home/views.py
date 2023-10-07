@@ -41,7 +41,7 @@ def home(request):
     return HttpResponse("<h1>Samyak Project</h1>")
 
 def test(request):
-    return HttpResponse("<h1>Samyak Project Testing Page</h1>")
+    return HttpResponse("<h1>Samyak Project Testing Page by Team</h1>")
 
 @login_required(login_url='/admin')
 def admin_dashboard(request):
@@ -279,12 +279,12 @@ class PaymentSuccessView(APIView):
                 p.is_paid = True
                 p.save()
                 # return Response({"status" : True})
-                return HttpResponseRedirect("https://klsamyak.in/profile")
+                return HttpResponseRedirect("https://klefsamyak.in/profile")
             else:
-                HttpResponseRedirect("https://klsamyak.in/login")
+                HttpResponseRedirect("https://klefsamyak.in/login")
         else:
             print("PAYMENT FAILED")
-            return HttpResponseRedirect("https://klsamyak.in/profile")
+            return HttpResponseRedirect("https://klefsamyak.in/profile")
     
     def post(self):
         return Response({'status': 'post request'})
@@ -367,12 +367,12 @@ class SportPaymentSuccessView(APIView):
                 tl.payment_status = True
                 tl.save()
                 TeamMember.objects.filter(team_leader=tl).update(payment_status=True)
-                return HttpResponseRedirect("https://klsamyak.in/sport-profile")
+                return HttpResponseRedirect("https://klefsamyak.in/sport-profile")
             else:
-                HttpResponseRedirect("https://klsamyak.in/login")
+                HttpResponseRedirect("https://klefsamyak.in/login")
         else:
             print("PAYMENT FAILED")
-            return HttpResponseRedirect("https://klsamyak.in/profile")
+            return HttpResponseRedirect("https://klefsamyak.in/profile")
     
     def post(self):
         return Response({'status': 'post request'})
