@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-v86z5^fuhccs6nt=#8%v#c2ns8_x1)3l!n2s*)rg0&e1d&7_b#
 DEBUG = True
 
 # 'samyaktesting.azurewebsites.net'
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'klsamyak.in', 'www.klsamyak.in', '157.245.102.69', 'klsamyak.azurewebsites.net', 'klsamyakbackend.in', 'www.klsamyakbackend.in']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'klefsamyak.in', 'www.klefsamyak.in', '139.59.73.43', 'klsamyakbackend.in', 'www.klsamyakbackend.in']
 #ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -33,14 +33,14 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
     'https://klsamyakbackend.in',
-    'https://klsamyak.in',
+    'https://klefsamyak.in',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', 'https://klsamyakbackend.in', 'https://klsamyak.in']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', 'https://klsamyakbackend.in', 'https://klefsamyak.in']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'https://klsamyak.in',
+    'https://klefsamyak.in',
 ]
 # CORS_ALLOW_ALL_ORIGINS = True # only for testing purposes
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
@@ -59,12 +59,11 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': False,
-
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
     'VERIFYING_KEY': None,
@@ -72,19 +71,15 @@ SIMPLE_JWT = {
     'ISSUER': None,
     'JWK_URL': None,
     'LEEWAY': 0,
-
     'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
     'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
-
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
-
     'JTI_CLAIM': 'jti',
-
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
