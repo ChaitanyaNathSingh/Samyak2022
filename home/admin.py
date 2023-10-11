@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BusinessSystem, FacultyData, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember
+from .models import BusinessSystem, FacultyData, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember,RegisteredEvent
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from django.contrib.auth.models import User
@@ -20,9 +20,23 @@ class TeamAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 admin.site.register(Team, TeamAdmin)
 
 
+class RegisteredEventAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('user', 'student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name', 'Event_type', 'Event_date', 'Event_venue')
+    list_filter = ('event',)
+    search_fields = ['student_id', 'first_name', 'last_name', 'event_name', 'email', 'phone', ]
+    ordering = ['student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name']
+
+    def Event_type(self, obj):
+        return obj.event.event_type
+
+    def Event_date(self, obj):
+        return obj.event.date
+
+    def Event_venue(self, obj):
+        return obj.event.venue
 
 
-
+admin.site.register(RegisteredEvent, RegisteredEventAdmin)
 
 class ProfileResource(resources.ModelResource):
     studentid = fields.Field(column_name='Id Number')
