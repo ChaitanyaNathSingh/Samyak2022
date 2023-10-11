@@ -170,23 +170,6 @@ admin.site.register(Payment, PaymentAdmin)
 
 # admin.site.register(TeamLeader)
 # admin.site.register(TeamMember)
-class RegisteredEventAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('user', 'student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name', 'Event_type', 'Event_date', 'Event_venue')
-    list_filter = ('event',)
-    search_fields = ['student_id', 'first_name', 'last_name', 'event_name', 'email', 'phone', ]
-    ordering = ['student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name']
-
-    def Event_type(self, obj):
-        return obj.event.event_type
-
-    def Event_date(self, obj):
-        return obj.event.date
-
-    def Event_venue(self, obj):
-        return obj.event.venue
-
-
-admin.site.register(RegisteredEvent, RegisteredEventAdmin)
 
 class TeamLeaderResource(resources.ModelResource):
     studentid = fields.Field(column_name='Username')
