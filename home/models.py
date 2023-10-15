@@ -13,8 +13,6 @@ class Profile(models.Model):
     branch = models.CharField(max_length=20)
     year_of_study = models.TextField(max_length=15, default=1)
     gender = models.CharField(max_length=6)
-    otp = models.CharField(max_length=5, default=00000)
-    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -190,7 +188,7 @@ class RegisteredEvent(models.Model):
     reg_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    
+
 
     def __str__(self):
         return f"{self.user.username} registered for {self.event.name}"
