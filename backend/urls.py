@@ -31,6 +31,7 @@ router = routers.DefaultRouter()
 # router.register(r'payments', views.PaymentsViewSet, basename='payments')
 router.register(r'events', views.EventsViewSet, basename='event')
 router.register(r'teams', views.TeamViewSet, basename='team')
+router.register(r'registerevent', views.RegisterEventViewSet, basename='registerevent')
 
 
 urlpatterns = [
