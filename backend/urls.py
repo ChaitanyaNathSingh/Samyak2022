@@ -28,6 +28,7 @@ from rest_framework_simplejwt.views import (
 
 
 router = routers.DefaultRouter()
+router.register(r'users', views.UsersViewSet, basename='users')
 # router.register(r'payments', views.PaymentsViewSet, basename='payments')
 router.register(r'events', views.EventsViewSet, basename='event')
 router.register(r'teams', views.TeamViewSet, basename='team')
