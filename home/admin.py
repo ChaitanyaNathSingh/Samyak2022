@@ -37,6 +37,7 @@ admin.site.register(Team, TeamAdmin)
 
 
 # admin.site.register(RegisteredEvent, RegisteredEventAdmin)
+
 admin.site.register(RegisteredEvent)
 
 class ProfileResource(resources.ModelResource):
