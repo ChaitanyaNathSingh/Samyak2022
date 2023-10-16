@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BusinessSystem, FacultyData, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember,RegisteredEvent
+from .models import BusinessSystem, FacultyData, LearnathonFaculty, LearnathonStudent, MSWDRubric, PFSDRubric, Profile, Event, Payment, Team, TeamLeader, TeamMember
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from django.contrib.auth.models import User
@@ -18,25 +18,6 @@ class TeamAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 admin.site.register(Team, TeamAdmin)
-
-
-class RegisteredEventAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('user', 'student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name', 'Event_type', 'Event_date', 'Event_venue')
-    list_filter = ('event',)
-    search_fields = ['student_id', 'first_name', 'last_name', 'event_name', 'email', 'phone', ]
-    ordering = ['student_id', 'first_name', 'last_name', 'email', 'phone', 'event_name']
-
-    def Event_type(self, obj):
-        return obj.event.event_type
-
-    def Event_date(self, obj):
-        return obj.event.date
-
-    def Event_venue(self, obj):
-        return obj.event.venue
-
-
-admin.site.register(RegisteredEvent, RegisteredEventAdmin)
 
 
 class ProfileResource(resources.ModelResource):
@@ -258,3 +239,193 @@ class TeamMemberAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 admin.site.register(TeamMember, TeamMemberAdmin)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LEARNATHON (15/10/2022) (STUDENT ATTENDANCE and REMARKS)
+class LearnathonFacultyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('empid', 'klumailid', 'otp', 'is_verified')
+    search_fields = ('empid', 'klumailid')
+    save_as = True
+    save_on_top = True
+admin.site.register(LearnathonFaculty, LearnathonFacultyAdmin)
+
+class BusinessSystemResource(resources.ModelResource):
+    class Meta:
+        model = BusinessSystem
+        import_id_fields = ['num']
+        skip_unchanged = True
+        report_skipped = True
+class BusinessSystemAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = BusinessSystemResource
+    list_display = ('num', 'name', 'full_name')
+    search_fields = ('num', 'name', 'full_name')
+    save_as = True
+    save_on_top = True
+admin.site.register(BusinessSystem, BusinessSystemAdmin)
+
+class LearnathonStudentResource(resources.ModelResource):
+    class Meta:
+        model = LearnathonStudent
+        exclude = ('id',)
+        skip_unchanged = True
+        report_skipped = True
+class LearnathonStudentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('studentId', 'group_name', 'cluster', 'business_system', 'branch', 'subject', 'is_absent', 'updated_at')
+    search_fields = ('studentId', 'group_name', 'cluster', 'business_system_id__num', 'business_system_id__name', 'branch', 'subject', 'is_absent')
+    list_filter = ('is_absent', 'cluster', 'branch', 'subject')
+    save_as = True
+    save_on_top = True
+admin.site.register(LearnathonStudent, LearnathonStudentAdmin)
+
+class FacultyDataResource(resources.ModelResource):
+    class Meta:
+        model = FacultyData
+        import_id_fields = ['empid']
+        skip_unchanged = True
+
+        report_skipped = True
+class FacultyDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = FacultyDataResource
+    list_display = ('empid', 'mail_id', 'name')
+    search_fields = ('empid', 'mail_id', 'name')
+    save_as = True
+    save_on_top = True
+admin.site.register(FacultyData, FacultyDataAdmin)
+
+
+class MSWDRubricResource(resources.ModelResource):
+    studentId = fields.Field(column_name='Id Number')
+    groupName = fields.Field(column_name='Group Name')
+    review1Score = fields.Field(column_name='Review1 Score')
+    review1Total = fields.Field(column_name='Review1 Total')
+    review1Time = fields.Field(column_name='Review1 Time')
+    review2Score = fields.Field(column_name='Review2 Score')
+    review2Total = fields.Field(column_name='Review2 Total')
+    review2Time = fields.Field(column_name='Review2 Time')
+    review3Score = fields.Field(column_name='Review3 Score')
+    review3Total = fields.Field(column_name='Review3 Total')
+    review3Time = fields.Field(column_name='Review3 Time')
+    review4Score = fields.Field(column_name='Review4 Score')
+    review4Total = fields.Field(column_name='Review4 Total')
+    review4Time = fields.Field(column_name='Review4 Time')
+    def dehydrate_studentId(self, obj):
+        return obj.student.studentId
+    def dehydrate_groupName(self, obj):
+        return obj.student.group_name
+    def dehydrate_review1Score(self, obj):
+        return obj.review1_score
+    def dehydrate_review1Total(self, obj):
+        return obj.review1_total
+    def dehydrate_review1Time(self, obj):
+        return obj.review1_time
+    def dehydrate_review2Score(self, obj):
+        return obj.review2_score
+    def dehydrate_review2Total(self, obj):
+        return obj.review2_total
+    def dehydrate_review2Time(self, obj):
+        return obj.review2_time
+    def dehydrate_review3Score(self, obj):
+        return obj.review3_score
+    def dehydrate_review3Total(self, obj):
+        return obj.review3_total
+    def dehydrate_review3Time(self, obj):
+        return obj.review3_time
+    def dehydrate_review4Score(self, obj):
+        return obj.review4_score
+    def dehydrate_review4Total(self, obj):
+        return obj.review4_total
+    def dehydrate_review4Time(self, obj):
+        return obj.review4_time
+    class Meta:
+        model = MSWDRubric
+        fields = ('studentId', 'group_name', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ('id', 'updated_at', 'created_at')
+class MSWDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = MSWDRubricResource
+    list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+    search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+    save_as = True
+    save_on_top = True
+    def studentID(self, obj):
+        return obj.student.studentId
+    def groupName(self, obj):
+        return obj.student.group_name
+admin.site.register(MSWDRubric, MSWDRubricAdmin)
+
+
+class PFSDRubricResource(resources.ModelResource):
+    studentId = fields.Field(column_name='Id Number')
+    groupName = fields.Field(column_name='Group Name')
+    review1Score = fields.Field(column_name='Review1 Score')
+    review1Total = fields.Field(column_name='Review1 Total')
+    review1Time = fields.Field(column_name='Review1 Time')
+    review2Score = fields.Field(column_name='Review2 Score')
+    review2Total = fields.Field(column_name='Review2 Total')
+    review2Time = fields.Field(column_name='Review2 Time')
+    review3Score = fields.Field(column_name='Review3 Score')
+    review3Total = fields.Field(column_name='Review3 Total')
+    review3Time = fields.Field(column_name='Review3 Time')
+    review4Score = fields.Field(column_name='Review4 Score')
+    review4Total = fields.Field(column_name='Review4 Total')
+    review4Time = fields.Field(column_name='Review4 Time')
+    def dehydrate_studentId(self, obj):
+        return obj.student.studentId
+    def dehydrate_groupName(self, obj):
+        return obj.student.group_name
+    def dehydrate_review1Score(self, obj):
+        return obj.review1_score
+    def dehydrate_review1Total(self, obj):
+        return obj.review1_total
+    def dehydrate_review1Time(self, obj):
+        return obj.review1_time
+    def dehydrate_review2Score(self, obj):
+        return obj.review2_score
+    def dehydrate_review2Total(self, obj):
+        return obj.review2_total
+    def dehydrate_review2Time(self, obj):
+        return obj.review2_time
+    def dehydrate_review3Score(self, obj):
+        return obj.review3_score
+    def dehydrate_review3Total(self, obj):
+        return obj.review3_total
+    def dehydrate_review3Time(self, obj):
+        return obj.review3_time
+    def dehydrate_review4Score(self, obj):
+        return obj.review4_score
+    def dehydrate_review4Total(self, obj):
+        return obj.review4_total
+    def dehydrate_review4Time(self, obj):
+        return obj.review4_time
+    class Meta:
+        model = PFSDRubric
+        fields = ('studentId', 'group_name', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+        skip_unchanged = True
+        report_skipped = True
+        exclude = ('id', 'updated_at', 'created_at')
+class PFSDRubricAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = PFSDRubricResource
+    list_display = ('studentID', 'groupName', 'review1_score', 'review1_total', 'review1_time', 'review2_score', 'review2_total', 'review2_time', 'review3_score', 'review3_total', 'review3_time', 'review4_score', 'review4_total', 'review4_time')
+    search_fields = ('review1_score', 'review1_total', 'review2_score', 'review2_total', 'review3_score', 'review3_total', 'review4_score', 'review4_total')
+    save_as = True
+    save_on_top = True
+    def studentID(self, obj):
+        return obj.student.studentId
+    def groupName(self, obj):
+        return obj.student.group_name
+admin.site.register(PFSDRubric, PFSDRubricAdmin)

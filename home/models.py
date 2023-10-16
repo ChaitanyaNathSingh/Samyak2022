@@ -13,6 +13,7 @@ class Profile(models.Model):
     branch = models.CharField(max_length=20)
     year_of_study = models.TextField(max_length=15, default=1)
     gender = models.CharField(max_length=6)
+    otp = models.CharField(max_length=5, default=00000)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -184,19 +185,3 @@ class PFSDRubric(models.Model):
 
     def __str__(self):
         return self.student.group_name
-
-class RegisteredEvent(models.Model):
-    reg_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    student_id = models.CharField(default=None, max_length=1000)
-    first_name = models.CharField(default=None, max_length=1000)
-    last_name = models.CharField(default=None, max_length=1000)
-    email = models.EmailField(default=None, max_length=1000)
-    phone = models.CharField(max_length=10, default=999999999)
-    college_name = models.CharField(max_length=30, default='KL Vijayawada')
-    event_name = models.CharField(default=None, max_length=30)
-
-
-    def __str__(self):
-        return f"{self.user.username} registered for {self.event.name}"
